@@ -1,0 +1,8 @@
+out/
+__pycache__/
+*.pyc
+client_secret*.json
+token*.json
+.env
+*.mp4
+!samples/*.mp4
