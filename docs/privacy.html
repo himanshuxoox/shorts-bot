@@ -16,7 +16,10 @@ nav{display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap}
 <h2>What data is stored</h2>
 <p>The app stores one OAuth refresh token for the developer's own Google account. It is kept as an encrypted GitHub Actions secret. The app does not collect, store, sell or share personal data of any other user.</p>
 <h2>YouTube API Services</h2>
-<p>The app uses YouTube API Services. By using it you agree to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's privacy practices are described in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+<p>The app uses YouTube API Services (the YouTube Data API). By using it you agree to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Google's privacy practices are described in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+<h2>Data retention and deletion</h2>
+<p>The app keeps no database and no copy of any YouTube data. The only stored item is the owner's OAuth refresh token. To delete it, remove the GitHub secret <code>YT_REFRESH_TOKEN</code> and revoke access (see below). Once access is revoked, the token is invalid and the app can no longer reach the account. Video files the app renders are kept as temporary build artifacts for at most 7 days and are then deleted automatically.</p>
+<p>If you believe the app has stored any of your data, email the contact address below and it will be deleted within 7 days.</p>
 <h2>Revoking access</h2>
 <p>Access can be revoked at any time at <a href="https://myaccount.google.com/permissions">Google Account → Security → Third-party access</a>.</p>
 <h2>Contact</h2>
