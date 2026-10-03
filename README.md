@@ -102,7 +102,9 @@ The pipeline works like this:
 1. Gemini writes a 40–50 s script as JSON scenes.
 2. A **second fact-check pass** rewrites anything doubtful, and a low-confidence script is skipped.
 3. The narration is generated with **Kokoro** (free, open-source). If Kokoro fails, Gemini TTS is used instead.
-4. Each scene gets an image from **Pollinations.ai** (free FLUX). If the API is down, a generated fallback image is used.
+4. Visuals are tried in this order: a Pexels or Pixabay stock clip (only if you've set that API key),
+   then a **Pollinations** AI image. The free endpoint sometimes returns 402 at first, so it retries.
+   If all of those fail, a generated abstract image is used.
 5. The renderer adds Ken Burns motion, word-by-word captions and a music bed it generates itself.
 
 Discovery videos always link their source in the description. Every facts video is marked
@@ -111,7 +113,8 @@ Discovery videos always link their source in the description. Every facts video 
 ## Setup
 
 1. Create a free Gemini API key at https://aistudio.google.com/apikey. Add it as the repo secret `GEMINI_API_KEY`.
-2. (Optional) Create a free pollinations.ai account and add its token as the secret `POLLINATIONS_TOKEN`. Images then come back faster, with no rate wait.
+2. (Optional) For real stock footage, add a free Pixabay API key as the secret `PIXABAY_API_KEY`. Log in at pixabay.com,
+   and the key is shown at https://pixabay.com/api/docs/. A `PEXELS_API_KEY` works too, but new Pexels keys are paused right now.
 3. To test, go to **Actions → Daily Facts → Run workflow** and set count = 1. Download the `facts-N` artifact.
    It holds the videos plus an `UPLOAD_SHEET.txt` with every video's title, description and tags.
 4. Later, when API uploads are allowed: run `python auth_setup.py` and pick the facts channel.

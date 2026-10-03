@@ -110,10 +110,16 @@ def _rrect(ctx, x, y, w, h, r, rgb, a=1.0):
     ctx.fill()
 
 
+STILL = set()   # scene indexes that are still images (get Ken Burns); videos play as-is
+
+
 def _paint_image(ctx, surf, p, idx, alpha):
-    """Ken Burns: alternate zoom in / out with a gentle drift."""
-    z = 1.04 + 0.10 * (p if idx % 2 == 0 else 1 - p)
-    dx = (18 if idx % 3 == 0 else -18) * (p - 0.5)
+    """Ken Burns for stills (alternate zoom in / out with a gentle drift); videos untouched."""
+    if idx in STILL:
+        z = 1.04 + 0.10 * (p if idx % 2 == 0 else 1 - p)
+        dx = (18 if idx % 3 == 0 else -18) * (p - 0.5)
+    else:
+        z, dx = 1.0, 0.0
     ctx.save()
     ctx.translate(W / 2 + dx, H / 2)
     ctx.scale(z, z)
@@ -263,12 +269,46 @@ def mix_audio(tl, audios, T, path, seed, outro_audio=None):
 
 
 # ------------------------------------------------------------------ main entry
-def render(script, image_paths, audios, out_path, seed=0, outro_audio=None):
+class ClipReader:
+    """Streams a stock clip as 1080x1920 BGRA frames (cropped to fill, looped if too short)."""
+
+    def __init__(self, path, dur):
+        self.n = W * H * 4
+        self.buf = bytearray(self.n)
+        self.surf = cairo.ImageSurface.create_for_data(self.buf, cairo.FORMAT_ARGB32, W, H, W * 4)
+        self.p = subprocess.Popen(
+            ["ffmpeg", "-v", "error", "-stream_loop", "-1", "-i", path, "-t", f"{dur + 0.5:.2f}", "-an",
+             "-vf", f"scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},fps={FPS},"
+                    f"eq=saturation=1.08",
+             "-f", "rawvideo", "-pix_fmt", "bgra", "-"], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+
+    def next(self):
+        data = self.p.stdout.read(self.n)
+        if data and len(data) == self.n:
+            self.buf[:] = data
+            self.surf.mark_dirty()
+        return self.surf
+
+    def close(self):
+        self.p.stdout.close()
+        self.p.kill()
+        self.p.wait()
+
+
+def render(script, visuals, audios, out_path, seed=0, outro_audio=None):
+    """visuals: list of dict(kind='video'|'image', path=...) — one per scene."""
     outro_len = OUTRO if outro_audio is None else max(OUTRO, len(outro_audio) / SR + 0.9)
     tl, T = build_timeline(script["scenes"], audios, outro_len)
     words = [w for s in tl for w in s["words"]]
     chunks = caption_chunks(words)
-    surfs = [cairo.ImageSurface.create_from_png(p) for p in image_paths]
+    STILL.clear()
+    surfs, readers = [], {}
+    for i, v in enumerate(visuals):
+        if v["kind"] == "video":
+            surfs.append(None)
+        else:
+            STILL.add(i)
+            surfs.append(cairo.ImageSurface.create_from_png(v["path"]))
     wav = out_path + ".wav"
     mix_audio(tl, audios, T, wav, seed, outro_audio)
 
@@ -281,12 +321,21 @@ def render(script, image_paths, audios, out_path, seed=0, outro_audio=None):
          "-pix_fmt", "yuv420p", tmp], stdin=subprocess.PIPE)
     nframes = int(T * FPS)
     for f in range(nframes):
-        draw_frame(ctx, f / FPS, T, script, tl, surfs, chunks, outro_len)
+        t = f / FPS
+        i = max(k for k, sc in enumerate(tl) if sc["start"] <= t)
+        if visuals[i]["kind"] == "video":
+            if i not in readers:
+                dur = (tl[i]["end"] - tl[i]["start"]) + (outro_len if i == len(tl) - 1 else 0)
+                readers[i] = ClipReader(visuals[i]["path"], dur)  # previous clip keeps its last frame for the crossfade
+            surfs[i] = readers[i].next()
+        draw_frame(ctx, t, T, script, tl, surfs, chunks, outro_len)
         surf.flush()
         ff.stdin.write(bytes(surf.get_data()))
         if f == int(1.2 * FPS):
             surf.write_to_png(out_path.replace(".mp4", "_cover.png"))
     ff.stdin.close()
+    for r in readers.values():
+        r.close()
     if ff.wait() != 0:
         raise RuntimeError("ffmpeg failed")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-i", wav, "-c:v", "copy", "-c:a", "aac",

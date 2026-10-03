@@ -11,17 +11,24 @@ mind-blowing facts. Audience: curious adults and teens worldwide.
 Rules:
 - Total narration 95-130 words (about 40-50 seconds). Simple words, short sentences, energetic.
 - Scene 1 is the HOOK: a surprising claim or question in under 12 words. No "Did you know".
-- Each scene is 1-2 sentences of narration plus an image prompt for an AI image generator.
-- Image prompts: vivid, cinematic, vertical composition, no text, no logos, no real people's faces,
-  no brand names. Describe the scene, lighting and style (e.g. "cinematic digital art").
+- Each scene is 1-2 sentences of narration plus the visuals to show while it is spoken.
+- "visual_query": a 2-4 word search phrase for STOCK VIDEO footage of something concrete and
+  filmable that matches the line (e.g. "galaxy stars", "scientist microscope", "ocean waves",
+  "stock market screen", "brain scan"). No abstract ideas, no names of people or brands.
+- "visual_alts": two broader fallback search phrases (e.g. ["space", "night sky"]).
+- "image_prompt": a vivid cinematic prompt for an AI image, used only if no footage is found
+  (no text, no logos, no real people's faces).
 - Only state facts you are highly confident are true. No made-up numbers. Round numbers are fine.
 - End with "outro": a short question that makes viewers comment.
-- Never give financial, medical or legal advice."""
+- Never give financial, medical or legal advice.
+- The title must be accurate: no exaggerated or misleading claims (no "invented", "changed forever"
+  unless literally true)."""
 
 SCHEMA = """JSON shape:
 {"title": "catchy YouTube title, max 70 chars, no hashtags",
  "hook_text": "max 6 words shown big on screen at the start",
- "scenes": [{"narration": "...", "image_prompt": "..."}],   // 5 to 7 scenes
+ "scenes": [{"narration": "...", "visual_query": "...", "visual_alts": ["...", "..."],
+             "image_prompt": "..."}],   // 5 to 7 scenes
  "outro": "question for the comments, max 12 words",
  "description": "2-3 sentence YouTube description",
  "tags": ["8-12 lowercase tags"]}"""
@@ -48,8 +55,9 @@ def pick_evergreen(kind, history, rng):
     recent = [v["topic"] for v in history[-80:]]
     what = {"explainer": "a 'how/why does X work' science explainer",
             "fun": "one jaw-dropping, true fun fact",
-            "money": "a surprising true fact about the science, psychology or history of money "
-                     "and markets (educational only, no investment advice)"}[kind]
+            "money": "a surprising, well-documented fact about the science, psychology or history of "
+                     "money and markets (e.g. a famous bubble, a cognitive bias, how compounding works). "
+                     "Educational only, no investment advice, no gossip about private lives"}[kind]
     q = (f"Suggest {what} about {area} for a YouTube Short. It must be well-established and "
          f"verifiable. Avoid these recent topics: {json.dumps(recent)}.\n"
          f"Reply as JSON: {{\"topic\": \"short topic name\", \"angle\": \"one-line hook idea\"}}")

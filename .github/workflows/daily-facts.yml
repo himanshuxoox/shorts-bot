@@ -64,7 +64,9 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          POLLINATIONS_TOKEN: ${{ secrets.POLLINATIONS_TOKEN }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}     # optional
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}   # optional
+          POLLINATIONS_TOKEN: ${{ secrets.POLLINATIONS_TOKEN }}   # optional, paid
         run: python -m facts.batch --count "${{ github.event.inputs.count || '4' }}"
 
       - name: Upload to YouTube (only when AUTO_UPLOAD_FACTS = true)

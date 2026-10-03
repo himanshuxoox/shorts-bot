@@ -9,7 +9,7 @@ Output: out_facts/<date>/NN_<kind>.mp4 + .json + _cover.png, manifest.json, UPLO
 import argparse, datetime as dt, json, os, random, time, traceback
 from zoneinfo import ZoneInfo
 
-from . import images, render, voice
+from . import render, visuals, voice
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "state", "facts_history.json")
@@ -57,7 +57,7 @@ def save_state(st):
         json.dump(st, f, indent=1, ensure_ascii=False)
 
 
-def make_meta(script):
+def make_meta(script, credits=(), ai_images=False):
     title = script["title"].strip().rstrip(".")[:88] + " #shorts"
     desc = [script.get("description", "").strip(), "",
             f"💬 {script['outro']}", ""]
@@ -65,15 +65,17 @@ def make_meta(script):
         desc += [f"Source: {script['source']['name']} — {script['source']['link']}", ""]
     if script["category"] == "MONEY SCIENCE":
         desc += ["Educational content only — not financial advice.", ""]
-    desc += ["Visuals are AI-generated illustrations. Narration is an AI voice.",
+    if credits:
+        desc += ["Stock footage: " + ", ".join(sorted(set(credits))[:6]), ""]
+    desc += [("Some visuals are AI-generated. " if ai_images else "") + "Narration is an AI voice.",
              "New science & AI shorts every day — subscribe! 🔔", "",
              f"#shorts {HASHTAGS.get(script['category'], '#facts')}"]
     tags = [t.lower() for t in script.get("tags", [])][:12] + ["shorts", "facts", "science"]
     return dict(title=title, description="\n".join(desc), tags=list(dict.fromkeys(tags)),
-                categoryId="28", containsSyntheticMedia=True)
+                categoryId="28", containsSyntheticMedia=bool(ai_images))
 
 
-def make_one(kind, idx, out_dir, history, rng, mock):
+def make_one(kind, idx, out_dir, history, rng, mock, used_ids=None):
     t0 = time.time()
     if mock:
         from .writer import CATEGORY_LABEL
@@ -88,16 +90,21 @@ def make_one(kind, idx, out_dir, history, rng, mock):
 
     audios = [voice.speak(sc["narration"]) for sc in script["scenes"]]
     outro_audio = voice.speak(script["outro"])
-    imgs = [images.get(sc["image_prompt"], seed + k, f"{base}_img{k}.png")
-            for k, sc in enumerate(script["scenes"])]
-    dur = render.render(script, imgs, audios, base + ".mp4", seed, outro_audio)
-    for p in imgs:
-        os.remove(p)
+    used_ids = set() if used_ids is None else used_ids
+    vis = [visuals.get(sc, seed + k, f"{base}_vis{k}", len(a) / voice.SR + 1, used_ids)
+           for k, (sc, a) in enumerate(zip(script["scenes"], audios))]
+    print("   visuals: " + ", ".join(f"{v['source']}/{v['kind']}" for v in vis), flush=True)
+    dur = render.render(script, vis, audios, base + ".mp4", seed, outro_audio)
+    for v in vis:
+        os.remove(v["path"])
+    credits = [f"{v['credit']} ({v['source'].title()})" for v in vis
+               if v["source"] in ("pexels", "pixabay") and v["credit"]]
+    ai_images = any(v["source"] == "ai" for v in vis)
 
     item = dict(file=os.path.basename(base + ".mp4"), cover=os.path.basename(base + "_cover.png"),
                 duration=dur, kind=script["kind"], topic=script["topic"],
                 link=script["source"]["link"] if script.get("source") else None,
-                script=script, **make_meta(script))
+                script=script, **make_meta(script, credits, ai_images))
     with open(base + ".json", "w") as f:
         json.dump(item, f, indent=1, ensure_ascii=False)
     print(f"[{idx}] {script['category']}: {script['title']}  ({dur}s, {time.time() - t0:.0f}s)", flush=True)
@@ -109,7 +116,8 @@ def upload_sheet(items, path):
     for v in items:
         L += ["=" * 60, v["file"], "=" * 60, "TITLE:", v["title"], "", "DESCRIPTION:", v["description"],
               "", "TAGS:", ", ".join(v["tags"]), "",
-              "Made for kids: NO  |  Category: Science & Technology  |  Altered/synthetic content: YES", "", ""]
+              "Made for kids: NO  |  Category: Science & Technology  |  Altered/synthetic content: "
+              + ("YES" if v.get("containsSyntheticMedia") else "NO"), "", ""]
     with open(path, "w") as f:
         f.write("\n".join(L))
 
@@ -123,7 +131,7 @@ def main():
     a = ap.parse_args()
     if a.mock:
         os.environ["IMAGES"] = "mock"
-        images.MOCK = True
+        visuals.MOCK = True
         voice.ENGINE = "mock"
 
     st = load_state()
@@ -132,10 +140,10 @@ def main():
 
     out_dir = os.path.join(a.out, a.date)
     os.makedirs(out_dir, exist_ok=True)
-    items = []
+    items, used_ids = [], set()
     for i, kind in enumerate(kinds, 1):
         try:
-            items.append(make_one(kind, i, out_dir, st["videos"], rng, a.mock))
+            items.append(make_one(kind, i, out_dir, st["videos"], rng, a.mock, used_ids))
         except Exception:
             print(f"[{i}] {kind} FAILED:\n{traceback.format_exc()}", flush=True)
             continue
