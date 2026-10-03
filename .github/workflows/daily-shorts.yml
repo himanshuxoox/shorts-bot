@@ -2,7 +2,11 @@ name: Daily Shorts
 
 on:
   schedule:
-    - cron: "30 1 * * *"      # 07:00 IST every day
+    # GitHub sometimes delays or drops scheduled runs, so there are 3 tries.
+    # The "Already done today?" step makes the extra ones exit in seconds.
+    - cron: "17 0 * * *"      # 05:47 IST
+    - cron: "43 1 * * *"      # 07:13 IST (backup)
+    - cron: "29 3 * * *"      # 08:59 IST (backup)
   workflow_dispatch:          # "Run workflow" button for manual runs
     inputs:
       count:
@@ -21,24 +25,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Already done today?
+        id: check
+        run: |
+          TODAY=$(TZ=Asia/Kolkata date +%F)
+          if [ "${{ github.event_name }}" = "schedule" ] && grep -q "\"date\": \"$TODAY\"" state/history.json; then
+            echo "Batch for $TODAY already exists, skipping."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.check.outputs.skip != 'true'
         with:
           python-version: "3.12"
 
       - name: System packages
+        if: steps.check.outputs.skip != 'true'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg libcairo2-dev pkg-config
           mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
 
       - name: Python packages
+        if: steps.check.outputs.skip != 'true'
         run: pip install -r requirements.txt
 
       - name: Render today's batch
+        if: steps.check.outputs.skip != 'true'
         run: python -m shorts.batch --count "${{ github.event.inputs.count || '4' }}" --workers 2
 
       - name: Upload to YouTube (only when AUTO_UPLOAD = true)
-        if: vars.AUTO_UPLOAD == 'true'
+        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
@@ -47,7 +64,7 @@ jobs:
         run: python -m shorts.upload
 
       - name: Keep videos as a downloadable artifact (7 days)
-        if: always()
+        if: always() && steps.check.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: shorts-${{ github.run_number }}
@@ -55,7 +72,7 @@ jobs:
           retention-days: 7
 
       - name: Save seed history
-        if: success()
+        if: success() && steps.check.outputs.skip != 'true'
         run: |
           git config user.name  "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
