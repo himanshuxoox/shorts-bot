@@ -6,3 +6,4 @@ token*.json
 .env
 *.mp4
 !samples/*.mp4
+out_facts/

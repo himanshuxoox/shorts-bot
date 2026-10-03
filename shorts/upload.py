@@ -66,7 +66,8 @@ def upload_one(yt, path, item, publish_at):
             "privacyStatus": "private",          # required for scheduled publishing
             "publishAt": publish_at.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "selfDeclaredMadeForKids": False,
-            "containsSyntheticMedia": False,     # animated simulation, not realistic AI footage
+            # simulations: False; facts channel (AI images + AI voice): True
+            "containsSyntheticMedia": bool(item.get("containsSyntheticMedia", False)),
         },
     }
     media = MediaFileUpload(path, mimetype="video/mp4", chunksize=8 * 1024 * 1024, resumable=True)

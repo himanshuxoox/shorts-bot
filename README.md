@@ -82,3 +82,39 @@ YouTube demonetizes mass-produced, repetitive content. Keep it varied:
 - Add more templates over time (marble race, color battle, balls that multiply).
 - Rotate hooks and colors (already built in).
 - Read the comments and make more of whatever gets the most replies.
+
+---
+
+# Channel 2: daily science & AI facts
+
+`facts/` makes 4 English Shorts a day:
+
+| Slot | Kind | Where the topic comes from |
+|---|---|---|
+| 1 | NEW DISCOVERY | ScienceDaily, Phys.org, NASA, Live Science, New Scientist RSS |
+| 2 | SCIENCE EXPLAINED | Gemini picks an evergreen "how / why" topic it hasn't covered yet |
+| 3 | FUN FACT | Gemini, evergreen |
+| 4 | MONEY SCIENCE | Psychology/history/math of money & markets, never financial advice |
+
+(`ai_news` still exists in the code; add it back to `LINEUP` in `facts/batch.py` if you ever want it.)
+
+The pipeline works like this:
+1. Gemini writes a 40–50 s script as JSON scenes.
+2. A **second fact-check pass** rewrites anything doubtful, and a low-confidence script is skipped.
+3. The narration is generated with **Kokoro** (free, open-source). If Kokoro fails, Gemini TTS is used instead.
+4. Each scene gets an image from **Pollinations.ai** (free FLUX). If the API is down, a generated fallback image is used.
+5. The renderer adds Ken Burns motion, word-by-word captions and a music bed it generates itself.
+
+Discovery videos always link their source in the description. Every facts video is marked
+"altered/synthetic content", because it uses AI images and an AI voice.
+
+## Setup
+
+1. Create a free Gemini API key at https://aistudio.google.com/apikey. Add it as the repo secret `GEMINI_API_KEY`.
+2. (Optional) Create a free pollinations.ai account and add its token as the secret `POLLINATIONS_TOKEN`. Images then come back faster, with no rate wait.
+3. To test, go to **Actions → Daily Facts → Run workflow** and set count = 1. Download the `facts-N` artifact.
+   It holds the videos plus an `UPLOAD_SHEET.txt` with every video's title, description and tags.
+4. Later, when API uploads are allowed: run `python auth_setup.py` and pick the facts channel.
+   Save the refresh token as `YT_FACTS_REFRESH_TOKEN`, then set the repo variable `AUTO_UPLOAD_FACTS = true`.
+
+Offline test: `python -m facts.batch --count 1 --mock` (uses a canned script, a fake voice and generated images).
