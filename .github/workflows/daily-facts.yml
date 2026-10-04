@@ -6,6 +6,7 @@ on:
     - cron: "53 0 * * *"      # 06:23 IST
     - cron: "11 2 * * *"      # 07:41 IST (backup)
     - cron: "43 3 * * *"      # 09:13 IST (backup)
+    - cron: "41 20 * * *"     # 02:11 IST (GitHub often runs 5-6 h late)
   workflow_dispatch:
     inputs:
       count:
