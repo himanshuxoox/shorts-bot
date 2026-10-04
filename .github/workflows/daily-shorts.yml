@@ -12,6 +12,9 @@ on:
       count:
         description: "How many videos"
         default: "4"
+      force:
+        description: "Run even if today's batch already exists"
+        default: "false"
 
 permissions:
   contents: write             # to commit state/history.json (no repeated seeds)
@@ -29,7 +32,7 @@ jobs:
         id: check
         run: |
           TODAY=$(TZ=Asia/Kolkata date +%F)
-          if [ "${{ github.event_name }}" = "schedule" ] && grep -q "\"date\": \"$TODAY\"" state/history.json; then
+          if [ "${{ github.event.inputs.force }}" != "true" ] && grep -q "\"date\": \"$TODAY\"" state/history.json; then
             echo "Batch for $TODAY already exists, skipping."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
@@ -52,6 +55,8 @@ jobs:
 
       - name: Render today's batch
         if: steps.check.outputs.skip != 'true'
+        env:
+          FORMATS: ${{ vars.FORMATS || 'rings,grow,paint,elim' }}
         run: python -m shorts.batch --count "${{ github.event.inputs.count || '4' }}" --workers 2
 
       - name: Upload to YouTube (only when AUTO_UPLOAD = true)

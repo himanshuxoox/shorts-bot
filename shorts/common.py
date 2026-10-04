@@ -64,15 +64,50 @@ def _pluck(freq, dur=0.55, vol=0.32):
     return vol * env * w
 
 
-def build_audio(events, total, path):
-    """events: list of (time, freq, kind) with kind in pluck|tick|win."""
+def _noise_burst(dur=0.35, vol=0.22, seed=0):
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    rng = np.random.default_rng(seed)
+    w = rng.standard_normal(n)
+    w = np.convolve(w, np.ones(3) / 3, mode="same")          # soften the hiss a little
+    return vol * w * np.exp(-t * 14) * np.minimum(1, t / 0.002)
+
+
+def _sweep(f0, f1, dur, vol):
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    f = f0 * (f1 / f0) ** (t / dur)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    return vol * np.sin(ph) * np.exp(-t * 3.5) * np.minimum(1, t / 0.004)
+
+
+def build_audio(events, total, path, min_gap=0.0):
+    """events: list of (time, freq, kind).
+    kinds: pluck | tick | win | shatter (ring break) | steal (short blip) | out (falling tone) | chime"""
     buf = np.zeros(int(SR * (total + 1)))
-    for t, f, kind in events:
+    last_pluck = -9.0
+    for t, f, kind in sorted(events, key=lambda e: e[0]):
         i = int(t * SR)
         if kind == "pluck":
+            if t - last_pluck < min_gap:      # very fast bounce streams would turn into noise
+                continue
+            last_pluck = t
             s = _pluck(f)
         elif kind == "tick":
             s = _pluck(f, 0.25, 0.18)
+        elif kind == "shatter":
+            s = _noise_burst(0.4, 0.28, int(t * 1000))
+            for j, semi in enumerate([0, 7, 12]):
+                p = _pluck(f * 2 ** (semi / 12), 0.7, 0.2)
+                o = int(j * 0.04 * SR)
+                s = np.pad(s, (0, max(0, o + len(p) - len(s))))
+                s[o:o + len(p)] += p
+        elif kind == "steal":
+            s = _pluck(f, 0.18, 0.16)
+        elif kind == "out":
+            s = _sweep(f, f / 2.5, 0.6, 0.3)
+        elif kind == "chime":
+            s = _pluck(f, 1.0, 0.3)
         else:
             s = np.zeros(int(SR * 2.2))
             for j, semi in enumerate([0, 4, 7, 12, 16]):

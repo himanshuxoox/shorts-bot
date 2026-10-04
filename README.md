@@ -1,22 +1,32 @@
-# Viral Shorts Bot: Ball Escape simulations
+# Viral Shorts Bot: physics simulation Shorts
 
 This bot makes 4 YouTube Shorts a day on its own, and it costs nothing to run.
-Each Short is a physics race made entirely in code: neon balls bounce inside a
-rotating ring, every bounce plays the next note of a public-domain melody, and
-the first ball to slip through the gap wins.
+Every Short is a physics simulation made entirely in code, with each bounce playing the next note
+of a public-domain melody. Each day you get **one video of each format**:
+
+| Format | What happens | Viewer hook |
+|---|---|---|
+| `rings` | One ball inside 6-9 nested spinning rings. Each ring it slips through shatters. | Guess the time |
+| `grow` | The ball grows on every bounce until it fills the circle. Bounces and music speed up. | Guess the bounce count |
+| `paint` | 4 balls; any wall segment a ball touches turns its color. Most wall at 0s wins. | Pick a color |
+| `elim` | 5-6 balls in a spinning ring with a gap. Fall out = eliminated. Last ball inside wins. | Pick a color |
+| `escape` | The original: first ball out of the ring wins (not in the daily lineup by default). | Pick a color |
 
 - **₹0 to run**: rendering is pure Python (cairo + numpy + ffmpeg), no paid APIs
-- **Never repeats**: every seed gives a different race (2/3/4 balls, colors, melody, hook text, spin)
-- **Auto-schedules**: GitHub Actions renders every morning and can schedule uploads to 4 time slots
+- **Never repeats**: every seed gives a different simulation (colors, melody, hook text, speeds)
+- **Built for retention**: the hook text and the action are there from frame 0, videos run 18-28s,
+  and every format has a live counter (rings left, size %, wall share, balls left)
+- **Choose the lineup** with the repo variable `FORMATS` (e.g. `rings,paint,paint,elim`)
 
 ```
-shorts/escape.py     simulation + drawing (one template)
+shorts/rings.py grow.py paint.py elim.py escape.py   one file per format
+shorts/fx.py         shared drawing (balls, glow rings, particles, scoreboards, end banner)
 shorts/melodies.py   public-domain tunes (Beethoven, Grieg, Mozart, Pachelbel, trad.)
-shorts/metadata.py   title / description / tags (never spoils the winner)
-shorts/batch.py      renders N videos/day -> out/<date>/ + manifest.json
+shorts/metadata.py   title / description / tags per format (never spoils the result)
+shorts/batch.py      renders the day's lineup -> out/<date>/ + manifest.json + UPLOAD_SHEET.txt
 shorts/upload.py     YouTube Data API upload with scheduled publishAt
 auth_setup.py        one-time OAuth -> refresh token
-.github/workflows/daily-shorts.yml   daily cron (07:00 IST)
+.github/workflows/daily-shorts.yml   daily cron + "Run workflow" button
 ```
 
 ## Run locally
@@ -24,7 +34,8 @@ auth_setup.py        one-time OAuth -> refresh token
 ```bash
 sudo apt install ffmpeg libcairo2-dev pkg-config      # mac: brew install ffmpeg cairo pkg-config
 pip install -r requirements.txt
-python -m shorts.batch --count 1 --date test          # -> out/test/01_escape_XXXX.mp4
+python -m shorts.batch --count 4 --date test          # -> out/test/01_rings_XXXX.mp4 ...
+FORMATS=paint python -m shorts.batch --count 1 --date test   # just one format
 ```
 
 ## Step 1: Put the repo on GitHub (5 min)
@@ -32,7 +43,7 @@ python -m shorts.batch --count 1 --date test          # -> out/test/01_escape_XX
 1. Create a new **public** repo (public repos get unlimited free Actions minutes; private repos get 2,000 min/month, which is also enough).
 2. Push this folder to the repo.
 3. Go to **Actions → Daily Shorts → Run workflow** to test it once.
-4. When it finishes, download the `shorts-N` artifact. It holds 4 MP4s, a cover image for each, and `manifest.json` with each video's title and description.
+4. When it finishes, download the `shorts-N` artifact. It holds 4 MP4s, a cover image for each, and `UPLOAD_SHEET.txt` with every title, description and tags.
 
 From then on it runs every morning at 07:00 IST.
 
@@ -42,7 +53,7 @@ From then on it runs every morning at 07:00 IST.
 > project stay locked to **private**, and you can't change them to public later.
 > Until your project passes the free audit (Step 4), upload by hand.
 
-Every day, download the artifact. In YouTube Studio, click **Create → Upload** and add each MP4. Copy its title and description from the matching `.json` file, set **"No, it's not made for kids"**, and schedule it. All 4 take about 5 minutes.
+Every day, download the artifact. In YouTube Studio, click **Create → Upload** and add each MP4. Copy its title and description from `UPLOAD_SHEET.txt`, set **"No, it's not made for kids"**, and schedule it. All 4 take about 5 minutes.
 
 ## Step 3: YouTube API credentials (do this now, it's needed for the audit)
 
@@ -72,15 +83,18 @@ The bot is now hands-free: it renders every morning and each video goes public a
 
 ## Tuning
 
-- `BALL_MIX` in `shorts/batch.py` sets the ball count of each daily video.
-- In `shorts/escape.py`: `HOOKS` and `SUBS` are the on-screen text, `PALETTE` holds the colors, and `is_good()` decides what counts as a good race.
+- Repo variable `FORMATS` sets the daily lineup (default `rings,grow,paint,elim`, one video each).
+- Each format file has `HOOKS` / `SUBS` (on-screen text) and `is_good()`, which decides what counts as a
+  good video (length, close finish, lead changes…). Seeds that fail it are skipped.
+- Titles and descriptions are in `shorts/metadata.py`.
 - Add tunes to `shorts/melodies.py`. Use only public-domain compositions, and the audio must be synthesized by the code, not copied from a recording.
 
 ## Staying monetizable
 
-YouTube demonetizes mass-produced, repetitive content. Keep it varied:
-- Add more templates over time (marble race, color battle, balls that multiply).
-- Rotate hooks and colors (already built in).
+YouTube's "inauthentic content" policy can keep mass-produced, near-identical videos out of the
+Partner Program. That is why there are several formats with different goals, and why hooks, colors,
+melodies and speeds rotate. Keep it varied:
+- Keep at least 3 formats in the lineup, and add new ones over time (balls that multiply, mazes…).
 - Read the comments and make more of whatever gets the most replies.
 
 ---
