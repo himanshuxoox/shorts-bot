@@ -7,6 +7,7 @@ on:
     - cron: "17 0 * * *"      # 05:47 IST
     - cron: "43 1 * * *"      # 07:13 IST (backup)
     - cron: "29 3 * * *"      # 08:59 IST (backup)
+    - cron: "41 20 * * *"     # 02:11 IST (GitHub often runs 5-6 h late)
   workflow_dispatch:          # "Run workflow" button for manual runs
     inputs:
       count:
