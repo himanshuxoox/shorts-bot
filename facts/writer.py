@@ -9,8 +9,15 @@ CATEGORY_LABEL = {"ai_news": "AI NEWS", "discovery": "NEW DISCOVERY",
 STYLE = """You write scripts for a faceless English YouTube Shorts channel about science, AI and
 mind-blowing facts. Audience: curious adults and teens worldwide.
 Rules:
-- Total narration 95-130 words (about 40-50 seconds). Simple words, short sentences, energetic.
-- Scene 1 is the HOOK: a surprising claim or question in under 12 words. No "Did you know".
+- Total narration 110-140 words (about 45-55 seconds). Simple words, short sentences, energetic.
+- Follow this 5-STAGE RETENTION STRUCTURE across 6 scenes (it keeps people watching to the end):
+  1. GOLDEN HOOK (scene 1): a counter-intuitive claim or visual paradox in under 12 words.
+     No "Did you know", no greetings, no slow intro.
+  2. DISRUPT THE ASSUMPTION (scene 2): state what most people believe, then break it in one line.
+  3. UNVEIL THE SECRET (scenes 3-4): the hidden mechanism or surprising detail, step by step.
+  4. THE REAL TRUTH (scene 5): the satisfying "aha" payoff that explains everything.
+  5. ELEVATE (scene 6): a punchy takeaway that makes the viewer see the world differently.
+  Then "outro": a debate-style question that people will want to answer in the comments.
 - Each scene is 1-2 sentences of narration plus the visuals to show while it is spoken.
 - "visual_query": a 2-4 word search phrase for STOCK VIDEO footage of something concrete and
   filmable that matches the line (e.g. "galaxy stars", "scientist microscope", "ocean waves",
@@ -27,8 +34,8 @@ Rules:
 SCHEMA = """JSON shape:
 {"title": "catchy YouTube title, max 70 chars, no hashtags",
  "hook_text": "max 6 words shown big on screen at the start",
- "scenes": [{"narration": "...", "visual_query": "...", "visual_alts": ["...", "..."],
-             "image_prompt": "..."}],   // 5 to 7 scenes
+ "scenes": [{"stage": "hook|disrupt|secret|truth|elevate", "narration": "...",
+             "visual_query": "...", "visual_alts": ["...", "..."], "image_prompt": "..."}],   // 6 scenes
  "outro": "question for the comments, max 12 words",
  "description": "2-3 sentence YouTube description",
  "tags": ["8-12 lowercase tags"]}"""
@@ -83,9 +90,31 @@ def write(kind, history, rng):
         brief = f"Topic: {idea['topic']}. Angle: {idea.get('angle', '')}"
 
     script = llm.ask_json(f"{STYLE}\n\nCategory: {label}\n{brief}\n\n{SCHEMA}")
+    script = _ensure_length(script)
     script = fact_check(script, src)
     script.update(kind=kind, category=label, topic=topic,
                   source=src and {"title": src["title"], "link": src["link"], "name": src["source"]})
+    return script
+
+
+def _words(script):
+    return sum(len(sc.get("narration", "").split()) for sc in script.get("scenes", []))
+
+
+def _ensure_length(script, min_words=100):
+    """Short scripts lose the 5-stage arc; ask once to expand them."""
+    if _words(script) >= min_words:
+        return script
+    try:
+        longer = llm.ask_json(
+            f"This Short script is only {_words(script)} words. Expand it to 115-135 words total by "
+            f"adding concrete, TRUE detail (no new statistics unless certain), keeping the 5-stage "
+            f"structure (hook, disrupt, secret, truth, elevate), the same JSON shape and 6 scenes.\n\n"
+            f"{json.dumps(script, ensure_ascii=False)}")
+        if longer.get("scenes") and _words(longer) > _words(script):
+            return longer
+    except Exception:
+        pass
     return script
 
 
