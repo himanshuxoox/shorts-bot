@@ -1,5 +1,5 @@
 {
- "next_seed": 1631,
+ "next_seed": 1635,
  "videos": [
   {
    "date": "2026-10-02",
@@ -132,7 +132,31 @@
    "format": "paint",
    "seed": 1615,
    "title": "Pick one: Pookie vs Demure vs Sending vs Cholesterol \ud83e\ude75\ud83e\ude77\ud83d\udfe1\ud83d\udfe2 #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "butterfly",
+   "seed": 1634,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "multiply",
+   "seed": 1633,
+   "title": "Will the Ball Multiply? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "evolve",
+   "seed": 1631,
+   "title": "Every bounce paints a new color \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "elim",
+   "seed": 1632,
+   "title": "Pick a color \u2014 only 1 survives \ud83d\udd35\ud83d\udfe3\ud83d\udfe2\ud83d\udd34\ud83e\ude77\ud83d\udfe1 #shorts"
   }
  ],
- "lineup_pos": 4
+ "lineup_pos": 8
 }
