@@ -1,5 +1,5 @@
 {
- "next_seed": 1615,
+ "next_seed": 1631,
  "videos": [
   {
    "date": "2026-10-02",
@@ -108,6 +108,31 @@
    "format": "elim",
    "seed": 1614,
    "title": "Pick a color \u2014 only 1 survives \ud83d\udd34\ud83e\ude75\ud83e\ude77\ud83d\udfe3\ud83d\udfe0\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "butterfly",
+   "seed": 1630,
+   "title": "The Butterfly Effect of a Bouncing Ball \ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "multiply",
+   "seed": 1615,
+   "title": "Will the balls break every ring? \ud83d\udca5 #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "evolve",
+   "seed": 1615,
+   "title": "Guess the bounce count \ud83e\udd14\ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-05",
+   "format": "paint",
+   "seed": 1615,
+   "title": "Pick one: Pookie vs Demure vs Sending vs Cholesterol \ud83e\ude75\ud83e\ude77\ud83d\udfe1\ud83d\udfe2 #shorts"
   }
- ]
+ ],
+ "lineup_pos": 4
 }

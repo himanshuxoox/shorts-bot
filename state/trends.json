@@ -1,0 +1,174 @@
+{
+ "date": "2026-10-05",
+ "approved": [
+  {
+   "word": "AURA",
+   "meaning": "An invisible emanation or energy surrounding a person; modern slang for cool factor."
+  },
+  {
+   "word": "GILDED",
+   "meaning": "Covered thinly with gold leaf or gold paint."
+  }
+ ],
+ "rejected": [
+  {
+   "word": "MEWING",
+   "reason": "profanity / unsafe word"
+  },
+  {
+   "word": "SKIBIDI",
+   "reason": "brand / franchise / character"
+  },
+  {
+   "word": "GYATT",
+   "reason": "profanity / unsafe word"
+  },
+  {
+   "word": "BRAINROT",
+   "reason": "brand / franchise / character"
+  },
+  {
+   "word": "DEPARTMENT OF TREASURY",
+   "reason": "length"
+  },
+  {
+   "word": "UNITED STATES SENATE",
+   "reason": "length"
+  },
+  {
+   "word": "HARDEEP SINGH PURI",
+   "reason": "length"
+  },
+  {
+   "word": "MICKY VAN DE VEN",
+   "reason": "length"
+  },
+  {
+   "word": "CARDIFF HALF MARATHON",
+   "reason": "length"
+  },
+  {
+   "word": "FA CUP DRAW",
+   "reason": "more than 2 words"
+  },
+  {
+   "word": "CAPITA CIVIL SERVICE PENSION SCHEME DELAYS",
+   "reason": "length"
+  },
+  {
+   "word": "FLIGHT ATTENDANT",
+   "reason": "length"
+  },
+  {
+   "word": "MOGGING",
+   "reason": "judge: insult_or_bullying"
+  },
+  {
+   "word": "BOP",
+   "reason": "judge: sexual_meaning, insult_or_bullying, hidden_meaning"
+  },
+  {
+   "word": "COCO GAUFF",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "AARON SORKIN",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "ED BURNS",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "UNITED STATES",
+   "reason": "judge: politics_or_religion"
+  },
+  {
+   "word": "CHRIS ROCK",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "RXO",
+   "reason": "judge: brand_or_trademark"
+  },
+  {
+   "word": "AJAY DEVGN",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "BRIBERY",
+   "reason": "judge: not family friendly"
+  },
+  {
+   "word": "EARTHQUAKE",
+   "reason": "judge: violence_or_tragedy"
+  },
+  {
+   "word": "NOVAK DJOKOVIC",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "JAMES CLEVERLY",
+   "reason": "judge: real_person, politics_or_religion"
+  },
+  {
+   "word": "EMMA RADUCANU",
+   "reason": "judge: real_person"
+  },
+  {
+   "word": "RIZZ",
+   "reason": "second judge: Internet slang heavily tied to modern teen culture and dating/charm, which may not align with strict brand-safety for young kids."
+  },
+  {
+   "word": "LOOKSMAXING",
+   "reason": "second judge: Internet slang related to physical appearance optimization, often touching on body image and modern subcultures inappropriate for general kid brand-safety."
+  },
+  {
+   "word": "SIGMA",
+   "reason": "second judge: Refers to internet memes and subculture tropes (e.g., 'sigma male') that can carry exclusionary or complex meme baggage unsuitable for cautious kid-friendly contexts."
+  },
+  {
+   "word": "COOKED",
+   "reason": "second judge: Slang meaning ruined, defeated, or in trouble; while mild, a cautious reviewer may flag it for negative connotations."
+  },
+  {
+   "word": "YAPPING",
+   "reason": "second judge: Slang for talking too much or annoyingly, slightly negative/mocking."
+  },
+  {
+   "word": "DELULU",
+   "reason": "second judge: Internet slang short for delusional, carrying a mildly mocking or psychological tone not ideal for cautious kid-safety."
+  },
+  {
+   "word": "CHEUGY",
+   "reason": "second judge: Slang term used to mock things that are uncool or out of date, violating the rule against mocking meanings."
+  },
+  {
+   "word": "MID",
+   "reason": "second judge: Slang used to describe something mediocre or poor quality, carrying a mildly derogatory/mocking meaning."
+  },
+  {
+   "word": "BET",
+   "reason": "second judge: Slang term of agreement, but also directly refers to gambling, making it a risk for strict brand safety."
+  },
+  {
+   "word": "STUDENT LOAN",
+   "reason": "second judge: Refers to financial debt, which touches on adult financial topics inappropriate for children's content."
+  },
+  {
+   "word": "M62",
+   "reason": "second judge: Refers to a major British motorway and also a military weapon designation (M62), raising geographic or violent associations."
+  },
+  {
+   "word": "LONDON",
+   "reason": "second judge: Refers to a real place (capital city of the UK), violating the rule against referring to real places/proper nouns."
+  }
+ ],
+ "used": {
+  "POOKIE": "2026-10-05",
+  "DEMURE": "2026-10-05",
+  "SENDING": "2026-10-05",
+  "CHOLESTEROL": "2026-10-05"
+ },
+ "source": "model_knowledge"
+}
