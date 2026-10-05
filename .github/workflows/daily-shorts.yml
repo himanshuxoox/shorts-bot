@@ -7,7 +7,6 @@ on:
     - cron: "17 0 * * *"      # 05:47 IST
     - cron: "43 1 * * *"      # 07:13 IST (backup)
     - cron: "29 3 * * *"      # 08:59 IST (backup)
-    - cron: "41 20 * * *"     # 02:11 IST (GitHub often runs 5-6 h late)
   workflow_dispatch:          # "Run workflow" button for manual runs
     inputs:
       count:
@@ -55,7 +54,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Trend scout (safe trending words for ball names)
-        if: steps.check.outputs.skip != 'true' && vars.TRENDS != 'off'
+        if: steps.check.outputs.skip != 'true' && vars.TRENDS == 'on'   # off unless you set TRENDS=on
         continue-on-error: true          # never blocks the videos; no words = normal colors
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -65,7 +64,7 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         env:
           FORMATS: ${{ vars.FORMATS }}
-          TRENDS: ${{ vars.TRENDS != 'off' && 'on' || 'off' }}
+          TRENDS: ${{ vars.TRENDS == 'on' && 'on' || 'off' }}
         run: python -m shorts.batch --count "${{ github.event.inputs.count || '4' }}" --workers 2
 
       - name: Upload to YouTube (only when AUTO_UPLOAD = true)
