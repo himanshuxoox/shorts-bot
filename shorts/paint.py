@@ -43,21 +43,29 @@ class Config:
     hook: tuple
     sub: str
     bg: tuple
+    labels: list = None     # optional ball names from the trend scout
 
 
-def make_config(seed):
+def make_config(seed, labels=None):
     rng = random.Random(seed * 5303 + 17)
     names = list(rng.choice(COMBOS))
     rng.shuffle(names)
     d = rng.choice([18, 20, 20, 22])
     mel = rng.choice(list(melodies.MELODIES))
     l1, l2 = rng.choice(HOOKS)
+    if labels:
+        l1, l2 = rng.choice([("WHICH ONE", "TAKES OVER?"), ("PICK ONE", "BEFORE IT ENDS")])
     return Config(seed, names, float(d), mel, melodies.MELODIES[mel],
-                  (l1, l2.format(d=d)), rng.choice(SUBS), rng.choice(fx.BGS))
+                  (l1, l2.format(d=d)), ("Comment your pick before it ends" if labels else rng.choice(SUBS)), rng.choice(fx.BGS),
+                  labels[:4] if labels else None)
 
 
 def seg_of(th):
     return int(((th % (2 * math.pi)) / (2 * math.pi)) * NSEG) % NSEG
+
+
+def label(cfg, i):
+    return cfg.labels[i] if cfg.labels else cfg.names[i]
 
 
 def simulate(cfg, record=False):
@@ -229,13 +237,13 @@ def draw(ctx, fr, cfg):
         ctx.set_source_rgba(*(fx.GOLD if lead else cols[i]), 1.0 if lead else 0.8)
         ctx.set_line_width(6 if lead else 4)
         ctx.stroke()
-        text_fit(ctx, f"{cfg.names[i]} {fr['counts'][i]}", bx + pw / 2, byy + ph / 2 + 15, 40,
+        text_fit(ctx, f"{label(cfg, i)} {fr['counts'][i]}", bx + pw / 2, byy + ph / 2 + 15, 40,
                  pw - 30)
 
     if fr["t_end"] is not None:
         win = max(range(4), key=lambda i: fr["counts"][i])
         fx.confetti(ctx, t, fr["t_end"], cfg.seed)
-        fx.banner(ctx, t, fr["t_end"], f"{cfg.names[win]} WINS!", cols[win], "Did you pick right?")
+        fx.banner(ctx, t, fr["t_end"], f"{label(cfg, win)} WINS!", cols[win], "Did you pick right?")
 
 
 def audio_events(res, cfg):
@@ -259,5 +267,6 @@ AUDIO_MIN_GAP = 0.06
 
 def metadata_facts(res, cfg):
     return dict(template="paint", winner=res["winner"], colors=cfg.names, n_balls=4,
+                labels=cfg.labels or [],
                 counts=dict(zip(cfg.names, res["counts"])), duration=cfg.duration,
                 melody=cfg.melody_name)

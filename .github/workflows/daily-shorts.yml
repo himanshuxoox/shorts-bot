@@ -54,10 +54,18 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         run: pip install -r requirements.txt
 
+      - name: Trend scout (safe trending words for ball names)
+        if: steps.check.outputs.skip != 'true' && vars.TRENDS != 'off'
+        continue-on-error: true          # never blocks the videos; no words = normal colors
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python -m shorts.trends
+
       - name: Render today's batch
         if: steps.check.outputs.skip != 'true'
         env:
-          FORMATS: ${{ vars.FORMATS || 'rings,grow,paint,elim' }}
+          FORMATS: ${{ vars.FORMATS }}
+          TRENDS: ${{ vars.TRENDS != 'off' && 'on' || 'off' }}
         run: python -m shorts.batch --count "${{ github.event.inputs.count || '4' }}" --workers 2
 
       - name: Upload to YouTube (only when AUTO_UPLOAD = true)
@@ -82,6 +90,6 @@ jobs:
         run: |
           git config user.name  "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
-          git add state/history.json
+          git add state/history.json state/trends.json 2>/dev/null || git add state/history.json
           git commit -m "Daily batch $(date -u +%F)" || echo "nothing to commit"
           git pull --rebase && git push

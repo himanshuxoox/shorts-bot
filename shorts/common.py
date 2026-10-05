@@ -106,6 +106,11 @@ def build_audio(events, total, path, min_gap=0.0):
             s = _pluck(f, 0.18, 0.16)
         elif kind == "out":
             s = _sweep(f, f / 2.5, 0.6, 0.3)
+        elif kind == "pop":
+            s = _noise_burst(0.12, 0.2, int(t * 1000) + 7)
+            p = _pluck(f, 0.3, 0.22)
+            s = np.pad(s, (0, max(0, len(p) - len(s))))
+            s[:len(p)] += p
         elif kind == "chime":
             s = _pluck(f, 1.0, 0.3)
         else:

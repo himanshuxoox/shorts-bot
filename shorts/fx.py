@@ -149,11 +149,11 @@ def pills(ctx, items, y0=1470, label=None):
         text(ctx, label, 540, y0 + rows * (ph + 18) + 22, 30, (1, 1, 1), 0.5, bold=False)
 
 
-def banner(ctx, t, t_end, line1, col, line2="Did you guess right?", y=980):
+def banner(ctx, t, t_end, line1, col, line2="Did you guess right?", y=980, dim=0.55):
     k = min(1.0, (t - t_end) / 0.35)
     if k <= 0:
         return
-    ctx.set_source_rgba(0, 0, 0, 0.55 * k)
+    ctx.set_source_rgba(0, 0, 0, dim * k)
     ctx.paint()
     s = 1.0 + 0.25 * (1 - k)
     ctx.save()
@@ -185,3 +185,40 @@ def confetti(ctx, t, t0, seed=7, n=90):
         ctx.rectangle(-9, -5, 18, 10)
         ctx.fill()
         ctx.restore()
+
+
+# ------------------------------------------------------------------ "neon" style (black, minimal)
+def black(ctx):
+    ctx.set_source_rgb(0, 0, 0)
+    ctx.paint()
+
+
+def neon_title(ctx, t, s, y=300, size=64):
+    """Question at the top, like a caption (up to 2 lines). Visible from frame 0."""
+    from .common import _face
+    _face(ctx, size, True)
+    words, lines, cur = s.split(), [], ""
+    for w in words:
+        trial = (cur + " " + w).strip()
+        if ctx.text_extents(trial).width > 900 and cur:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = trial
+    lines.append(cur)
+    lines = lines[:2]
+    k = 1.0 + 0.06 * max(0.0, 1 - t / 0.25) ** 2
+    ctx.save()
+    ctx.translate(540, y)
+    ctx.scale(k, k)
+    for j, ln in enumerate(lines):
+        text_fit(ctx, ln, 0, (j - (len(lines) - 1) / 2) * size * 1.15, size, 940)
+    ctx.restore()
+
+
+def music_line(ctx, s="Did you recognize the music?", y=1575):
+    text(ctx, s, 540, y, 40, (1, 1, 1), 0.85)
+
+
+def big_count(ctx, n, y=1470, label="", col=(1, 1, 1)):
+    text(ctx, f"{n:,}{label}", 540, y, 64, col, 0.95)

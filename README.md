@@ -1,25 +1,35 @@
 # Viral Shorts Bot: physics simulation Shorts
 
 This bot makes 4 YouTube Shorts a day on its own, and it costs nothing to run.
-Every Short is a physics simulation made entirely in code, with each bounce playing the next note
-of a public-domain melody. Each day you get **one video of each format**:
+Every Short is a physics simulation made entirely in code, and every bounce plays the next
+note of a famous **public-domain** tune ("Did you recognize the music?").
 
-| Format | What happens | Viewer hook |
+| Format | What happens | Hook |
 |---|---|---|
-| `rings` | One ball inside 6-9 nested spinning rings. Each ring it slips through shatters. | Guess the time |
-| `grow` | The ball grows on every bounce until it fills the circle. Bounces and music speed up. | Guess the bounce count |
-| `paint` | 4 balls; any wall segment a ball touches turns its color. Most wall at 0s wins. | Pick a color |
-| `elim` | 5-6 balls in a spinning ring with a gap. Fall out = eliminated. Last ball inside wins. | Pick a color |
-| `escape` | The original: first ball out of the ring wins (not in the daily lineup by default). | Pick a color |
+| `butterfly` | 12-30 balls start a fraction of a pixel apart, move as one, then split; spikes pop them. Last ball alive wins | Butterfly effect / who survives |
+| `multiply` | 1 ball, 3 breakable rings and x2/x3/x5/x10 tokens. 1 ball becomes hundreds | Guess the final count |
+| `evolve` | The ball grows every bounce and leaves a rainbow tube behind until it fills the circle | Guess the bounces |
+| `paint` | 4 balls paint the wall; most wall at 0s wins (can use trending words as names) | Pick one |
+| `elim` | 5-6 balls in a spinning ring with a gap; fall out = eliminated (can use trending words) | Pick one |
+| `rings` | One ball breaks out of 6-9 spinning rings | Guess the time |
+| `grow` | Growing ball, neon style | Guess the bounces |
+| `escape` | The original: first ball out of the ring wins | Pick a color |
 
-- **₹0 to run**: rendering is pure Python (cairo + numpy + ffmpeg), no paid APIs
-- **Never repeats**: every seed gives a different simulation (colors, melody, hook text, speeds)
-- **Built for retention**: the hook text and the action are there from frame 0, videos run 18-28s,
-  and every format has a live counter (rings left, size %, wall share, balls left)
-- **Choose the lineup** with the repo variable `FORMATS` (e.g. `rings,paint,paint,elim`)
+The first three copy what works best in this niche (black background, thin neon lines, a small
+question at the top, "Did you recognize the music?" at the bottom) — without paying for a
+simulator tool, without a watermark, and without copyrighted songs.
+
+- The daily lineup **rotates** (`butterfly,multiply,evolve,paint,butterfly,multiply,evolve,elim,rings`),
+  so every format comes back regularly. Override with the repo variable `FORMATS`.
+- **Trend scout** (`shorts/trends.py`): finds trending slang/meme *words*, runs three safety
+  checks, and lets one video a day use the approved words as ball names ("Aura vs Rizz vs Goat").
+  Trending *audio* is never used. Set the repo variable `TRENDS = off` to disable.
+- **Music**: only melodies composed before 1910, written out note by note and synthesized by
+  the code (`shorts/melodies.py`). Never add pop / film / Bollywood / game music.
 
 ```
-shorts/rings.py grow.py paint.py elim.py escape.py   one file per format
+shorts/butterfly.py multiply.py evolve.py paint.py elim.py rings.py grow.py escape.py   one file per format
+shorts/trends.py     trend scout: trending words -> 3 safety checks -> state/trends.json
 shorts/fx.py         shared drawing (balls, glow rings, particles, scoreboards, end banner)
 shorts/melodies.py   public-domain tunes (Beethoven, Grieg, Mozart, Pachelbel, trad.)
 shorts/metadata.py   title / description / tags per format (never spoils the result)
@@ -83,7 +93,9 @@ The bot is now hands-free: it renders every morning and each video goes public a
 
 ## Tuning
 
-- Repo variable `FORMATS` sets the daily lineup (default `rings,grow,paint,elim`, one video each).
+- Repo variable `FORMATS` sets the rotating lineup (a format can appear more than once to give it more weight).
+- Repo variable `TRENDS = off` turns the trend scout off; `TREND_VIDEOS` (env) = trend-word videos per day (default 1).
+- Every decision of the trend scout (approved / rejected + reason) is in `state/trends.json`.
 - Each format file has `HOOKS` / `SUBS` (on-screen text) and `is_good()`, which decides what counts as a
   good video (length, close finish, lead changes…). Seeds that fail it are skipped.
 - Titles and descriptions are in `shorts/metadata.py`.

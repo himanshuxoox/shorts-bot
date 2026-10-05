@@ -5,22 +5,32 @@ Render today's batch of Shorts — one video per format in LINEUP.
     python -m shorts.batch --count 1 --date test    # quick test
     FORMATS=rings,paint python -m shorts.batch      # choose formats
 
-Formats: rings (multi-ring escape), grow (growing ball), paint (color takeover battle),
-elim (elimination), escape (the original single-ring race).
+Formats: butterfly (butterfly effect + spikes), evolve (rainbow growing ball), multiply
+(multiplier tokens + breakable rings), paint (color battle), elim (elimination), rings
+(multi-ring escape), grow (growing ball), escape (the original single-ring race).
+The lineup rotates day by day, so with 4 videos/day every format comes back regularly.
+With TRENDS=on, one video a day (paint or elim) uses safe trending words from
+state/trends.json as ball names (see shorts/trends.py).
 Seeds come from state/history.json so no video is ever repeated.
 """
 import argparse, datetime as dt, json, os, time
 from multiprocessing import Pool
 from zoneinfo import ZoneInfo
 
-from . import escape, rings, grow, paint, elim, metadata
+import random
+
+from . import escape, rings, grow, paint, elim, butterfly, evolve, multiply, metadata, trends
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "state", "history.json")
 IST = ZoneInfo("Asia/Kolkata")
-MODS = dict(rings=rings, grow=grow, paint=paint, elim=elim, escape=escape)
-LINEUP = [f.strip() for f in os.environ.get("FORMATS", "rings,grow,paint,elim").split(",") if f.strip()]
+MODS = dict(butterfly=butterfly, evolve=evolve, multiply=multiply, paint=paint, elim=elim,
+            rings=rings, grow=grow, escape=escape)
+DEFAULT_LINEUP = "butterfly,multiply,evolve,paint,butterfly,multiply,evolve,elim,rings"
+LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
+LABEL_FORMATS = {"paint": 4, "elim": 5}          # formats that can show trend words as names
+TREND_VIDEOS = int(os.environ.get("TREND_VIDEOS", "1"))
 
 
 def load_state():
@@ -36,20 +46,26 @@ def save_state(st):
         json.dump(st, f, indent=1)
 
 
-def find_seed(mod, start, max_tries=6000):
+def make_config(mod, seed, labels):
+    return mod.make_config(seed, labels=labels) if labels else mod.make_config(seed)
+
+
+def find_seed(mod, start, labels=None, max_tries=6000):
     """First seed at or after `start` whose simulation passes the format's is_good()."""
     for s in range(start, start + max_tries):
-        if mod.is_good(mod.simulate(mod.make_config(s))):
+        if mod.is_good(mod.simulate(make_config(mod, s, labels))):
             return s
     raise RuntimeError(f"no good seed found for {mod.__name__}")
 
 
 def render_one(args):
-    fmt, seed, out_dir, idx = args
+    fmt, seed, out_dir, idx, labels = args
     mod = MODS[fmt]
     t0 = time.time()
-    cfg = mod.make_config(seed)
+    cfg = make_config(mod, seed, labels)
     res = mod.simulate(cfg, record=True)
+    if hasattr(mod, "prepare"):
+        mod.prepare(res, cfg)
     frames = res["frames"]
     base = os.path.join(out_dir, f"{idx:02d}_{fmt}_{seed}")
     wav = base + ".wav"
@@ -106,19 +122,34 @@ def main():
             raise SystemExit(f"unknown format {f!r}; choose from {', '.join(MODS)}")
 
     st = load_state()
-    fmts = [LINEUP[i % len(LINEUP)] for i in range(a.count)]
+    pos = st.get("lineup_pos", 0)
+    fmts = [LINEUP[(pos + i) % len(LINEUP)] for i in range(a.count)]
+
+    # trend words: only words that passed every check today (state/trends.json)
+    words = trends.todays_words() if os.environ.get("TRENDS", "off") == "on" else []
+    rng = random.Random(a.date)
+    labels = [None] * len(fmts)
+    budget = TREND_VIDEOS
+    for i, f in enumerate(fmts):
+        if budget and f in LABEL_FORMATS:
+            pick = trends.take(words, LABEL_FORMATS[f], rng)
+            if pick:
+                labels[i] = pick
+                budget -= 1
+                print(f"[trends] video {i + 1} ({f}) uses: {', '.join(pick)}")
+
     start = st["next_seed"]
     seeds, used = [], set()
-    for f in fmts:
-        s = find_seed(MODS[f], start)
+    for f, lb in zip(fmts, labels):
+        s = find_seed(MODS[f], start, lb)
         while (f, s) in used:                    # same format twice in one batch
-            s = find_seed(MODS[f], s + 1)
+            s = find_seed(MODS[f], s + 1, lb)
         used.add((f, s))
         seeds.append(s)
     out_dir = os.path.join(a.out, a.date)
     os.makedirs(out_dir, exist_ok=True)
 
-    jobs = [(f, s, out_dir, i + 1) for i, (f, s) in enumerate(zip(fmts, seeds))]
+    jobs = [(f, s, out_dir, i + 1, lb) for i, (f, s, lb) in enumerate(zip(fmts, seeds, labels))]
     if a.workers > 1:
         with Pool(a.workers) as p:
             items = p.map(render_one, jobs)
@@ -131,6 +162,7 @@ def main():
     upload_sheet(items, os.path.join(out_dir, "UPLOAD_SHEET.txt"))
 
     st["next_seed"] = max(seeds) + 1
+    st["lineup_pos"] = (pos + a.count) % len(LINEUP)
     st["videos"] += [dict(date=a.date, format=i["format"], seed=i["seed"], title=i["title"]) for i in items]
     save_state(st)
     print(f"done: {len(items)} videos in {out_dir}")

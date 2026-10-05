@@ -40,19 +40,29 @@ class Config:
     hook: tuple
     sub: str
     bg: tuple
+    labels: list = None     # optional ball names from the trend scout
 
 
-def make_config(seed):
+def make_config(seed, labels=None):
     rng = random.Random(seed * 3571 + 29)
     n = rng.choice([5, 6, 6])
+    if labels:
+        n = min(6, len(labels))
+        labels = labels[:n]
     names = rng.sample(list(fx.PALETTE), n)
     mel = rng.choice(list(melodies.MELODIES))
     l1, l2 = rng.choice(HOOKS)
+    if labels:
+        l1, l2 = rng.choice([("WHO SURVIVES", "TILL THE END?"), ("PICK ONE", "LAST ONE WINS")])
     return Config(seed, names, math.radians(rng.uniform(17, 21)),
                   rng.uniform(0.7, 1.0) * rng.choice([-1, 1]),
                   rng.choice([(0.75, 0.45, 1.0), (0.3, 0.9, 1.0), (1.0, 0.5, 0.75), (1.0, 0.8, 0.35)]),
                   mel, melodies.MELODIES[mel], (l1.format(n=n), l2.format(n=n)),
-                  rng.choice(SUBS), rng.choice(fx.BGS))
+                  rng.choice(SUBS), rng.choice(fx.BGS), labels)
+
+
+def label(cfg, i):
+    return cfg.labels[i] if cfg.labels else cfg.names[i]
 
 
 def simulate(cfg, record=False):
@@ -199,7 +209,7 @@ def draw(ctx, fr, cfg):
             fx.burst(ctx, t, (t_out, ox, oy, cols[i], i * 97 + cfg.seed, 22, 520, 0.9))
             tx = min(860, max(220, ox))
             ty = min(1380, max(620, oy)) - 60 * k
-            text_fit(ctx, f"{cfg.names[i]} OUT!", tx, ty, 64, 420, cols[i], 1 - k * k)
+            text_fit(ctx, f"{label(cfg, i)} OUT!", tx, ty, 64, 420, cols[i], 1 - k * k)
 
     alive = sum(1 for b in fr["balls"] if b[2] in ("in", "passing"))
     if fr["t_end"] is None:
@@ -208,13 +218,13 @@ def draw(ctx, fr, cfg):
     for i, b in enumerate(fr["balls"]):
         place = b[3]
         out = b[2] in ("out", "gone")
-        label = cfg.names[i] if not out else f"{cfg.names[i]}  {ORD.get(place, f'{place}th')}"
-        items.append((label, cols[i], out))
+        label_ = label(cfg, i) if not out else f"{label(cfg, i)}  {ORD.get(place, f'{place}th')}"
+        items.append((label_, cols[i], out))
     fx.pills(ctx, items, y0=1490)
     if fr["t_end"] is not None:
         wi = next(i for i, b in enumerate(fr["balls"]) if b[3] == 1)
         fx.confetti(ctx, t, fr["t_end"], cfg.seed)
-        fx.banner(ctx, t, fr["t_end"], f"{cfg.names[wi]} SURVIVES!", cols[wi], "Did you pick right?")
+        fx.banner(ctx, t, fr["t_end"], f"{label(cfg, wi)} SURVIVES!", cols[wi], "Did you pick right?")
 
 
 def audio_events(res, cfg):
@@ -237,4 +247,5 @@ AUDIO_MIN_GAP = 0.05
 
 def metadata_facts(res, cfg):
     return dict(template="elim", winner=res["winner"], colors=cfg.names, n_balls=len(cfg.names),
+                labels=cfg.labels or [],
                 t_end=round(res["t_end"], 2), places=res["places"], melody=cfg.melody_name)
