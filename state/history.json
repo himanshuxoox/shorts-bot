@@ -1,5 +1,5 @@
 {
- "next_seed": 1635,
+ "next_seed": 1639,
  "videos": [
   {
    "date": "2026-10-02",
@@ -156,7 +156,31 @@
    "format": "elim",
    "seed": 1632,
    "title": "Pick a color \u2014 only 1 survives \ud83d\udd35\ud83d\udfe3\ud83d\udfe2\ud83d\udd34\ud83e\ude77\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "rings",
+   "seed": 1635,
+   "title": "Guess how long it takes to break 6 rings \u23f1\ufe0f #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "butterfly",
+   "seed": 1638,
+   "title": "Tiny difference, totally different ending \ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "multiply",
+   "seed": 1636,
+   "title": "1 ball\u2026 guess how many at the end! \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "evolve",
+   "seed": 1635,
+   "title": "Will it fill the whole circle? \ud83c\udf08 #shorts"
   }
  ],
- "lineup_pos": 8
+ "lineup_pos": 3
 }
