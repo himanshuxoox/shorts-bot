@@ -5,8 +5,9 @@ Render today's batch of Shorts — one video per format in LINEUP.
     python -m shorts.batch --count 1 --date test    # quick test
     FORMATS=rings,paint python -m shorts.batch      # choose formats
 
-Formats: butterfly (butterfly effect + spikes), evolve (rainbow growing ball), multiply
-(multiplier tokens + breakable rings), paint (color battle), elim (elimination), rings
+Formats: crush (press splits balls into 3), shrink (ball shrinks, wall grows), devour (black hole
+vs multiplying swarm), butterfly (butterfly effect + spikes), evolve (rainbow growing ball),
+multiply (multiplier tokens + breakable rings), paint (color battle), elim (elimination), rings
 (multi-ring escape), grow (growing ball), escape (the original single-ring race).
 The lineup rotates day by day, so with 4 videos/day every format comes back regularly.
 With TRENDS=on, one video a day (paint or elim) uses safe trending words from
@@ -19,17 +20,20 @@ from zoneinfo import ZoneInfo
 
 import random
 
-from . import escape, rings, grow, paint, elim, butterfly, evolve, multiply, metadata, trends
+from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
+               metadata, trends)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "state", "history.json")
 IST = ZoneInfo("Asia/Kolkata")
-MODS = dict(butterfly=butterfly, evolve=evolve, multiply=multiply, paint=paint, elim=elim,
-            rings=rings, grow=grow, escape=escape)
-DEFAULT_LINEUP = "butterfly,multiply,evolve,paint,butterfly,multiply,evolve,elim,rings"
+MODS = dict(butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
+            crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape)
+DEFAULT_LINEUP = ("crush,butterfly,shrink,multiply,devour,evolve,paint,"
+                  "crush,butterfly,shrink,multiply,devour,evolve,elim")
+LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
-LABEL_FORMATS = {"paint": 4, "elim": 5}          # formats that can show trend words as names
+LABEL_FORMATS = {"paint": 4, "elim": 4}          # formats that can show trend words as names
 TREND_VIDEOS = int(os.environ.get("TREND_VIDEOS", "1"))
 
 
@@ -69,17 +73,17 @@ def render_one(args):
     frames = res["frames"]
     base = os.path.join(out_dir, f"{idx:02d}_{fmt}_{seed}")
     wav = base + ".wav"
-    build_audio(mod.audio_events(res, cfg), len(frames) / FPS, wav,
+    build_audio(mod.audio_events(res, cfg), len(frames) / FPS + LOOP_S, wav,
                 min_gap=getattr(mod, "AUDIO_MIN_GAP", 0.0))
     draw = lambda ctx, fr: mod.draw(ctx, fr, cfg)
-    render_frames(frames, draw, base + ".mp4", wav)
+    render_frames(frames, draw, base + ".mp4", wav, loop_s=LOOP_S)
     os.remove(wav)
     save_thumbnail(frames[int(len(frames) * 0.45)], draw, base + "_cover.png")
     facts = mod.metadata_facts(res, cfg)
     meta = metadata.build(facts, seed)
     item = dict(format=fmt, seed=seed, file=os.path.basename(base + ".mp4"),
                 cover=os.path.basename(base + "_cover.png"),
-                duration=round(len(frames) / FPS, 2), facts=facts, **meta)
+                duration=round(len(frames) / FPS + LOOP_S, 2), facts=facts, **meta)
     with open(base + ".json", "w") as f:
         json.dump(item, f, indent=1, ensure_ascii=False)
     print(f"[{idx}] {fmt} seed={seed} {item['duration']}s ({time.time() - t0:.0f}s)  {meta['title']}",

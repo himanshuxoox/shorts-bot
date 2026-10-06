@@ -222,3 +222,28 @@ def music_line(ctx, s="Did you recognize the music?", y=1575):
 
 def big_count(ctx, n, y=1470, label="", col=(1, 1, 1)):
     text(ctx, f"{n:,}{label}", 540, y, 64, col, 0.95)
+
+
+# ------------------------------------------------------------------ two-line caption with coloured words
+CYAN = (0.25, 0.85, 1.0)
+RED = (1.0, 0.3, 0.3)
+WHITE = (1.0, 1.0, 1.0)
+
+
+def rich_title(ctx, lines, y=290, size=60, max_w=960):
+    """lines: [[(text, rgb), ...], ...]  e.g. Every bounce SHRINKS the ball."""
+    from .common import _face
+    _face(ctx, size, True)
+    widths = [sum(ctx.text_extents(s).x_advance for s, _ in ln) for ln in lines]
+    k = min(1.0, max_w / max(widths))
+    _face(ctx, size * k, True)
+    for j, ln in enumerate(lines):
+        w = sum(ctx.text_extents(s).x_advance for s, _ in ln)
+        x = 540 - w / 2
+        yy = y + (j - (len(lines) - 1) / 2) * size * k * 1.18
+        for s, col in ln:
+            ctx.move_to(x, yy)
+            ctx.set_source_rgb(*col)
+            ctx.show_text(s)
+            x += ctx.text_extents(s).x_advance
+        ctx.new_path()

@@ -62,6 +62,24 @@ TITLES = {
         ("music", "Did you recognize the music? 🎵💥"),
         ("x10", "x2, x5, x10… how many balls? 🤯"),
     ],
+    "shrink": [
+        ("every", "Every bounce SHRINKS the ball and GROWS the wall 😳"),
+        ("who", "Ball vs wall — who wins? 😳"),
+        ("guess", "Guess how many bounces before the wall wins 🤔"),
+        ("music", "Did you recognize the music? 🎵"),
+    ],
+    "devour": [
+        ("ate", "The black hole ate the ENTIRE swarm 🕳️"),
+        ("every", "Every ball it eats makes the black hole BIGGER 🕳️"),
+        ("can", "Can the black hole eat them all? 😳"),
+        ("music", "Did you recognize the music? 🎵🕳️"),
+    ],
+    "crush": [
+        ("crushed", "It crushed one ball into {N} pieces 😳"),
+        ("handle", "Every crushed ball splits into 3… how many can it handle? 🤯"),
+        ("guess", "1 ball → ??? balls. Guess the final count!"),
+        ("music", "Did you recognize the music? 🎵💥"),
+    ],
     "paint_labels": [
         ("vs", "{L} — who wins? {e}"),
         ("pick", "Pick one: {L} {e}"),
@@ -87,6 +105,9 @@ FIRST_LINE = {
     "grow": "The ball grows a little on every bounce, so the bounces get faster and faster until it fills the circle.",
     "paint": "{vs} — every bit of wall a ball touches turns its color. Most wall when the clock hits zero wins.",
     "elim": "{vs} — fall out of the spinning ring and you're eliminated. Last ball inside wins.",
+    "shrink": "Every bounce makes the ball a little smaller and the wall grows right where it hit. Who wins?",
+    "devour": "A tiny swarm eats pellets and every few pellets each ball splits in two. Every ball the black hole eats makes it bigger.",
+    "crush": "Every ball the press crushes splits into 3 smaller balls: 1, 3, 9, 27… until the bucket can't take it.",
     "butterfly": "{n} balls start almost exactly in the same spot. A difference smaller than a pixel decides who survives the spikes.",
     "evolve": "Every bounce makes the ball bigger and leaves a new color behind, until it fills the whole circle.",
     "multiply": "One ball, three rings, and multipliers that copy every ball that touches them. How many balls at the end?",
@@ -98,6 +119,9 @@ ASK = {
     "paint": "Which color did you pick? Tell me in the comments 👇",
     "elim": "Which color did you pick? Tell me in the comments 👇",
     "butterfly": "Did you recognize the music? Tell me in the comments 👇",
+    "shrink": "Did you recognize the music? Tell me in the comments 👇",
+    "devour": "Did you recognize the music? Tell me in the comments 👇",
+    "crush": "What was your guess? And did you recognize the music? 👇",
     "evolve": "Did you recognize the music? And how many bounces did you guess? 👇",
     "multiply": "What was your guess? And did you recognize the music? 👇",
 }
@@ -110,6 +134,9 @@ EXTRA_TAGS = {
     "grow": ["growing ball", "ball grows every bounce", "fill the circle", "guess the bounces"],
     "paint": ["color battle", "color war", "pick a color", "paint the wall", "which color wins"],
     "elim": ["elimination", "last one standing", "marble race", "ball battle", "which ball survives"],
+    "shrink": ["ball shrinks", "growing wall", "bouncing ball music", "guess the song", "satisfying physics"],
+    "devour": ["black hole", "swarm", "eats everything", "bouncing ball music", "guess the song"],
+    "crush": ["hydraulic press", "crushed ball", "ball splits", "how many balls", "guess the song"],
     "butterfly": ["butterfly effect", "chaos theory", "bouncing ball music", "guess the song", "spikes"],
     "evolve": ["ball evolves", "growing ball", "rainbow", "bouncing ball music", "guess the song"],
     "multiply": ["ball multiply", "multiplying balls", "ring break", "bouncing ball music", "guess the song"],
@@ -121,6 +148,9 @@ HASHTAGS = {
     "paint": "#shorts #satisfying #simulation #colorbattle #oddlysatisfying",
     "elim": "#shorts #satisfying #simulation #elimination #oddlysatisfying",
     "butterfly": "#shorts #satisfying #butterflyeffect #bouncingball #oddlysatisfying",
+    "shrink": "#shorts #satisfying #bouncingball #simulation #oddlysatisfying",
+    "devour": "#shorts #satisfying #blackhole #simulation #oddlysatisfying",
+    "crush": "#shorts #satisfying #hydraulicpress #simulation #oddlysatisfying",
     "evolve": "#shorts #satisfying #bouncingball #rainbow #oddlysatisfying",
     "multiply": "#shorts #satisfying #bouncingball #multiply #oddlysatisfying",
 }
@@ -141,7 +171,8 @@ def build(facts: dict, seed: int) -> dict:
     style, tpl = rng.choice(pool)
     L = " vs ".join(w.title() for w in labels)
     title = tpl.format(e=e, a=cols[0].title() if cols else "", b=cols[1].title() if len(cols) > 1 else "",
-                       n=facts.get("n_balls", len(cols)), r=facts.get("n_rings", ""), L=L)
+                       n=facts.get("n_balls", len(cols)), r=facts.get("n_rings", ""), L=L,
+                       N=f"{facts.get('n_final', 0):,}")
     title = f"{title.strip()} #shorts"[:100]
     vs = " vs ".join(w.title() for w in (labels or cols))
     desc = "\n".join([

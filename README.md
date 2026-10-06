@@ -6,6 +6,9 @@ note of a famous **public-domain** tune ("Did you recognize the music?").
 
 | Format | What happens | Hook |
 |---|---|---|
+| `crush` | A hydraulic press in a bucket; every crushed ball splits into 3 smaller ones (1 → 10,000+), then the bucket bursts | Guess the final count |
+| `shrink` | Every bounce shrinks the ball and grows the wall inward (radial spokes) until the wall wins | Ball vs wall |
+| `devour` | A swarm eats pellets and multiplies; a black hole eats the swarm and grows until it swallows everything | Can it eat them all? |
 | `butterfly` | 12-30 balls start a fraction of a pixel apart, move as one, then split; spikes pop them. Last ball alive wins | Butterfly effect / who survives |
 | `multiply` | 1 ball, 3 breakable rings and x2/x3/x5/x10 tokens. 1 ball becomes hundreds | Guess the final count |
 | `evolve` | The ball grows every bounce and leaves a rainbow tube behind until it fills the circle | Guess the bounces |
@@ -19,16 +22,18 @@ The first three copy what works best in this niche (black background, thin neon 
 question at the top, "Did you recognize the music?" at the bottom) — without paying for a
 simulator tool, without a watermark, and without copyrighted songs.
 
-- The daily lineup **rotates** (`butterfly,multiply,evolve,paint,butterfly,multiply,evolve,elim,rings`),
+- The daily lineup **rotates** (`crush,butterfly,shrink,multiply,devour,evolve,paint,…,elim`),
   so every format comes back regularly. Override with the repo variable `FORMATS`.
+- **Seamless loops**: every video ends with a 0.4 s cross-fade back to its first frame, so when
+  Shorts replays it the loop is invisible (the top channels in this niche all do this).
 - **Trend scout** (`shorts/trends.py`): finds trending slang/meme *words*, runs three safety
   checks, and lets one video a day use the approved words as ball names ("Aura vs Rizz vs Goat").
-  Trending *audio* is never used. Set the repo variable `TRENDS = off` to disable.
+  Trending *audio* is never used. **Off by default**; set the repo variable `TRENDS = on` to enable.
 - **Music**: only melodies composed before 1910, written out note by note and synthesized by
   the code (`shorts/melodies.py`). Never add pop / film / Bollywood / game music.
 
 ```
-shorts/butterfly.py multiply.py evolve.py paint.py elim.py rings.py grow.py escape.py   one file per format
+shorts/crush.py shrink.py devour.py butterfly.py multiply.py evolve.py paint.py elim.py rings.py grow.py escape.py   one file per format
 shorts/trends.py     trend scout: trending words -> 3 safety checks -> state/trends.json
 shorts/fx.py         shared drawing (balls, glow rings, particles, scoreboards, end banner)
 shorts/melodies.py   public-domain tunes (Beethoven, Grieg, Mozart, Pachelbel, trad.)
@@ -94,7 +99,7 @@ The bot is now hands-free: it renders every morning and each video goes public a
 ## Tuning
 
 - Repo variable `FORMATS` sets the rotating lineup (a format can appear more than once to give it more weight).
-- Repo variable `TRENDS = off` turns the trend scout off; `TREND_VIDEOS` (env) = trend-word videos per day (default 1).
+- Repo variable `TRENDS = on` turns the trend scout on (default off); `TREND_VIDEOS` (env) = trend-word videos per day (default 1).
 - Every decision of the trend scout (approved / rejected + reason) is in `state/trends.json`.
 - Each format file has `HOOKS` / `SUBS` (on-screen text) and `is_good()`, which decides what counts as a
   good video (length, close finish, lead changes…). Seeds that fail it are skipped.

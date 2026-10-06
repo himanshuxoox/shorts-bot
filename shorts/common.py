@@ -127,7 +127,9 @@ def build_audio(events, total, path, min_gap=0.0):
 
 
 # ------------------------------------------------------------------ video
-def render_frames(frames, draw_fn, out_path, audio_path):
+def render_frames(frames, draw_fn, out_path, audio_path, loop_s=0.0):
+    """Render frames to an mp4. loop_s > 0 adds a short cross-fade from the last frame back
+    to the first one, so when Shorts replays the video it loops seamlessly (more watch time)."""
     surf = cairo.ImageSurface(cairo.FORMAT_ARGB32, W, H)
     ctx = cairo.Context(surf)
     tmp_v = out_path + ".video.mp4"
@@ -139,6 +141,21 @@ def render_frames(frames, draw_fn, out_path, audio_path):
         draw_fn(ctx, fr)
         surf.flush()
         ff.stdin.write(bytes(surf.get_data()))
+    n_loop = int(round(loop_s * FPS))
+    if n_loop:
+        last = cairo.ImageSurface(cairo.FORMAT_ARGB32, W, H)
+        lc = cairo.Context(last)
+        lc.set_source_surface(surf, 0, 0)
+        lc.paint()
+        first = cairo.ImageSurface(cairo.FORMAT_ARGB32, W, H)
+        draw_fn(cairo.Context(first), frames[0])
+        for k in range(1, n_loop + 1):
+            ctx.set_source_surface(last, 0, 0)
+            ctx.paint()
+            ctx.set_source_surface(first, 0, 0)
+            ctx.paint_with_alpha(k / n_loop)
+            surf.flush()
+            ff.stdin.write(bytes(surf.get_data()))
     ff.stdin.close()
     if ff.wait() != 0:
         raise RuntimeError("ffmpeg video encode failed")
