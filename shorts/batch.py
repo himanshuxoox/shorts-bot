@@ -92,14 +92,22 @@ def render_one(args):
 
 
 def dedupe_titles(items, out_dir, recent=()):
-    """No two videos in the batch share a title style, and no title repeats a recent one."""
+    """No two videos in the batch share a title style or the same wording (e.g. two
+    "Did you recognize the music?" titles), and no title repeats a recent one."""
+    import re
+
+    def keys(it):
+        style = it.get("title_style", "")
+        words = re.sub(r"[^a-z ]", "", it["title"].lower().replace("#shorts", "")).strip()
+        return {style, "music" if style.endswith(":music") else style, words}
+
     seen = set()
     for it in items:
         k = 1
-        while (it.get("title_style") in seen or it["title"] in recent) and k < 40:
+        while (keys(it) & seen or it["title"] in recent) and k < 40:
             it.update(metadata.build(it["facts"], it["seed"] + 1000 * k))
             k += 1
-        seen.add(it.get("title_style"))
+        seen |= keys(it)
         with open(os.path.join(out_dir, it["file"].replace(".mp4", ".json")), "w") as f:
             json.dump(it, f, indent=1, ensure_ascii=False)
 
