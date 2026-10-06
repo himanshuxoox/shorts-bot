@@ -1,5 +1,5 @@
 {
- "next_seed": 1639,
+ "next_seed": 1642,
  "videos": [
   {
    "date": "2026-10-02",
@@ -180,7 +180,31 @@
    "format": "evolve",
    "seed": 1635,
    "title": "Will it fill the whole circle? \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "multiply",
+   "seed": 1641,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udca5 #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "devour",
+   "seed": 1639,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udd73\ufe0f #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "evolve",
+   "seed": 1639,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-06",
+   "format": "paint",
+   "seed": 1640,
+   "title": "This color war was too close \ud83d\ude31 \ud83d\udfe3\ud83d\udfe0\ud83d\udfe2\ud83e\ude75 #shorts"
   }
  ],
- "lineup_pos": 3
+ "lineup_pos": 7
 }
