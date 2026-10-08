@@ -1,5 +1,5 @@
 {
- "next_seed": 1652,
+ "next_seed": 1667,
  "videos": [
   {
    "date": "2026-10-02",
@@ -228,7 +228,31 @@
    "format": "multiply",
    "seed": 1642,
    "title": "x2, x5, x10\u2026 how many balls? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-08",
+   "format": "devour",
+   "seed": 1653,
+   "title": "The black hole ate the ENTIRE swarm \ud83d\udd73\ufe0f #shorts"
+  },
+  {
+   "date": "2026-10-08",
+   "format": "evolve",
+   "seed": 1652,
+   "title": "With every bounce, the ball evolves\u2026 \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-08",
+   "format": "elim",
+   "seed": 1666,
+   "title": "Last ball inside wins! \ud83d\udfe1\ud83e\ude75\ud83d\udd34\ud83d\udfe2\ud83d\udfe3\ud83d\udd35 #shorts"
+  },
+  {
+   "date": "2026-10-08",
+   "format": "crush",
+   "seed": 1652,
+   "title": "1 ball \u2192 ??? balls. Guess the final count! #shorts"
   }
  ],
- "lineup_pos": 11
+ "lineup_pos": 1
 }
