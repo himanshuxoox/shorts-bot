@@ -2,16 +2,19 @@ name: Daily Facts
 
 on:
   schedule:
+    - cron: "41 20 * * *"     # 02:11 IST — GitHub often runs schedules 5-6 h late
     # 3 tries because GitHub sometimes delays/drops scheduled runs; extra ones skip in seconds.
     - cron: "53 0 * * *"      # 06:23 IST
     - cron: "11 2 * * *"      # 07:41 IST (backup)
     - cron: "43 3 * * *"      # 09:13 IST (backup)
-    - cron: "41 20 * * *"     # 02:11 IST (GitHub often runs 5-6 h late)
   workflow_dispatch:
     inputs:
       count:
         description: "How many videos"
         default: "4"
+      force:
+        description: "Run even if today's batch already exists"
+        default: "false"
 
 permissions:
   contents: write
@@ -29,7 +32,7 @@ jobs:
         id: check
         run: |
           TODAY=$(TZ=Asia/Kolkata date +%F)
-          if [ "${{ github.event_name }}" = "schedule" ] && [ -f state/facts_history.json ] && grep -q "\"date\": \"$TODAY\"" state/facts_history.json; then
+          if [ "${{ github.event.inputs.force }}" != "true" ] && [ -f state/facts_history.json ] && grep -q "\"date\": \"$TODAY\"" state/facts_history.json; then
             echo "Facts batch for $TODAY already exists, skipping."
             echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
@@ -93,5 +96,6 @@ jobs:
           git config user.name  "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
           git add state/facts_history.json
+          git add state/schedule_out_facts.json 2>/dev/null || true
           git commit -m "Facts batch $(date -u +%F)" || echo "nothing to commit"
           git pull --rebase && git push

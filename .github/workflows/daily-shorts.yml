@@ -2,6 +2,7 @@ name: Daily Shorts
 
 on:
   schedule:
+    - cron: "41 20 * * *"     # 02:11 IST — GitHub often runs schedules 5-6 h late
     # GitHub sometimes delays or drops scheduled runs, so there are 3 tries.
     # The "Already done today?" step makes the extra ones exit in seconds.
     - cron: "17 0 * * *"      # 05:47 IST
@@ -89,6 +90,7 @@ jobs:
         run: |
           git config user.name  "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
-          git add state/history.json state/trends.json 2>/dev/null || git add state/history.json
+          git add state/history.json
+          git add state/trends.json state/schedule_out.json 2>/dev/null || true
           git commit -m "Daily batch $(date -u +%F)" || echo "nothing to commit"
           git pull --rebase && git push
