@@ -1,5 +1,5 @@
 {
- "next_seed": 1667,
+ "next_seed": 1693,
  "videos": [
   {
    "date": "2026-10-02",
@@ -252,7 +252,31 @@
    "format": "crush",
    "seed": 1652,
    "title": "1 ball \u2192 ??? balls. Guess the final count! #shorts"
+  },
+  {
+   "date": "2026-10-09",
+   "format": "butterfly",
+   "seed": 1692,
+   "title": "24 balls, same start\u2026 who survives? \ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-09",
+   "format": "shrink",
+   "seed": 1667,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-10-09",
+   "format": "multiply",
+   "seed": 1667,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udca5 #shorts"
+  },
+  {
+   "date": "2026-10-09",
+   "format": "devour",
+   "seed": 1667,
+   "title": "Every ball it eats makes the black hole BIGGER \ud83d\udd73\ufe0f #shorts"
   }
  ],
- "lineup_pos": 1
+ "lineup_pos": 5
 }
