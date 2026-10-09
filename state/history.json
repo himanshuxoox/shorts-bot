@@ -1,5 +1,5 @@
 {
- "next_seed": 1693,
+ "next_seed": 1694,
  "videos": [
   {
    "date": "2026-10-02",
@@ -276,7 +276,13 @@
    "format": "devour",
    "seed": 1667,
    "title": "Every ball it eats makes the black hole BIGGER \ud83d\udd73\ufe0f #shorts"
+  },
+  {
+   "date": "2026-10-09",
+   "format": "evolve",
+   "seed": 1693,
+   "title": "Guess the bounce count \ud83e\udd14\ud83c\udf08 #shorts"
   }
  ],
- "lineup_pos": 5
+ "lineup_pos": 6
 }
