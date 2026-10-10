@@ -80,6 +80,13 @@ TITLES = {
         ("guess", "1 ball → ??? balls. Guess the final count!"),
         ("music", "Did you recognize the music? 🎵💥"),
     ],
+    "royale": [
+        ("who", "{n} Balls Battle Royale — Only 1 Survives! Pick Your Ball 👑"),
+        ("pick", "Pick a Ball Before the Fight Starts! {n} Ball Battle Royale ⚔️"),
+        ("royale", "Ball Battle Royale: Swords, Lasers & Bombs — Last Ball Standing Wins 👑"),
+        ("weapons", "{n} Balls, Random Weapons, Only 1 Winner ⚔️ Who Survives?"),
+        ("walls", "The Walls Are Closing In… Which Ball Survives? | Ball Battle Royale"),
+    ],
     "paint_labels": [
         ("vs", "{L} — who wins? {e}"),
         ("pick", "Pick one: {L} {e}"),
@@ -110,6 +117,7 @@ FIRST_LINE = {
     "crush": "Every ball the press crushes splits into 3 smaller balls: 1, 3, 9, 27… until the bucket can't take it.",
     "butterfly": "{n} balls start almost exactly in the same spot. A difference smaller than a pixel decides who survives the spikes.",
     "evolve": "Every bounce makes the ball bigger and leaves a new color behind, until it fills the whole circle.",
+    "royale": "{n} ball fighters, random weapon drops (sword, blaster, hammer, laser, bomb) and electric walls that close in. Last ball standing wins.",
     "multiply": "One ball, three rings, and multipliers that copy every ball that touches them. How many balls at the end?",
 }
 ASK = {
@@ -124,6 +132,7 @@ ASK = {
     "crush": "What was your guess? And did you recognize the music? 👇",
     "evolve": "Did you recognize the music? And how many bounces did you guess? 👇",
     "multiply": "What was your guess? And did you recognize the music? 👇",
+    "royale": "Which ball did you pick — and did it win? Tell me in the comments 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -140,6 +149,7 @@ EXTRA_TAGS = {
     "butterfly": ["butterfly effect", "chaos theory", "bouncing ball music", "guess the song", "spikes"],
     "evolve": ["ball evolves", "growing ball", "rainbow", "bouncing ball music", "guess the song"],
     "multiply": ["ball multiply", "multiplying balls", "ring break", "bouncing ball music", "guess the song"],
+    "royale": ["battle royale", "ball battle", "ball fight", "last one standing", "pick a ball", "game simulation"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -153,6 +163,7 @@ HASHTAGS = {
     "crush": "#shorts #satisfying #hydraulicpress #simulation #oddlysatisfying",
     "evolve": "#shorts #satisfying #bouncingball #rainbow #oddlysatisfying",
     "multiply": "#shorts #satisfying #bouncingball #multiply #oddlysatisfying",
+    "royale": "#battleroyale #ballbattle #simulation #marblerace #gaming",
 }
 
 
@@ -173,19 +184,21 @@ def build(facts: dict, seed: int) -> dict:
     title = tpl.format(e=e, a=cols[0].title() if cols else "", b=cols[1].title() if len(cols) > 1 else "",
                        n=facts.get("n_balls", len(cols)), r=facts.get("n_rings", ""), L=L,
                        N=f"{facts.get('n_final', 0):,}")
-    title = f"{title.strip()} #shorts"[:100]
+    title = (title.strip() if tpl_name == "royale" else f"{title.strip()} #shorts")[:100]   # royale = normal video
     vs = " vs ".join(w.title() for w in (labels or cols))
     desc = "\n".join([
         FIRST_LINE[tpl_name].format(vs=vs, r=facts.get("n_rings", ""), n=facts.get("n_balls", "")),
         ASK[tpl_name],
         "",
-        "New simulations every day — subscribe so you don't miss tomorrow's!",
+        ("A new Ball Battle Royale every day — subscribe and pick your ball before the fight starts!"
+         if tpl_name == "royale" else "New simulations every day — subscribe so you don't miss tomorrow's!"),
         "",
-        f"🎵 Melody: {facts['melody']} (public domain), synthesized for this video.",
+        (f"🎵 Melody: {facts['melody']} (public domain), synthesized for this video." if tpl_name != "royale"
+         else "🎵 Music & sound effects: original, synthesized in code for this video."),
         "Simulation is 100% computer-generated with code. No real footage.",
         "",
         HASHTAGS[tpl_name],
     ])
-    tags = TAGS + EXTRA_TAGS[tpl_name] + [f"{c.lower()} ball" for c in cols][:4] + [w.lower() for w in labels]
+    tags = (TAGS[1:] if tpl_name == "royale" else TAGS) + EXTRA_TAGS[tpl_name] + [f"{c.lower()} ball" for c in cols][:4] + [w.lower() for w in labels]
     return dict(title=title, title_style=f"{tpl_name}:{style}", description=desc, tags=tags,
-                categoryId="24")
+                categoryId="20" if tpl_name == "royale" else "24")

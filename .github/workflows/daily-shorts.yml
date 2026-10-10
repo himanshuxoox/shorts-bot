@@ -65,6 +65,7 @@ jobs:
         if: steps.check.outputs.skip != 'true'
         env:
           FORMATS: ${{ vars.FORMATS }}
+          EXTRA_FORMATS: ${{ vars.EXTRA_FORMATS || 'royale' }}   # +1 Battle Royale (2-3 min) every day
           TRENDS: ${{ vars.TRENDS == 'on' && 'on' || 'off' }}
         run: python -m shorts.batch --count "${{ github.event.inputs.count || '4' }}" --workers 2
 
@@ -74,7 +75,7 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '08:30,12:30,17:30,21:00' }}
+          PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '08:30,12:30,15:30,18:30,21:00' }}
         run: python -m shorts.upload
 
       - name: Keep videos as a downloadable artifact (7 days)

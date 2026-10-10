@@ -3,3 +3,4 @@ pycairo>=1.25
 google-api-python-client>=2.100
 google-auth>=2.23
 google-genai>=2.0      # trend scout (shorts/trends.py)
+Pillow>=10.0

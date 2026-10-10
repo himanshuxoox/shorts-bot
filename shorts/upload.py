@@ -16,8 +16,8 @@ from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IST = ZoneInfo("Asia/Kolkata")
-# publish slots (IST) — override with env PUBLISH_SLOTS="08:30,12:30,17:30,21:00"
-SLOTS = os.environ.get("PUBLISH_SLOTS", "08:30,12:30,17:30,21:00").split(",")
+# publish slots (IST) — 4 Shorts + 1 Battle Royale a day. Override with env PUBLISH_SLOTS
+SLOTS = os.environ.get("PUBLISH_SLOTS", "08:30,12:30,15:30,18:30,21:00").split(",")
 
 
 def _sched_path(out_dir):
@@ -97,7 +97,17 @@ def upload_one(yt, path, item, publish_at):
     resp = None
     while resp is None:
         _status, resp = req.next_chunk()
-    return resp["id"]
+    vid = resp["id"]
+    thumb = item.get("thumbnail")
+    if thumb:                       # long videos get their own thumbnail (needs a phone-verified channel)
+        tpath = os.path.join(os.path.dirname(path), thumb)
+        try:
+            yt.thumbnails().set(videoId=vid, media_body=MediaFileUpload(tpath, mimetype="image/jpeg")).execute()
+            print("   thumbnail set")
+        except Exception as e:      # video is still uploaded fine; YouTube then picks a frame
+            print(f"   thumbnail not set ({e}). Verify the channel by phone at youtube.com/verify",
+                  file=sys.stderr)
+    return vid
 
 
 def main():
@@ -129,7 +139,7 @@ def main():
         item["youtube_id"] = vid
         item["publish_at"] = when.isoformat()
         save_last_slot(a.out, when)
-        print(f"   -> https://youtube.com/shorts/{vid}")
+        print(f"   -> https://youtube.com/{'watch?v=' if item.get('long_form') else 'shorts/'}{vid}")
 
     if not a.dry_run:
         with open(mpath, "w") as f:

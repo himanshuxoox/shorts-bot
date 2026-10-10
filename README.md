@@ -96,6 +96,26 @@ Every day, download the artifact. In YouTube Studio, click **Create → Upload**
 
 The bot is now hands-free: it renders every morning and each video goes public at its scheduled slot.
 
+## Ball Battle Royale (2-3 min, one per day)
+
+Every day's batch also renders one **Ball Battle Royale** (`shorts/royale.py`), a 2:15-2:45
+**landscape 1920x1080 video** (a normal YouTube video, not a Short) with its own 1280x720
+thumbnail. 8-10 ball characters with reacting faces fight in a big arena. Weapons drop in (sword, blaster,
+hammer, laser, bomb) plus heal / shield / speed / GIANT. After about a minute the electric walls
+close in. Kill feed, roster with HP bars, "FIRST BLOOD!", "FINAL DUEL!", winner with crown.
+Category: Gaming. The title has no #shorts.
+- Custom thumbnail: uploaded automatically with `thumbnails.set`. This only works on a
+  **phone-verified channel** (youtube.com/verify, free). If not verified, the video still
+  uploads and YouTube picks a frame.
+
+- Faces: `assets/balls/<color>/<emotion>.png`, cut from the character sheets with
+  `python tools/extract_sprites.py <sheets folder> assets/balls`.
+- Music and sound effects are synthesized in code (`shorts/royale_audio.py`), nothing copyrighted.
+- A hidden "director" paces the damage so eliminations are spread over the whole video.
+- Turn it off: repo variable `EXTRA_FORMATS = none`. Test alone:
+  `FORMATS=royale EXTRA_FORMATS=none python -m shorts.batch --count 1 --date test`
+- Publish slots are now 5 a day: `08:30,12:30,15:30,18:30,21:00` (the royale gets the last one).
+
 ## Tuning
 
 - Repo variable `FORMATS` sets the rotating lineup (a format can appear more than once to give it more weight).

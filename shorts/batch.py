@@ -5,7 +5,8 @@ Render today's batch of Shorts — one video per format in LINEUP.
     python -m shorts.batch --count 1 --date test    # quick test
     FORMATS=rings,paint python -m shorts.batch      # choose formats
 
-Formats: crush (press splits balls into 3), shrink (ball shrinks, wall grows), devour (black hole
+Formats: royale (2-3 min LANDSCAPE Ball Battle Royale game, uploaded as a normal video),
+crush (press splits balls into 3), shrink (ball shrinks, wall grows), devour (black hole
 vs multiplying swarm), butterfly (butterfly effect + spikes), evolve (rainbow growing ball),
 multiply (multiplier tokens + breakable rings), paint (color battle), elim (elimination), rings
 (multi-ring escape), grow (growing ball), escape (the original single-ring race).
@@ -21,18 +22,22 @@ from zoneinfo import ZoneInfo
 import random
 
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
-               metadata, trends)
+               royale, metadata, trends)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "state", "history.json")
 IST = ZoneInfo("Asia/Kolkata")
-MODS = dict(butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
+MODS = dict(royale=royale, butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
             crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape)
 DEFAULT_LINEUP = ("crush,butterfly,shrink,multiply,devour,evolve,paint,"
                   "crush,butterfly,shrink,multiply,devour,evolve,elim")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
+# formats added to EVERY day's batch on top of --count (not part of the rotation).
+# Default: one 2-3 min Ball Battle Royale per day. Set EXTRA_FORMATS=none to turn it off.
+EXTRA = [f.strip() for f in os.environ.get("EXTRA_FORMATS", "royale").split(",")
+         if f.strip() and f.strip() != "none"]
 LABEL_FORMATS = {"paint": 4, "elim": 4}          # formats that can show trend words as names
 TREND_VIDEOS = int(os.environ.get("TREND_VIDEOS", "1"))
 
@@ -67,11 +72,14 @@ def render_one(args):
     mod = MODS[fmt]
     t0 = time.time()
     cfg = make_config(mod, seed, labels)
+    base = os.path.join(out_dir, f"{idx:02d}_{fmt}_{seed}")
+    if hasattr(mod, "render_video"):            # long formats with their own renderer/audio (royale)
+        res, duration = mod.render_video(cfg, base)
+        return _finish(mod, fmt, seed, base, res, cfg, duration, idx, t0)
     res = mod.simulate(cfg, record=True)
     if hasattr(mod, "prepare"):
         mod.prepare(res, cfg)
     frames = res["frames"]
-    base = os.path.join(out_dir, f"{idx:02d}_{fmt}_{seed}")
     wav = base + ".wav"
     build_audio(mod.audio_events(res, cfg), len(frames) / FPS + LOOP_S, wav,
                 min_gap=getattr(mod, "AUDIO_MIN_GAP", 0.0))
@@ -79,11 +87,18 @@ def render_one(args):
     render_frames(frames, draw, base + ".mp4", wav, loop_s=LOOP_S)
     os.remove(wav)
     save_thumbnail(frames[int(len(frames) * 0.45)], draw, base + "_cover.png")
+    return _finish(mod, fmt, seed, base, res, cfg, round(len(frames) / FPS + LOOP_S, 2), idx, t0)
+
+
+def _finish(mod, fmt, seed, base, res, cfg, duration, idx, t0):
     facts = mod.metadata_facts(res, cfg)
     meta = metadata.build(facts, seed)
     item = dict(format=fmt, seed=seed, file=os.path.basename(base + ".mp4"),
                 cover=os.path.basename(base + "_cover.png"),
-                duration=round(len(frames) / FPS + LOOP_S, 2), facts=facts, **meta)
+                duration=duration, facts=facts, **meta)
+    if os.path.exists(base + "_thumb.jpg"):          # long video (royale): custom thumbnail, not a Short
+        item["thumbnail"] = os.path.basename(base + "_thumb.jpg")
+        item["long_form"] = True
     with open(base + ".json", "w") as f:
         json.dump(item, f, indent=1, ensure_ascii=False)
     print(f"[{idx}] {fmt} seed={seed} {item['duration']}s ({time.time() - t0:.0f}s)  {meta['title']}",
@@ -117,7 +132,8 @@ def upload_sheet(items, path):
     for v in items:
         L += ["=" * 60, v["file"], "=" * 60, "TITLE:", v["title"], "", "DESCRIPTION:", v["description"],
               "", "TAGS:", ", ".join(v["tags"]), "",
-              "Made for kids: NO  |  Category: Entertainment  |  Altered/synthetic content: NO", "", ""]
+              f"Made for kids: NO  |  Category: {'Gaming' if v.get('categoryId') == '20' else 'Entertainment'}"
+              "  |  Altered/synthetic content: NO", "", ""]
     with open(path, "w") as f:
         f.write("\n".join(L))
 
@@ -129,13 +145,13 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "out"))
     ap.add_argument("--workers", type=int, default=max(1, min(4, (os.cpu_count() or 2) // 2)))
     a = ap.parse_args()
-    for f in LINEUP:
+    for f in LINEUP + EXTRA:
         if f not in MODS:
             raise SystemExit(f"unknown format {f!r}; choose from {', '.join(MODS)}")
 
     st = load_state()
     pos = st.get("lineup_pos", 0)
-    fmts = [LINEUP[(pos + i) % len(LINEUP)] for i in range(a.count)]
+    fmts = [LINEUP[(pos + i) % len(LINEUP)] for i in range(a.count)] + EXTRA
 
     # trend words: only words that passed every check today (state/trends.json)
     words = trends.todays_words() if os.environ.get("TRENDS", "off") == "on" else []
@@ -162,11 +178,13 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
 
     jobs = [(f, s, out_dir, i + 1, lb) for i, (f, s, lb) in enumerate(zip(fmts, seeds, labels))]
+    jobs.sort(key=lambda j: not hasattr(MODS[j[0]], "render_video"))   # long renders start first
     if a.workers > 1:
         with Pool(a.workers) as p:
             items = p.map(render_one, jobs)
     else:
         items = [render_one(j) for j in jobs]
+    items.sort(key=lambda it: it["file"])                  # back to 01, 02, ... order
 
     dedupe_titles(items, out_dir, recent={v["title"] for v in st["videos"][-24:]})
     with open(os.path.join(out_dir, "manifest.json"), "w") as f:
@@ -174,7 +192,7 @@ def main():
     upload_sheet(items, os.path.join(out_dir, "UPLOAD_SHEET.txt"))
 
     st["next_seed"] = max(seeds) + 1
-    st["lineup_pos"] = (pos + a.count) % len(LINEUP)
+    st["lineup_pos"] = (pos + a.count) % len(LINEUP)       # extras don't move the rotation
     st["videos"] += [dict(date=a.date, format=i["format"], seed=i["seed"], title=i["title"]) for i in items]
     save_state(st)
     print(f"done: {len(items)} videos in {out_dir}")
