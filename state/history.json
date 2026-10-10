@@ -1,5 +1,5 @@
 {
- "next_seed": 1694,
+ "next_seed": 1704,
  "videos": [
   {
    "date": "2026-10-02",
@@ -282,7 +282,31 @@
    "format": "evolve",
    "seed": 1693,
    "title": "Guess the bounce count \ud83e\udd14\ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-10",
+   "format": "paint",
+   "seed": 1694,
+   "title": "Most wall wins \u2014 pick one! \ud83d\udfe3\ud83d\udfe0\ud83d\udfe2\ud83e\ude75 #shorts"
+  },
+  {
+   "date": "2026-10-10",
+   "format": "crush",
+   "seed": 1694,
+   "title": "It crushed one ball into 6,307 pieces \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-10",
+   "format": "butterfly",
+   "seed": 1703,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-10",
+   "format": "shrink",
+   "seed": 1694,
+   "title": "Guess how many bounces before the wall wins \ud83e\udd14 #shorts"
   }
  ],
- "lineup_pos": 6
+ "lineup_pos": 10
 }
