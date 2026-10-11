@@ -1384,7 +1384,8 @@ def render_video(cfg, base):
     os.remove(tmp_v)
     os.remove(wav)
     save_cover(cfg, res, base + "_cover.png")
-    save_thumbnail(cfg, base + "_thumb.jpg")
+    from .royale_thumb import save_thumbnail as poster      # game-poster style 1280x720
+    poster(cfg, base + "_thumb.jpg", res)
     return res, round(total, 2)
 
 
