@@ -6,7 +6,8 @@ Render today's batch of Shorts — one video per format in LINEUP.
     FORMATS=rings,paint python -m shorts.batch      # choose formats
 
 Formats: royale (2-3 min LANDSCAPE Ball Battle Royale game, uploaded as a normal video),
-crush (press splits balls into 3), shrink (ball shrinks, wall grows), devour (black hole
+crush (press splits balls into 3), hammer (drop hammer in a circle splits balls into 3),
+squeeze (4 spring bars squash balls into 3), lasers (lasers vs doubling balls), shrink (ball shrinks, wall grows), devour (black hole
 vs multiplying swarm), butterfly (butterfly effect + spikes), evolve (rainbow growing ball),
 multiply (multiplier tokens + breakable rings), paint (color battle), elim (elimination), rings
 (multi-ring escape), grow (growing ball), escape (the original single-ring race).
@@ -22,16 +23,16 @@ from zoneinfo import ZoneInfo
 import random
 
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
-               royale, metadata, trends)
+               royale, hammer, squeeze, lasers, metadata, trends)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "state", "history.json")
 IST = ZoneInfo("Asia/Kolkata")
-MODS = dict(royale=royale, butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
+MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers, butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
             crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape)
-DEFAULT_LINEUP = ("crush,butterfly,shrink,multiply,devour,evolve,paint,"
-                  "crush,butterfly,shrink,multiply,devour,evolve,elim")
+DEFAULT_LINEUP = ("crush,lasers,butterfly,hammer,shrink,squeeze,multiply,devour,evolve,paint,"
+                  "lasers,crush,hammer,squeeze,butterfly,shrink,multiply,devour,evolve,elim")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).

@@ -87,6 +87,24 @@ TITLES = {
         ("weapons", "{n} Balls, Random Weapons, Only 1 Winner ⚔️ Who Survives?"),
         ("walls", "The Walls Are Closing In… Which Ball Survives? | Ball Battle Royale"),
     ],
+    "hammer": [
+        ("hammer", "Every ball the hammer hits splits into 3… how many can it hold? 🔨"),
+        ("guess", "1 ball → ??? balls. Guess the final count! 🔨"),
+        ("crushed", "This hammer turned 1 ball into {N} 😳"),
+        ("music", "Did you recognize the music? 🎵🔨"),
+    ],
+    "squeeze": [
+        ("squeeze", "Every ball caught in the squeeze splits into 3 😳"),
+        ("guess", "How many balls before the circle bursts? Guess! 🤯"),
+        ("crushed", "4 bars, 1 ball… {N} balls at the end 😳"),
+        ("music", "Did you recognize the music? 🎵💥"),
+    ],
+    "lasers": [
+        ("stop", "Can the lasers stop the doubling? 🔴🔵"),
+        ("every", "Every ball a laser hits becomes a LASER 😳"),
+        ("who", "Doubling balls vs lasers — who wins? 🔴🔵"),
+        ("music", "Did you recognize the music? 🎵🔵"),
+    ],
     "paint_labels": [
         ("vs", "{L} — who wins? {e}"),
         ("pick", "Pick one: {L} {e}"),
@@ -117,6 +135,9 @@ FIRST_LINE = {
     "crush": "Every ball the press crushes splits into 3 smaller balls: 1, 3, 9, 27… until the bucket can't take it.",
     "butterfly": "{n} balls start almost exactly in the same spot. A difference smaller than a pixel decides who survives the spikes.",
     "evolve": "Every bounce makes the ball bigger and leaves a new color behind, until it fills the whole circle.",
+    "hammer": "A drop hammer smashes the balls on the floor and every ball it crushes splits into 3: 1, 3, 9, 27… until the circle bursts.",
+    "squeeze": "Four bars on springs snap into the middle. Every ball they squash splits into 3, until the circle can't hold any more.",
+    "lasers": "Every ball keeps splitting in two. Every ball a laser hits turns into a new laser. Exponential vs exponential — who wins?",
     "royale": "{n} ball fighters, random weapon drops (sword, blaster, hammer, laser, bomb) and electric walls that close in. Last ball standing wins.",
     "multiply": "One ball, three rings, and multipliers that copy every ball that touches them. How many balls at the end?",
 }
@@ -132,6 +153,9 @@ ASK = {
     "crush": "What was your guess? And did you recognize the music? 👇",
     "evolve": "Did you recognize the music? And how many bounces did you guess? 👇",
     "multiply": "What was your guess? And did you recognize the music? 👇",
+    "hammer": "What was your guess? And did you recognize the music? 👇",
+    "squeeze": "What was your guess? And did you recognize the music? 👇",
+    "lasers": "Did you think the lasers would win? Tell me in the comments 👇",
     "royale": "Which ball did you pick — and did it win? Tell me in the comments 👇",
 }
 
@@ -149,6 +173,9 @@ EXTRA_TAGS = {
     "butterfly": ["butterfly effect", "chaos theory", "bouncing ball music", "guess the song", "spikes"],
     "evolve": ["ball evolves", "growing ball", "rainbow", "bouncing ball music", "guess the song"],
     "multiply": ["ball multiply", "multiplying balls", "ring break", "bouncing ball music", "guess the song"],
+    "hammer": ["drop hammer", "hammer crush", "ball splits", "how many balls", "guess the song"],
+    "squeeze": ["crusher", "ball splits", "how many balls", "satisfying physics", "guess the song"],
+    "lasers": ["lasers", "exponential growth", "doubling", "bouncing ball music", "who wins"],
     "royale": ["battle royale", "ball battle", "ball fight", "last one standing", "pick a ball", "game simulation"],
 }
 HASHTAGS = {
@@ -163,6 +190,9 @@ HASHTAGS = {
     "crush": "#shorts #satisfying #hydraulicpress #simulation #oddlysatisfying",
     "evolve": "#shorts #satisfying #bouncingball #rainbow #oddlysatisfying",
     "multiply": "#shorts #satisfying #bouncingball #multiply #oddlysatisfying",
+    "hammer": "#shorts #satisfying #hammer #simulation #oddlysatisfying",
+    "squeeze": "#shorts #satisfying #crusher #simulation #oddlysatisfying",
+    "lasers": "#shorts #satisfying #lasers #simulation #oddlysatisfying",
     "royale": "#battleroyale #ballbattle #simulation #marblerace #gaming",
 }
 
