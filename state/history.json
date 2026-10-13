@@ -1,5 +1,5 @@
 {
- "next_seed": 1716,
+ "next_seed": 1723,
  "videos": [
   {
    "date": "2026-10-02",
@@ -366,7 +366,37 @@
    "format": "royale",
    "seed": 1715,
    "title": "10 Balls, Random Weapons, Only 1 Winner \u2694\ufe0f Who Survives?"
+  },
+  {
+   "date": "2026-10-13",
+   "format": "devour",
+   "seed": 1716,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udd73\ufe0f #shorts"
+  },
+  {
+   "date": "2026-10-13",
+   "format": "evolve",
+   "seed": 1716,
+   "title": "Will it fill the whole circle? \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-13",
+   "format": "paint",
+   "seed": 1722,
+   "title": "4 color battle \u2014 who wins? \ud83d\udfe2\ud83d\udd34\ud83d\udd35\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-13",
+   "format": "crush",
+   "seed": 1716,
+   "title": "Every crushed ball splits into 3\u2026 how many can it handle? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-13",
+   "format": "royale",
+   "seed": 1722,
+   "title": "Ball Battle Royale: Swords, Lasers & Bombs \u2014 Last Ball Standing Wins \ud83d\udc51"
   }
  ],
- "lineup_pos": 4
+ "lineup_pos": 8
 }
