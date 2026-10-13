@@ -22,7 +22,7 @@ The first three copy what works best in this niche (black background, thin neon 
 question at the top, "Did you recognize the music?" at the bottom) — without paying for a
 simulator tool, without a watermark, and without copyrighted songs.
 
-- The daily lineup **rotates** (`crush,lasers,butterfly,hammer,shrink,squeeze,…,elim`),
+- The daily lineup **rotates** (`crush,race_lava,lasers,butterfly,hammer,race_flood,…,elim`),
   so every format comes back regularly. Override with the repo variable `FORMATS`.
 - **Seamless loops**: every video ends with a 0.4 s cross-fade back to its first frame, so when
   Shorts replays it the loop is invisible (the top channels in this niche all do this).
