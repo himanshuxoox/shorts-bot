@@ -1,5 +1,5 @@
 {
- "next_seed": 1743,
+ "next_seed": 1760,
  "videos": [
   {
    "date": "2026-10-02",
@@ -456,7 +456,37 @@
    "format": "royale",
    "seed": 1740,
    "title": "The Walls Are Closing In\u2026 Which Ball Survives? | Ball Battle Royale"
+  },
+  {
+   "date": "2026-10-16",
+   "format": "hammer",
+   "seed": 1743,
+   "title": "1 ball \u2192 ??? balls. Guess the final count! \ud83d\udd28 #shorts"
+  },
+  {
+   "date": "2026-10-16",
+   "format": "squeeze",
+   "seed": 1743,
+   "title": "How many balls before the circle bursts? Guess! \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-16",
+   "format": "butterfly",
+   "seed": 1759,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-16",
+   "format": "shrink",
+   "seed": 1743,
+   "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-16",
+   "format": "royale",
+   "seed": 1746,
+   "title": "10 Balls Battle Royale \u2014 Only 1 Survives! Pick Your Ball \ud83d\udc51"
   }
  ],
- "lineup_pos": 16
+ "lineup_pos": 20
 }
