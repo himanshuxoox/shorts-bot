@@ -1,0 +1,24 @@
+{
+ "days": [
+  {
+   "date": "2026-10-15",
+   "subs": 88,
+   "views": 132967,
+   "videos": 59,
+   "formats": {
+    "butterfly": 3741,
+    "paint": 2051,
+    "evolve": 1997,
+    "crush": 1830,
+    "rings": 1748,
+    "devour": 1271,
+    "escape": 1196,
+    "other": 1178,
+    "multiply": 1134,
+    "elim": 373,
+    "shrink": 153,
+    "royale": 10
+   }
+  }
+ ]
+}
