@@ -60,6 +60,17 @@ def plan_times(date_str, n, after=None):
     return out
 
 
+def record_upload(out_dir, vid, item, when):
+    """state/uploads_<out>.json: youtube id -> format, so the channel watcher knows what each video is."""
+    p = os.path.join(ROOT, "state", f"uploads_{os.path.basename(os.path.normpath(out_dir))}.json")
+    data = json.load(open(p)) if os.path.exists(p) else {}
+    data[vid] = dict(format=item.get("format"), title=item["title"], seed=item.get("seed"),
+                     publish_at=when.isoformat(), long_form=bool(item.get("long_form")))
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w") as f:
+        json.dump(data, f, indent=1, ensure_ascii=False)
+
+
 def youtube_client():
     from google.oauth2.credentials import Credentials
     from googleapiclient.discovery import build
@@ -139,6 +150,7 @@ def main():
         item["youtube_id"] = vid
         item["publish_at"] = when.isoformat()
         save_last_slot(a.out, when)
+        record_upload(a.out, vid, item, when)
         print(f"   -> https://youtube.com/{'watch?v=' if item.get('long_form') else 'shorts/'}{vid}")
 
     if not a.dry_run:

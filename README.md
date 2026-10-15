@@ -172,3 +172,19 @@ Discovery videos always link their source in the description. Every facts video 
    Save the refresh token as `YT_FACTS_REFRESH_TOKEN`, then set the repo variable `AUTO_UPLOAD_FACTS = true`.
 
 Offline test: `python -m facts.batch --count 1 --mock` (uses a canned script, a fake voice and generated images).
+
+## Channel Watcher agent (watch-only)
+
+`shorts/watch.py` + `.github/workflows/channel-watch.yml` run every morning (09:41 IST):
+reads all videos + YouTube Analytics (retention, watch time, subs gained), works out each
+video's format, and posts a **GitHub Issue** (label `channel-report`) with the format
+leaderboard, best publish slots, top / weakest videos and a short Hinglish summary from
+Gemini (free tier, optional). Yesterday's report issue is closed. Daily snapshots: `state/stats.json`.
+
+One-time setup:
+1. Google Cloud console -> APIs & Services -> Library -> enable **YouTube Analytics API**.
+2. Run `python auth_setup.py` again on your laptop (it now asks for read-only stats access too)
+   and replace the `YT_REFRESH_TOKEN` secret with the new value.
+3. Actions -> Channel Watcher -> Run workflow. The report appears under Issues.
+   Test locally without APIs: `python -m shorts.watch --demo`.
+

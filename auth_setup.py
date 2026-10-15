@@ -9,7 +9,9 @@ One-time: get a YouTube refresh token on YOUR laptop (opens a browser).
 import json
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+SCOPES = ["https://www.googleapis.com/auth/youtube.upload",          # upload videos
+          "https://www.googleapis.com/auth/youtube.readonly",        # channel watcher: list videos + stats
+          "https://www.googleapis.com/auth/yt-analytics.readonly"]   # channel watcher: watch time, retention
 
 flow = InstalledAppFlow.from_client_secrets_file("client_secret.json", SCOPES)
 creds = flow.run_local_server(port=0, access_type="offline", prompt="consent")
