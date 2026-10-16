@@ -1,5 +1,5 @@
 {
- "next_seed": 1760,
+ "next_seed": 1797,
  "videos": [
   {
    "date": "2026-10-02",
@@ -486,7 +486,37 @@
    "format": "royale",
    "seed": 1746,
    "title": "10 Balls Battle Royale \u2014 Only 1 Survives! Pick Your Ball \ud83d\udc51"
+  },
+  {
+   "date": "2026-10-17",
+   "format": "multiply",
+   "seed": 1761,
+   "title": "Will the Ball Multiply? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-17",
+   "format": "devour",
+   "seed": 1760,
+   "title": "Can the black hole eat them all? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-17",
+   "format": "evolve",
+   "seed": 1761,
+   "title": "With every bounce, the ball evolves\u2026 \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-17",
+   "format": "elim",
+   "seed": 1796,
+   "title": "Pick a color \u2014 only 1 survives \ud83d\udfe1\ud83d\udfe2\ud83d\udd35\ud83e\ude75\ud83d\udfe0\ud83d\udfe3 #shorts"
+  },
+  {
+   "date": "2026-10-17",
+   "format": "royale",
+   "seed": 1761,
+   "title": "8 Balls Battle Royale \u2014 Only 1 Survives! Pick Your Ball \ud83d\udc51"
   }
  ],
- "lineup_pos": 20
+ "lineup_pos": 0
 }
