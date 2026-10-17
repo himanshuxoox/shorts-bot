@@ -1,5 +1,5 @@
 {
- "next_seed": 1797,
+ "next_seed": 1803,
  "videos": [
   {
    "date": "2026-10-02",
@@ -516,7 +516,37 @@
    "format": "royale",
    "seed": 1761,
    "title": "8 Balls Battle Royale \u2014 Only 1 Survives! Pick Your Ball \ud83d\udc51"
+  },
+  {
+   "date": "2026-10-18",
+   "format": "crush",
+   "seed": 1797,
+   "title": "It crushed one ball into 11,027 pieces \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-18",
+   "format": "race_lava",
+   "seed": 1797,
+   "title": "First ball to the flag wins! Lava is coming \ud83d\udd25 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-18",
+   "format": "lasers",
+   "seed": 1797,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udd35 #shorts"
+  },
+  {
+   "date": "2026-10-18",
+   "format": "butterfly",
+   "seed": 1802,
+   "title": "The Butterfly Effect of a Bouncing Ball \ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-18",
+   "format": "royale",
+   "seed": 1798,
+   "title": "8 Balls, Random Weapons, Only 1 Winner \u2694\ufe0f Who Survives?"
   }
  ],
- "lineup_pos": 0
+ "lineup_pos": 4
 }
