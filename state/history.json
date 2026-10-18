@@ -1,5 +1,5 @@
 {
- "next_seed": 1803,
+ "next_seed": 1806,
  "videos": [
   {
    "date": "2026-10-02",
@@ -546,7 +546,37 @@
    "format": "royale",
    "seed": 1798,
    "title": "8 Balls, Random Weapons, Only 1 Winner \u2694\ufe0f Who Survives?"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "hammer",
+   "seed": 1804,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udd28 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "race_flood",
+   "seed": 1803,
+   "title": "The water is rising\u2026 who makes it out? \ud83d\ude33 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "shrink",
+   "seed": 1803,
+   "title": "Every bounce SHRINKS the ball and GROWS the wall \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "squeeze",
+   "seed": 1803,
+   "title": "Every ball caught in the squeeze splits into 3 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "royale",
+   "seed": 1805,
+   "title": "10 Balls, Random Weapons, Only 1 Winner \u2694\ufe0f Who Survives?"
   }
  ],
- "lineup_pos": 4
+ "lineup_pos": 8
 }
