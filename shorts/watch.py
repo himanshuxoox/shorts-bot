@@ -167,6 +167,7 @@ def _pub_time(v):
 
 def analyse(channel, videos, now=None):
     now = now or dt.datetime.now(IST)
+    videos = [v for v in videos if v.get("format") != "royale" and v["duration"] <= 180]   # Shorts only
     live = [v for v in videos if v["privacy"] == "public" and _pub_time(v) <= now]
     scheduled = [v for v in videos if v not in live]
     # only videos that had 2+ days to collect views are fair to compare

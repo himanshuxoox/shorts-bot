@@ -132,7 +132,9 @@ Every hourly run writes its decision in the run summary (Actions → Shorts Pace
 Try the rules offline: `python -m shorts.pacer simulate`. See the queue: `python -m shorts.pacer status`.
 Turn it off again: delete the `PACING` variable — the old fixed slots come back.
 
-## Ball Battle Royale (2-3 min, one per day)
+## Ball Battle Royale (2-3 min long video, OFF by default)
+
+Off by default now (Shorts only). Turn it back on with the repo variable `EXTRA_FORMATS = royale`.
 
 Every day's batch also renders one **Ball Battle Royale** (`shorts/royale.py`), a 2:15-2:45
 **landscape 1920x1080 video** (a normal YouTube video, not a Short) with its own 1280x720

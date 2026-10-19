@@ -48,8 +48,8 @@ DEFAULT_LINEUP = ("race_crush,focus,butterfly,golden,crush,race_lava,pendulum,pa
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).
-# Default: one 2-3 min Ball Battle Royale per day. Set EXTRA_FORMATS=none to turn it off.
-EXTRA = [f.strip() for f in os.environ.get("EXTRA_FORMATS", "royale").split(",")
+# Default: none (Shorts only). EXTRA_FORMATS=royale adds one 2-3 min Battle Royale per day.
+EXTRA = [f.strip() for f in os.environ.get("EXTRA_FORMATS", "none").split(",")
          if f.strip() and f.strip() != "none"]
 LABEL_FORMATS = {"paint": 4, "elim": 4}          # formats that can show trend words as names
 TREND_VIDEOS = int(os.environ.get("TREND_VIDEOS", "1"))
