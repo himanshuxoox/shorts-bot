@@ -142,6 +142,40 @@ TITLES = {
         ("out", "Fall out = eliminated 😳 {e}"),
         ("n", "{n} balls, 1 survivor — who wins? {e}"),
     ],
+    "focus": [
+        ("same", "Will they all hit the same point? 🤯"),
+        ("fib", "1, 2, 3, 5, 8… {N} balls. Do they ALL meet? 😳"),
+        ("magic", "The magic point inside every ellipse ✨"),
+        ("every", "Every single ball lands on ONE point 🎯"),
+    ],
+    "focus_stretch": [
+        ("stretch", "Will they still meet if I stretch it? 🤔"),
+        ("shape", "I keep changing the shape… do they still meet? 😳"),
+        ("magic", "Stretch it, squash it — they STILL meet ✨"),
+    ],
+    "focus_3d": [
+        ("3d", "Does it work in 3D too? 🤯"),
+        ("meet", "{N} balls in 3D — will they all meet? 😳"),
+        ("magic", "The ellipse trick… but in 3D ✨"),
+    ],
+    "golden": [
+        ("close", "Will this pattern ever close? 🤔"),
+        ("start", "Will the ball ever get back to the start? 😳"),
+        ("golden", "The golden ratio does THIS to a bouncing ball ✨"),
+        ("repeat", "Does this pattern EVER repeat? 🤯"),
+    ],
+    "pendulum": [
+        ("line", "Will they line up again? 🤔"),
+        ("wait", "Wait for them to line up… 😳"),
+        ("wave", "{n} pendulums, one perfect moment ✨"),
+        ("chaos", "Chaos… then THIS happens 🤯"),
+    ],
+    "rosette": [
+        ("close", "Why doesn't this orbit close? 🤔"),
+        ("what", "What is a rosette orbit? 🌸"),
+        ("mercury", "Mercury's orbit secretly does this 🤯"),
+        ("flower", "A planet that draws a flower 🌸"),
+    ],
 }
 
 FIRST_LINE = {
@@ -164,6 +198,12 @@ FIRST_LINE = {
     "lasers": "Every ball keeps splitting in two. Every ball a laser hits turns into a new laser. Exponential vs exponential — who wins?",
     "royale": "{n} ball fighters, random weapon drops (sword, blaster, hammer, laser, bomb) and electric walls that close in. Last ball standing wins.",
     "multiply": "One ball, three rings, and multipliers that copy every ball that touches them. How many balls at the end?",
+    "focus": "Balls start at one focus of an ellipse. After ONE bounce off the wall, every single ball passes through the other focus — at the same moment, every time. 1, 2, 3, 5, 8… up to {N}.",
+    "focus_stretch": "Ellipse magic: every ball that starts at one focus bounces through the other focus. So what happens if I keep stretching and squashing the shape — even into a circle?",
+    "focus_3d": "The ellipse focus trick works in 3D too: an ellipsoid sends every ball from one focus through the other — {N} balls, all at the same moment.",
+    "golden": "Every bounce moves the ball the same angle around the circle: {A} of a full turn. If that number is irrational, the ball can never land on its start point again.",
+    "pendulum": "{n} pendulums with slightly different lengths. Each one swings a little faster than the one below it — so they drift apart into waves and spirals… and then line up perfectly again.",
+    "rosette": "A planet orbits a star, but gravity is a tiny bit stronger close to the star. So every lap the ellipse turns a little, and the path draws a rosette. Mercury's real orbit turns like this too (very slowly) — one of the clues for Einstein's general relativity.",
 }
 ASK = {
     "escape": "Which one did you pick? Tell me in the comments 👇",
@@ -185,6 +225,12 @@ ASK = {
     "squeeze": "What was your guess? And did you recognize the music? 👇",
     "lasers": "Did you think the lasers would win? Tell me in the comments 👇",
     "royale": "Which ball did you pick — and did it win? Tell me in the comments 👇",
+    "focus": "Did you think they would ALL meet? Tell me in the comments 👇",
+    "focus_stretch": "Did you think they would still meet? Tell me in the comments 👇",
+    "focus_3d": "Did you guess it works in 3D? Tell me in the comments 👇",
+    "golden": "What did you guess — will it close or not? 👇",
+    "pendulum": "Did you wait for the line-up? Tell me in the comments 👇",
+    "rosette": "Did you know orbits can do this? Tell me in the comments 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -209,6 +255,12 @@ EXTRA_TAGS = {
     "squeeze": ["crusher", "ball splits", "how many balls", "satisfying physics", "guess the song"],
     "lasers": ["lasers", "exponential growth", "doubling", "bouncing ball music", "who wins"],
     "royale": ["battle royale", "ball battle", "ball fight", "last one standing", "pick a ball", "game simulation"],
+    "focus": ["ellipse", "math", "geometry", "focus of an ellipse", "fibonacci", "billiards"],
+    "focus_stretch": ["ellipse", "math", "geometry", "focus of an ellipse", "billiards"],
+    "focus_3d": ["ellipsoid", "ellipse", "math", "3d geometry", "fibonacci"],
+    "golden": ["golden ratio", "math", "irrational numbers", "geometry", "pattern"],
+    "pendulum": ["pendulum wave", "physics", "pendulum", "satisfying physics", "waves"],
+    "rosette": ["orbit", "rosette orbit", "space", "physics", "mercury", "general relativity"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -230,6 +282,12 @@ HASHTAGS = {
     "squeeze": "#shorts #satisfying #crusher #simulation #oddlysatisfying",
     "lasers": "#shorts #satisfying #lasers #simulation #oddlysatisfying",
     "royale": "#battleroyale #ballbattle #simulation #marblerace #gaming",
+    "focus": "#shorts #maths #geometry #physics #satisfying",
+    "focus_stretch": "#shorts #maths #geometry #physics #satisfying",
+    "focus_3d": "#shorts #maths #geometry #3d #satisfying",
+    "golden": "#shorts #maths #goldenratio #geometry #satisfying",
+    "pendulum": "#shorts #physics #pendulum #satisfying #science",
+    "rosette": "#shorts #physics #space #orbit #science",
 }
 
 
@@ -253,13 +311,14 @@ def build(facts: dict, seed: int) -> dict:
     title = (title.strip() if tpl_name == "royale" else f"{title.strip()} #shorts")[:100]   # royale = normal video
     vs = " vs ".join(w.title() for w in (labels or cols))
     desc = "\n".join([
-        FIRST_LINE[tpl_name].format(vs=vs, r=facts.get("n_rings", ""), n=facts.get("n_balls", "")),
+        FIRST_LINE[tpl_name].format(vs=vs, r=facts.get("n_rings", ""), n=facts.get("n_balls", ""),
+                                    N=f"{facts.get('n_final', 0):,}", A=facts.get("angle_label", "")),
         ASK[tpl_name],
         "",
         ("A new Ball Battle Royale every day — subscribe and pick your ball before the fight starts!"
          if tpl_name == "royale" else "New simulations every day — subscribe so you don't miss tomorrow's!"),
         "",
-        (f"🎵 Melody: {facts['melody']} (public domain), synthesized for this video." if tpl_name != "royale"
+        (f"🎵 Melody: {facts['melody']} (public domain), synthesized for this video." if facts.get("melody") and tpl_name != "royale"
          else "🎵 Music & sound effects: original, synthesized in code for this video."),
         "Simulation is 100% computer-generated with code. No real footage.",
         "",

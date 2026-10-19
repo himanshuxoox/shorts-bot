@@ -1,0 +1,58 @@
+name: Shorts Pacer
+
+# Smart pacing (only when the repo variable PACING = on):
+# every hour, look at the live Short's views. If it is taking off, hold the next Short back;
+# if it is flat / low, release the next Short from the queue. Rules: shorts/pacer.py.
+on:
+  schedule:
+    - cron: "23 * * * *"      # every hour at :23 (GitHub may run it a bit late)
+  workflow_dispatch:          # "Run workflow" = check right now
+
+permissions:
+  contents: write             # pacer-queue release (queued videos + state) and uploads_out.json
+
+concurrency:
+  group: shorts-pacer
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    if: vars.PACING == 'on'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python packages
+        run: pip install google-api-python-client google-auth
+
+      - name: Check the live Short, maybe release the next one
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PACE_CHECK_H: ${{ vars.PACE_CHECK_H }}
+          PACE_GRACE_H: ${{ vars.PACE_GRACE_H }}
+          PACE_MIN_VIEWS: ${{ vars.PACE_MIN_VIEWS }}
+          PACE_HOT_GROWTH: ${{ vars.PACE_HOT_GROWTH }}
+          PACE_STALL_GROWTH: ${{ vars.PACE_STALL_GROWTH }}
+          PACE_TARGET: ${{ vars.PACE_TARGET }}
+          PACE_STRONG_GROWTH: ${{ vars.PACE_STRONG_GROWTH }}
+          PACE_STRONG_LIKE: ${{ vars.PACE_STRONG_LIKE }}
+          PACE_MAX_HOLD_H: ${{ vars.PACE_MAX_HOLD_H }}
+          PACE_STALE_DAYS: ${{ vars.PACE_STALE_DAYS }}
+        run: python -m shorts.pacer tick
+
+      - name: Save which format each video is (for the Channel Watcher)
+        run: |
+          git config user.name  "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add state/uploads_out.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Pacer released a Short"
+          git pull --rebase && git push

@@ -98,7 +98,8 @@ def _iso_dur(s):
 
 def demo_data():
     rng = random.Random(7)
-    fmts = ["crush", "lasers", "hammer", "squeeze", "race_lava", "race_flood", "butterfly", "shrink",
+    fmts = ["crush", "lasers", "hammer", "squeeze", "race_lava", "race_flood", "race_crush", "focus", "focus_3d",
+            "focus_stretch", "golden", "pendulum", "rosette", "butterfly", "shrink",
             "devour", "evolve", "multiply", "paint", "elim", "royale"]
     base = {f: rng.uniform(300, 4000) for f in fmts}
     base["royale"] = 900

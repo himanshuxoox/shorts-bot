@@ -61,22 +61,56 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python -m shorts.trends
 
+      - name: How many Shorts to render
+        id: count
+        if: steps.check.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PACE_QUEUE_MAX: ${{ vars.PACE_QUEUE_MAX }}
+        run: |
+          WANT="${{ github.event.inputs.count || '4' }}"
+          if [ "${{ vars.PACING }}" = "on" ]; then
+            # smart pacing: don't pile up more than PACE_QUEUE_MAX unreleased Shorts
+            N=$(python -m shorts.pacer need --want "$WANT" || echo "$WANT")
+          else
+            N="$WANT"
+          fi
+          echo "Rendering $N Shorts"
+          echo "n=$N" >> "$GITHUB_OUTPUT"
+
       - name: Render today's batch
         if: steps.check.outputs.skip != 'true'
         env:
           FORMATS: ${{ vars.FORMATS }}
           EXTRA_FORMATS: ${{ vars.EXTRA_FORMATS || 'royale' }}   # +1 Battle Royale (2-3 min) every day
           TRENDS: ${{ vars.TRENDS == 'on' && 'on' || 'off' }}
-        run: python -m shorts.batch --count "${{ github.event.inputs.count || '4' }}" --workers 2
+        run: python -m shorts.batch --count "${{ steps.count.outputs.n }}" --workers 2
 
-      - name: Upload to YouTube (only when AUTO_UPLOAD = true)
-        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true'
+      - name: Upload to YouTube at fixed slots (AUTO_UPLOAD = true, PACING off)
+        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true' && vars.PACING != 'on'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '08:30,12:30,15:30,18:30,21:00' }}
         run: python -m shorts.upload
+
+      - name: Smart pacing (PACING = on) — queue the Shorts, schedule only the long video
+        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true' && vars.PACING == 'on'
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PUBLISH_SLOTS: ${{ vars.LONG_SLOTS || '21:00' }}
+        run: |
+          DAY=$(ls out | sort | tail -1)
+          if [ -f "out/$DAY/manifest.json" ]; then
+            python -m shorts.pacer enqueue --date "$DAY"
+            python -m shorts.upload --date "$DAY" --long-only
+          else
+            echo "nothing rendered today"
+          fi
 
       - name: Keep videos as a downloadable artifact (7 days)
         if: always() && steps.check.outputs.skip != 'true'

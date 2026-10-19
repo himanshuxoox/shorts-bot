@@ -6,6 +6,12 @@ note of a famous **public-domain** tune ("Did you recognize the music?").
 
 | Format | What happens | Hook |
 |---|---|---|
+| `focus` | Balls fly out of one focus of an ellipse; after one bounce ALL of them pass through the other focus at the same moment. 1, 2, 3, 5, 8 … 377 balls | Will they all hit the same point? |
+| `focus_stretch` | Same trick, but the shape is stretched / squashed (even a circle) every time they meet | Will they still meet if I stretch it? |
+| `focus_3d` | The ellipsoid version in 3D, slowly turning, up to 610 balls | Does it work in 3D too? |
+| `golden` | Every bounce moves the ball the same angle round a circle (1/φ², 1/π, 1/√2 … of a turn) — or the twist 55/144, which DOES close after 144 bounces | Will this pattern ever close? |
+| `pendulum` | Pendulum wave: 14-22 pendulums drift into snakes and spirals and line up again at exactly T seconds (loops perfectly) | Will they line up again? |
+| `rosette` | A planet whose orbit turns a little every lap draws a flower (like Mercury, much faster) | Why doesn't this orbit close? |
 | `crush` | A hydraulic press in a bucket; every crushed ball splits into 3 smaller ones (1 → 10,000+), then the bucket bursts | Guess the final count |
 | `shrink` | Every bounce shrinks the ball and grows the wall inward (radial spokes) until the wall wins | Ball vs wall |
 | `devour` | A swarm eats pellets and multiplies; a black hole eats the swarm and grows until it swallows everything | Can it eat them all? |
@@ -22,8 +28,8 @@ The first three copy what works best in this niche (black background, thin neon 
 question at the top, "Did you recognize the music?" at the bottom) — without paying for a
 simulator tool, without a watermark, and without copyrighted songs.
 
-- The daily lineup **rotates** (`crush,race_lava,lasers,butterfly,hammer,race_flood,…,elim`),
-  so every format comes back regularly. Override with the repo variable `FORMATS`.
+- The daily lineup **rotates** (`race_crush,focus,butterfly,golden,crush,…`): race_crush (best median views)
+  comes back most often, elim / shrink (weakest) are out, so every format comes back regularly. Override with the repo variable `FORMATS`.
 - **Seamless loops**: every video ends with a 0.4 s cross-fade back to its first frame, so when
   Shorts replays it the loop is invisible (the top channels in this niche all do this).
 - **Trend scout** (`shorts/trends.py`): finds trending slang/meme *words*, runs three safety
@@ -95,6 +101,36 @@ Every day, download the artifact. In YouTube Studio, click **Create → Upload**
 3. Test the schedule without uploading: `python -m shorts.upload --date <date> --dry-run`
 
 The bot is now hands-free: it renders every morning and each video goes public at its scheduled slot.
+
+## Smart pacing (optional): hold the next Short while one is taking off
+
+Repo variable `PACING = on` (together with `AUTO_UPLOAD = true`) switches Shorts from fixed
+time slots to "one Short at a time":
+
+1. The daily batch renders the Shorts and puts them in a **queue** (assets of a GitHub release
+   called `pacer-queue`, so the videos never go into git history). The long Battle Royale video
+   is still scheduled normally, at `LONG_SLOTS` (default `21:00` IST).
+2. **Actions → Shorts Pacer** runs every hour. It reads the live Short's views / likes / comments
+   and decides (all numbers are repo variables, defaults shown):
+
+   | Situation | Action |
+   |---|---|
+   | younger than `PACE_CHECK_H` = 4 h | wait (YouTube is still testing it) |
+   | under `PACE_MIN_VIEWS` = 1,000 at 4 h | release the next Short (unless it's doubling — then 1 grace hour) |
+   | 1k+ but not doubling in 2 h (`PACE_HOT_GROWTH` = 2) | watch 1 more hour (`PACE_GRACE_H`), then release |
+   | doubled in 2 h = **hot** | hold until `PACE_TARGET` = 10,000 views |
+   | hot but growth falls under +15 % / 2 h (`PACE_STALL_GROWTH` = 1.15) | release |
+   | target reached and still strong (+25 % / 2 h, or 4 %+ likes while growing) | hold, target × 2 (20k, 40k …) |
+   | live longer than `PACE_MAX_HOLD_H` = 24 h | release anyway (safety cap) |
+
+3. Which Short goes next: anything queued for 3+ days first; otherwise the format with the best
+   median views in the Channel Watcher stats, never the same format as the last two.
+4. Rendering stops piling up: when `PACE_QUEUE_MAX` = 12 Shorts are already waiting, the daily
+   batch renders fewer (or none).
+
+Every hourly run writes its decision in the run summary (Actions → Shorts Pacer → latest run).
+Try the rules offline: `python -m shorts.pacer simulate`. See the queue: `python -m shorts.pacer status`.
+Turn it off again: delete the `PACING` variable — the old fixed slots come back.
 
 ## Ball Battle Royale (2-3 min, one per day)
 

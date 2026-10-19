@@ -5,7 +5,10 @@ Render today's batch of Shorts — one video per format in LINEUP.
     python -m shorts.batch --count 1 --date test    # quick test
     FORMATS=rings,paint python -m shorts.batch      # choose formats
 
-Formats: royale (2-3 min LANDSCAPE Ball Battle Royale game, uploaded as a normal video),
+Formats: focus / focus_stretch / focus_3d (ellipse focus billiards: 1,2,3,5…377 balls all meet
+at one point), golden (will the bounce pattern ever close? irrational vs 55/144 turn), pendulum
+(pendulum wave that lines up again), rosette (precessing orbit draws a flower),
+royale (2-3 min LANDSCAPE Ball Battle Royale game, uploaded as a normal video),
 crush (press splits balls into 3), hammer (drop hammer in a circle splits balls into 3),
 squeeze (4 spring bars squash balls into 3), lasers (lasers vs doubling balls),
 race_lava / race_flood / race_crush / race_shrink (4 balls race to the exit flag while a hazard closes in), shrink (ball shrinks, wall grows), devour (black hole
@@ -24,7 +27,7 @@ from zoneinfo import ZoneInfo
 import random
 
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
-               royale, hammer, squeeze, lasers, race, metadata, trends)
+               royale, hammer, squeeze, lasers, race, focus, golden, pendulum, rosette, metadata, trends)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,10 +36,15 @@ IST = ZoneInfo("Asia/Kolkata")
 MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers,
             race_lava=race.race_lava, race_flood=race.race_flood, race_crush=race.race_crush,
             race_shrink=race.race_shrink, butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
-            crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape)
-DEFAULT_LINEUP = ("crush,race_lava,lasers,butterfly,hammer,race_flood,shrink,squeeze,multiply,race_crush,"
-                  "devour,evolve,paint,lasers,race_shrink,crush,hammer,squeeze,butterfly,shrink,"
-                  "multiply,devour,evolve,elim")
+            crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape,
+            focus=focus.focus, focus_stretch=focus.focus_stretch, focus_3d=focus.focus_3d,
+            golden=golden, pendulum=pendulum, rosette=rosette)
+# race_crush is the channel's best format (median views), so it comes back most often;
+# the math/physics formats (focus*, golden, pendulum, rosette) are new — the Channel Watcher
+# will show after a week which of them to keep. elim / shrink were the weakest, so they're out.
+DEFAULT_LINEUP = ("race_crush,focus,butterfly,golden,crush,race_lava,pendulum,paint,race_crush,focus_3d,"
+                  "multiply,rosette,evolve,race_flood,focus_stretch,hammer,race_crush,devour,golden,squeeze,"
+                  "butterfly,race_shrink,focus,lasers,race_crush,pendulum,paint,crush")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).
@@ -157,6 +165,9 @@ def main():
     st = load_state()
     pos = st.get("lineup_pos", 0)
     fmts = [LINEUP[(pos + i) % len(LINEUP)] for i in range(a.count)] + EXTRA
+    if not fmts:
+        print("nothing to render (count 0 and no extra formats)")
+        return
 
     # trend words: only words that passed every check today (state/trends.json)
     words = trends.todays_words() if os.environ.get("TRENDS", "off") == "on" else []

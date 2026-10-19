@@ -126,13 +126,19 @@ def main():
     ap.add_argument("--date", default=dt.datetime.now(IST).strftime("%Y-%m-%d"))
     ap.add_argument("--out", default=os.path.join(ROOT, "out"))
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--long-only", action="store_true",
+                    help="only the long videos (royale); Shorts go through shorts/pacer.py instead")
     a = ap.parse_args()
 
     day_dir = os.path.join(a.out, a.date)
     mpath = os.path.join(day_dir, "manifest.json")
     with open(mpath) as f:
         manifest = json.load(f)
-    todo = [v for v in manifest["videos"] if not v.get("youtube_id")]
+    todo = [v for v in manifest["videos"] if not v.get("youtube_id") and not v.get("queued")
+            and (v.get("long_form") or not a.long_only)]
+    if not todo:
+        print("nothing to upload")
+        return
     times = plan_times(a.date, len(todo), after=last_slot(a.out))
 
     yt = None if a.dry_run else youtube_client()

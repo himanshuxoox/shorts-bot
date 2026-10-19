@@ -113,6 +113,17 @@ def build_audio(events, total, path, min_gap=0.0):
             s[:len(p)] += p
         elif kind == "chime":
             s = _pluck(f, 1.0, 0.3)
+        elif kind == "click":                  # tiny wall tick; hundreds of them make a soft crackle
+            n = int(SR * 0.05)
+            tt = np.arange(n) / SR
+            s = 0.05 * np.sin(2 * np.pi * f * tt) * np.exp(-tt * 90)
+            s += 0.03 * _noise_burst(0.05, 1.0, int(t * 997) % 9973)[:n] * np.exp(-tt * 60)
+        elif kind == "bell":                   # soft glassy note for the "math" formats
+            n = int(SR * 1.6)
+            tt = np.arange(n) / SR
+            env = np.exp(-tt * 3.2) * np.minimum(1, tt / 0.003)
+            s = 0.26 * env * (np.sin(2 * np.pi * f * tt) + 0.4 * np.sin(2 * np.pi * 2.01 * f * tt) * np.exp(-tt * 4)
+                              + 0.15 * np.sin(2 * np.pi * 3.98 * f * tt) * np.exp(-tt * 7))
         else:
             s = np.zeros(int(SR * 2.2))
             for j, semi in enumerate([0, 4, 7, 12, 16]):
