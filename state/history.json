@@ -1,5 +1,5 @@
 {
- "next_seed": 1806,
+ "next_seed": 1811,
  "videos": [
   {
    "date": "2026-10-02",
@@ -576,7 +576,37 @@
    "format": "royale",
    "seed": 1805,
    "title": "10 Balls, Random Weapons, Only 1 Winner \u2694\ufe0f Who Survives?"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "race_crush",
+   "seed": 1806,
+   "title": "First ball to the top wins (don't get crushed) \ud83d\ude33 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "focus_3d",
+   "seed": 1806,
+   "title": "377 balls in 3D \u2014 will they all meet? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "multiply",
+   "seed": 1810,
+   "title": "Will the balls break every ring? \ud83d\udca5 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "rosette",
+   "seed": 1806,
+   "title": "A planet that draws a flower \ud83c\udf38 #shorts"
+  },
+  {
+   "date": "2026-10-19",
+   "format": "royale",
+   "seed": 1806,
+   "title": "Ball Battle Royale: Swords, Lasers & Bombs \u2014 Last Ball Standing Wins \ud83d\udc51"
   }
  ],
- "lineup_pos": 8
+ "lineup_pos": 12
 }
