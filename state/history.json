@@ -1,5 +1,5 @@
 {
- "next_seed": 1811,
+ "next_seed": 1812,
  "videos": [
   {
    "date": "2026-10-02",
@@ -606,7 +606,31 @@
    "format": "royale",
    "seed": 1806,
    "title": "Ball Battle Royale: Swords, Lasers & Bombs \u2014 Last Ball Standing Wins \ud83d\udc51"
+  },
+  {
+   "date": "2026-10-20",
+   "format": "evolve",
+   "seed": 1811,
+   "title": "Will it fill the whole circle? \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-10-20",
+   "format": "race_flood",
+   "seed": 1811,
+   "title": "Pick a color \u2014 the rooms are flooding! \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-20",
+   "format": "focus_stretch",
+   "seed": 1811,
+   "title": "Will they still meet if I stretch it? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-20",
+   "format": "hammer",
+   "seed": 1811,
+   "title": "Every ball the hammer hits splits into 3\u2026 how many can it hold? \ud83d\udd28 #shorts"
   }
  ],
- "lineup_pos": 12
+ "lineup_pos": 16
 }
