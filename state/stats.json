@@ -89,6 +89,32 @@
     "lasers": 116,
     "royale": 10
    }
+  },
+  {
+   "date": "2026-10-19",
+   "subs": 150,
+   "views": 229103,
+   "videos": 64,
+   "formats": {
+    "squeeze": 18214,
+    "shrink": 16242,
+    "hammer": 13146,
+    "race_crush": 8410,
+    "butterfly": 3756,
+    "race_shrink": 3143,
+    "paint": 2550,
+    "crush": 1853,
+    "evolve": 1713,
+    "multiply": 1699,
+    "devour": 1496,
+    "grow": 1414,
+    "rings": 1389,
+    "escape": 1201,
+    "other": 1180,
+    "elim": 264,
+    "lasers": 132,
+    "royale": 11
+   }
   }
  ]
 }
