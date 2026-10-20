@@ -1,5 +1,5 @@
 {
- "next_seed": 1812,
+ "next_seed": 1813,
  "videos": [
   {
    "date": "2026-10-02",
@@ -630,7 +630,31 @@
    "format": "hammer",
    "seed": 1811,
    "title": "Every ball the hammer hits splits into 3\u2026 how many can it hold? \ud83d\udd28 #shorts"
+  },
+  {
+   "date": "2026-10-21",
+   "format": "race_crush",
+   "seed": 1812,
+   "title": "Pick a color \u2014 dodge the crusher! \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-21",
+   "format": "devour",
+   "seed": 1812,
+   "title": "Every ball it eats makes the black hole BIGGER \ud83d\udd73\ufe0f #shorts"
+  },
+  {
+   "date": "2026-10-21",
+   "format": "golden",
+   "seed": 1812,
+   "title": "Will the ball ever get back to the start? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-21",
+   "format": "squeeze",
+   "seed": 1812,
+   "title": "How many balls before the circle bursts? Guess! \ud83e\udd2f #shorts"
   }
  ],
- "lineup_pos": 16
+ "lineup_pos": 20
 }
