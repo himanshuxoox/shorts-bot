@@ -75,18 +75,22 @@ def _parse(s):
 
 # ===================================================================== the decision (pure)
 def growth_2h(snaps, now):
-    """views now / views ~2 h ago (snapshot between 1.5 h and 3 h old, closest to 2 h)."""
-    if not snaps:
+    """Growth over 2 hours: views now / views ~2 h ago.
+    GitHub often runs the hourly job late (gaps of 3-5 h happen), so it uses the snapshot
+    closest to 2 h before the newest one (at least 45 min older) and converts the growth to a
+    2-hour rate: e.g. +10% over 5 h -> about +4% per 2 h. None = only one snapshot so far."""
+    if len(snaps) < 2:
         return None
-    cur = snaps[-1]["views"]
+    t_cur, cur = _parse(snaps[-1]["t"]), snaps[-1]["views"]
     best = None
-    for s in snaps:
-        age = (now - _parse(s["t"])).total_seconds() / 3600
-        if 1.5 <= age <= 3.0 and (best is None or abs(age - 2) < abs(best[0] - 2)):
-            best = (age, s["views"])
+    for s in snaps[:-1]:
+        dh = (t_cur - _parse(s["t"])).total_seconds() / 3600
+        if dh >= 0.75 and (best is None or abs(dh - 2) < abs(best[0] - 2)):
+            best = (dh, s["views"])
     if best is None:
         return None
-    return cur / max(1, best[1])
+    dh, old = best
+    return (max(1, cur) / max(1, old)) ** (2 / dh)
 
 
 def decide(live, now, p=PARAMS):

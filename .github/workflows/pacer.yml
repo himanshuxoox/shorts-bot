@@ -5,7 +5,8 @@ name: Shorts Pacer
 # if it is flat / low, release the next Short from the queue. Rules: shorts/pacer.py.
 on:
   schedule:
-    - cron: "23 * * * *"      # every hour at :23 (GitHub may run it a bit late)
+    - cron: "23 * * * *"      # twice an hour: GitHub often skips or delays scheduled runs,
+    - cron: "53 * * * *"      # so two entries make a check at least every hour or so much more likely
   workflow_dispatch:          # "Run workflow" = check right now
 
 permissions:
