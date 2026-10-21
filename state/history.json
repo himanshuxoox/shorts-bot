@@ -1,5 +1,5 @@
 {
- "next_seed": 1813,
+ "next_seed": 1815,
  "videos": [
   {
    "date": "2026-10-02",
@@ -654,7 +654,31 @@
    "format": "squeeze",
    "seed": 1812,
    "title": "How many balls before the circle bursts? Guess! \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-22",
+   "format": "butterfly",
+   "seed": 1814,
+   "title": "Which ball survives the spikes? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-22",
+   "format": "race_shrink",
+   "seed": 1813,
+   "title": "Too big for the exit! Pick a color \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-22",
+   "format": "focus",
+   "seed": 1813,
+   "title": "Will they all hit the same point? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-22",
+   "format": "lasers",
+   "seed": 1813,
+   "title": "Can the lasers stop the doubling? \ud83d\udd34\ud83d\udd35 #shorts"
   }
  ],
- "lineup_pos": 20
+ "lineup_pos": 24
 }
