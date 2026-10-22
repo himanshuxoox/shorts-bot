@@ -1,5 +1,5 @@
 {
- "next_seed": 1815,
+ "next_seed": 1816,
  "videos": [
   {
    "date": "2026-10-02",
@@ -678,7 +678,19 @@
    "format": "lasers",
    "seed": 1813,
    "title": "Can the lasers stop the doubling? \ud83d\udd34\ud83d\udd35 #shorts"
+  },
+  {
+   "date": "2026-10-22",
+   "format": "hammer",
+   "seed": 1815,
+   "title": "1 ball \u2192 ??? balls. Guess the final count! \ud83d\udd28 #shorts"
+  },
+  {
+   "date": "2026-10-22",
+   "format": "threebody",
+   "seed": 1815,
+   "title": "The three-body problem in 20 seconds \ud83c\udf0c #shorts"
   }
  ],
- "lineup_pos": 24
+ "lineup_pos": 26
 }
