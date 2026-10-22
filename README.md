@@ -6,6 +6,7 @@ note of a famous **public-domain** tune ("Did you recognize the music?").
 
 | Format | What happens | Hook |
 |---|---|---|
+| `fourier` `dpendulum` `lorenz` `chaosgame` `timestable` `primespiral` `threebody` `metronomes` `galton` `chladni` | 10 math / physics Shorts drawn with **ManimGL** (3Blue1Brown's manim) — see [mgl/README.md](mgl/README.md) | Fourier circles, chaos pendulums, Lorenz butterfly, chaos-game fractals, × k circle, prime spirals, three suns, metronome sync, Galton board, Chladni sand |
 | `focus` | Balls fly out of one focus of an ellipse; after one bounce ALL of them pass through the other focus at the same moment. 1, 2, 3, 5, 8 … 377 balls | Will they all hit the same point? |
 | `focus_stretch` | Same trick, but the shape is stretched / squashed (even a circle) every time they meet | Will they still meet if I stretch it? |
 | `focus_3d` | The ellipsoid version in 3D, slowly turning, up to 610 balls | Does it work in 3D too? |
@@ -28,8 +29,9 @@ The first three copy what works best in this niche (black background, thin neon 
 question at the top, "Did you recognize the music?" at the bottom) — without paying for a
 simulator tool, without a watermark, and without copyrighted songs.
 
-- The daily lineup **rotates** (`race_crush,focus,butterfly,golden,crush,…`): race_crush (best median views)
-  comes back most often, elim / shrink (weakest) are out, so every format comes back regularly. Override with the repo variable `FORMATS`.
+- The daily lineup **rotates** (`squeeze,fourier,race_crush,galton,shrink,…`): the best formats by median views
+  (squeeze, shrink, hammer, race_crush) come back most often and about a third are the ManimGL formats.
+  ManimGL needs `pip install -r requirements-mgl.txt` (and `xvfb` on a machine without a screen); the workflow does this. Override with the repo variable `FORMATS`.
 - **Seamless loops**: every video ends with a 0.4 s cross-fade back to its first frame, so when
   Shorts replays it the loop is invisible (the top channels in this niche all do this).
 - **Trend scout** (`shorts/trends.py`): finds trending slang/meme *words*, runs three safety

@@ -27,7 +27,8 @@ from zoneinfo import ZoneInfo
 import random
 
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
-               royale, hammer, squeeze, lasers, race, focus, golden, pendulum, rosette, metadata, trends)
+               royale, hammer, squeeze, lasers, race, focus, golden, pendulum, rosette, metadata, trends,
+               manim_fmt)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,13 +39,14 @@ MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers,
             race_shrink=race.race_shrink, butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
             crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape,
             focus=focus.focus, focus_stretch=focus.focus_stretch, focus_3d=focus.focus_3d,
-            golden=golden, pendulum=pendulum, rosette=rosette)
-# race_crush is the channel's best format (median views), so it comes back most often;
-# the math/physics formats (focus*, golden, pendulum, rosette) are new — the Channel Watcher
-# will show after a week which of them to keep. elim / shrink were the weakest, so they're out.
-DEFAULT_LINEUP = ("race_crush,focus,butterfly,golden,crush,race_lava,pendulum,paint,race_crush,focus_3d,"
-                  "multiply,rosette,evolve,race_flood,focus_stretch,hammer,race_crush,devour,golden,squeeze,"
-                  "butterfly,race_shrink,focus,lasers,race_crush,pendulum,paint,crush")
+            golden=golden, pendulum=pendulum, rosette=rosette, **manim_fmt.FORMATS)
+# Weighted by the Channel Watcher's median views (Oct 2026): squeeze, shrink, hammer and
+# race_crush lead, so they come back most often. About a third of the slots are the new ManimGL
+# formats (fourier, dpendulum, lorenz, chaosgame, timestable, primespiral, threebody,
+# metronomes, galton, chladni — see mgl/README.md). Change it any time with the repo variable FORMATS.
+DEFAULT_LINEUP = ("squeeze,fourier,race_crush,galton,shrink,metronomes,hammer,threebody,squeeze,chladni,"
+                  "race_crush,dpendulum,shrink,timestable,hammer,lorenz,butterfly,chaosgame,squeeze,primespiral,"
+                  "race_crush,focus_stretch,shrink,galton,hammer,threebody,race_shrink,focus_3d,paint,metronomes")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).

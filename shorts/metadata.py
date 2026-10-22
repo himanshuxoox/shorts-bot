@@ -176,6 +176,56 @@ TITLES = {
         ("mercury", "Mercury's orbit secretly does this 🤯"),
         ("flower", "A planet that draws a flower 🌸"),
     ],
+    "fourier": [
+        ("circles", "Only circles. What will they draw? 🤯"),
+        ("guess", "Spinning circles draw THIS… guess first 😳"),
+        ("wait", "Wait for the last circle ✨"),
+    ],
+    "dpendulum": [
+        ("apart", "{n} pendulums, almost the same start… 😳"),
+        ("chaos", "Watch the exact moment it turns into CHAOS 🤯"),
+        ("tiny", "A tiny difference. Then THIS happens 🌀"),
+    ],
+    "lorenz": [
+        ("dots", "4,000 dots start together… where do they go? 🦋"),
+        ("butterfly", "The butterfly effect, in 4,000 dots 🦋"),
+        ("wait", "Wait for the butterfly ✨"),
+    ],
+    "chaosgame": [
+        ("random", "Pick a random corner. Jump. Repeat. 🎲"),
+        ("chance", "Pure chance draws THIS 🤯"),
+        ("wait", "Random dots… wait for it 😳"),
+    ],
+    "timestable": [
+        ("x2", "What does × 2 draw on a circle? 🤔"),
+        ("guess", "Guess how many petals × 10 makes 🌸"),
+        ("graph", "× 119 turns into graph paper?! 🤯"),
+    ],
+    "primespiral": [
+        ("angle", "Every number n at angle n… then only primes 🤯"),
+        ("rays", "Why do prime numbers make rays? 🤔"),
+        ("spirals", "Prime numbers draw THIS 😳"),
+    ],
+    "threebody": [
+        ("pick", "3 suns, one gets thrown out. Pick a color! ☀️"),
+        ("which", "Which sun gets kicked out? 😳"),
+        ("chaos", "The three-body problem in 20 seconds 🌌"),
+    ],
+    "metronomes": [
+        ("touch", "24 metronomes. Nobody touches them 😳"),
+        ("sync", "Wait for the metronomes to sync… 🤯"),
+        ("chaos", "From chaos to perfect sync, by themselves ⏱️"),
+    ],
+    "galton": [
+        ("where", "Where will {N} balls land? 🤔"),
+        ("guess", "{N} random balls… guess the shape 😳"),
+        ("bell", "Every ball is random. The result never is 🔔"),
+    ],
+    "chladni": [
+        ("sand", "Sand on a metal plate… now add sound 🔊"),
+        ("pitch", "Watch the sand when the pitch goes up 🤯"),
+        ("draw", "Sound can draw with sand ✨"),
+    ],
 }
 
 FIRST_LINE = {
@@ -204,6 +254,16 @@ FIRST_LINE = {
     "golden": "Every bounce moves the ball the same angle around the circle: {A} of a full turn. If that number is irrational, the ball can never land on its start point again.",
     "pendulum": "{n} pendulums with slightly different lengths. Each one swings a little faster than the one below it — so they drift apart into waves and spirals… and then line up perfectly again.",
     "rosette": "A planet orbits a star, but gravity is a tiny bit stronger close to the star. So every lap the ellipse turns a little, and the path draws a rosette. Mercury's real orbit turns like this too (very slowly) — one of the clues for Einstein's general relativity.",
+    "fourier": "A chain of spinning circles, each turning at a whole-number speed. With 2 circles you get a blob, with 16 a sketch, with 100+ the hidden picture appears (a Fourier series).",
+    "dpendulum": "{n} double pendulums released at almost exactly the same angle. For a few seconds they move as one… then chaos takes over.",
+    "lorenz": "4,000 points start almost at the same spot and follow the Lorenz equations (a simple weather model). They split apart and draw the famous butterfly — the butterfly effect.",
+    "chaosgame": "The Chaos Game: pick a random corner, jump part of the way there, put a dot, repeat. Every move is random, yet a perfect fractal appears.",
+    "timestable": "240 dots on a circle; dot n is joined to dot n × k. × 2 draws a heart (cardioid), × 3 two petals… and some big numbers make shapes you won't expect.",
+    "primespiral": "Every whole number n is placed at distance n and angle n (radians). Zoom out: 6 spirals, 44 spirals — keep only the primes and they line up into 280 rays.",
+    "threebody": "Three suns start at rest and pull on each other with Newton's gravity. No formula can predict them (the three-body problem) — one of them always ends up thrown out.",
+    "metronomes": "24 metronomes on a board that can slide a little. They start completely out of time, and the tiny pushes through the board pull them into perfect sync.",
+    "galton": "A Galton board: {N} balls, each bounces left or right at random on every peg. Every single ball is unpredictable — together they always build the bell curve.",
+    "chladni": "Chladni patterns: a metal plate vibrates with sound, sand slides away from the moving parts and gathers on the still lines. Higher pitch, more detailed pattern.",
 }
 ASK = {
     "escape": "Which one did you pick? Tell me in the comments 👇",
@@ -231,6 +291,16 @@ ASK = {
     "golden": "What did you guess — will it close or not? 👇",
     "pendulum": "Did you wait for the line-up? Tell me in the comments 👇",
     "rosette": "Did you know orbits can do this? Tell me in the comments 👇",
+    "fourier": "What did you guess it would draw? 👇",
+    "dpendulum": "When did you see the chaos start? 👇",
+    "lorenz": "Did you expect a butterfly? 👇",
+    "chaosgame": "Did you think random dots could do this? 👇",
+    "timestable": "Which k was your favourite? 👇",
+    "primespiral": "Do you know why primes do this? Tell me below 👇",
+    "threebody": "Which color did you pick? 👇",
+    "metronomes": "How many seconds did it take? 👇",
+    "galton": "Did you guess the shape? 👇",
+    "chladni": "Which pattern was the best? 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -261,6 +331,16 @@ EXTRA_TAGS = {
     "golden": ["golden ratio", "math", "irrational numbers", "geometry", "pattern"],
     "pendulum": ["pendulum wave", "physics", "pendulum", "satisfying physics", "waves"],
     "rosette": ["orbit", "rosette orbit", "space", "physics", "mercury", "general relativity"],
+    "fourier": ["fourier series", "epicycles", "math animation", "3blue1brown style", "drawing with circles"],
+    "dpendulum": ["double pendulum", "chaos theory", "butterfly effect", "physics simulation"],
+    "lorenz": ["lorenz attractor", "butterfly effect", "chaos theory", "math animation"],
+    "chaosgame": ["chaos game", "sierpinski triangle", "fractal", "math animation", "randomness"],
+    "timestable": ["times table", "cardioid", "modular arithmetic", "math art", "math animation"],
+    "primespiral": ["prime numbers", "prime spiral", "math animation", "3blue1brown style"],
+    "threebody": ["three body problem", "gravity simulation", "chaos", "space", "pick a color"],
+    "metronomes": ["metronome sync", "synchronization", "physics", "satisfying physics"],
+    "galton": ["galton board", "bell curve", "normal distribution", "probability", "ball drop"],
+    "chladni": ["chladni patterns", "cymatics", "sand and sound", "physics", "satisfying"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -288,6 +368,16 @@ HASHTAGS = {
     "golden": "#shorts #maths #goldenratio #geometry #satisfying",
     "pendulum": "#shorts #physics #pendulum #satisfying #science",
     "rosette": "#shorts #physics #space #orbit #science",
+    "fourier": "#shorts #maths #fourier #animation #satisfying",
+    "dpendulum": "#shorts #physics #chaos #pendulum #satisfying",
+    "lorenz": "#shorts #maths #chaos #butterflyeffect #satisfying",
+    "chaosgame": "#shorts #maths #fractal #randomness #satisfying",
+    "timestable": "#shorts #maths #mathart #geometry #satisfying",
+    "primespiral": "#shorts #maths #primenumbers #animation #satisfying",
+    "threebody": "#shorts #physics #space #threebodyproblem #pickacolor",
+    "metronomes": "#shorts #physics #satisfying #sync #science",
+    "galton": "#shorts #maths #probability #galtonboard #satisfying",
+    "chladni": "#shorts #physics #cymatics #sound #satisfying",
 }
 
 

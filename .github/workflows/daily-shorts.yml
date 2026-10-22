@@ -48,11 +48,13 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg libcairo2-dev pkg-config
+          # ManimGL formats: virtual screen + software OpenGL + pango for text
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri libegl1 libglu1-mesa libpango1.0-dev
           mkdir -p ~/.local/share/fonts && cp fonts/*.otf ~/.local/share/fonts/ && fc-cache -f
 
       - name: Python packages
         if: steps.check.outputs.skip != 'true'
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt -r requirements-mgl.txt
 
       - name: Trend scout (safe trending words for ball names)
         if: steps.check.outputs.skip != 'true' && vars.TRENDS == 'on'   # off unless you set TRENDS=on

@@ -1,0 +1,5 @@
+# ManimGL (3Blue1Brown's manim) for the mgl/ formats — pinned to the commit the scenes were made with
+manimgl @ git+https://github.com/3b1b/manim@fafa083a4fb274bba9cabde0b6e2f50ba6da0622
+av>=12
+scipy>=1.11
+matplotlib>=3.8
