@@ -1,5 +1,5 @@
 {
- "next_seed": 1818,
+ "next_seed": 1821,
  "videos": [
   {
    "date": "2026-10-02",
@@ -714,7 +714,31 @@
    "format": "metronomes",
    "seed": 1816,
    "title": "Wait for the metronomes to sync\u2026 \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-24",
+   "format": "squeeze",
+   "seed": 1818,
+   "title": "Every ball caught in the squeeze splits into 3 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-24",
+   "format": "fourier",
+   "seed": 1818,
+   "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-24",
+   "format": "race_crush",
+   "seed": 1820,
+   "title": "Crusher vs 4 balls \u2014 who survives? \ud83d\udca5 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-24",
+   "format": "galton",
+   "seed": 1818,
+   "title": "Where will 1,200 balls land? \ud83e\udd14 #shorts"
   }
  ],
- "lineup_pos": 0
+ "lineup_pos": 4
 }
