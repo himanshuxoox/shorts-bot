@@ -1,5 +1,5 @@
 {
- "next_seed": 1821,
+ "next_seed": 1823,
  "videos": [
   {
    "date": "2026-10-02",
@@ -738,7 +738,31 @@
    "format": "galton",
    "seed": 1818,
    "title": "Where will 1,200 balls land? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-25",
+   "format": "shrink",
+   "seed": 1821,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-10-25",
+   "format": "metronomes",
+   "seed": 1821,
+   "title": "24 metronomes. Nobody touches them \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-25",
+   "format": "hammer",
+   "seed": 1822,
+   "title": "This hammer turned 1 ball into 5,509 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-25",
+   "format": "threebody",
+   "seed": 1821,
+   "title": "Which sun gets kicked out? \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 4
+ "lineup_pos": 8
 }
