@@ -1,5 +1,5 @@
 {
- "next_seed": 1823,
+ "next_seed": 1829,
  "videos": [
   {
    "date": "2026-10-02",
@@ -762,7 +762,43 @@
    "format": "threebody",
    "seed": 1821,
    "title": "Which sun gets kicked out? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-26",
+   "format": "squeeze",
+   "seed": 1823,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83d\udca5 #shorts"
+  },
+  {
+   "date": "2026-10-26",
+   "format": "chladni",
+   "seed": 1823,
+   "title": "Sand on a metal plate\u2026 now add sound \ud83d\udd0a #shorts"
+  },
+  {
+   "date": "2026-10-26",
+   "format": "race_crush",
+   "seed": 1828,
+   "title": "First ball to the top wins (don't get crushed) \ud83d\ude33 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-26",
+   "format": "dpendulum",
+   "seed": 1823,
+   "title": "80 pendulums, almost the same start\u2026 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-26",
+   "format": "shrink",
+   "seed": 1823,
+   "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-26",
+   "format": "timestable",
+   "seed": 1823,
+   "title": "What does \u00d7 2 draw on a circle? \ud83e\udd14 #shorts"
   }
  ],
- "lineup_pos": 8
+ "lineup_pos": 14
 }
