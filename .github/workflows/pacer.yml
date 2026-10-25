@@ -1,8 +1,10 @@
 name: Shorts Pacer
 
-# Smart pacing (only when the repo variable PACING = on):
-# every hour, look at the live Short's views. If it is taking off, hold the next Short back;
-# if it is flat / low, release the next Short from the queue. Rules: shorts/pacer.py.
+# Repo variable PACING decides what this does:
+#   PACING = slots  -> fixed slots: every queued Short is uploaded and scheduled by YouTube at the
+#                      next free slot (PUBLISH_SLOTS, default every 4 h). No view checks.
+#   PACING = on     -> smart pacing: watch the live Short's views and hold / release (shorts/pacer.py).
+#   anything else   -> this workflow does nothing.
 on:
   schedule:
     - cron: "23 * * * *"      # twice an hour: GitHub often skips or delays scheduled runs,
@@ -18,7 +20,7 @@ concurrency:
 
 jobs:
   tick:
-    if: vars.PACING == 'on'
+    if: vars.PACING == 'on' || vars.PACING == 'slots'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -31,7 +33,19 @@ jobs:
       - name: Python packages
         run: pip install google-api-python-client google-auth
 
+      - name: Fixed slots — schedule queued Shorts
+        if: vars.PACING == 'slots'
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '03:30,07:30,11:30,15:30,19:30,23:30' }}
+          PACE_DRAIN_MAX: ${{ vars.PACE_DRAIN_MAX || '3' }}
+        run: python -m shorts.pacer drain
+
       - name: Check the live Short, maybe release the next one
+        if: vars.PACING == 'on'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
@@ -53,7 +67,7 @@ jobs:
         run: |
           git config user.name  "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
-          git add state/uploads_out.json
+          git add state/uploads_out.json state/schedule_out.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
-          git commit -m "Pacer released a Short"
+          git commit -m "Pacer scheduled / released Shorts"
           git pull --rebase && git push

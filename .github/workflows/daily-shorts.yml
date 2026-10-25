@@ -69,9 +69,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PACE_QUEUE_MAX: ${{ vars.PACE_QUEUE_MAX }}
+          PACING: ${{ vars.PACING }}
         run: |
-          WANT="${{ github.event.inputs.count || '4' }}"
-          if [ "${{ vars.PACING }}" = "on" ]; then
+          WANT="${{ github.event.inputs.count || '6' }}"
+          if [ "${{ vars.PACING }}" = "on" ] || [ "${{ vars.PACING }}" = "slots" ]; then
             # smart pacing: don't pile up more than PACE_QUEUE_MAX unreleased Shorts
             N=$(python -m shorts.pacer need --want "$WANT" || echo "$WANT")
           else
@@ -89,16 +90,16 @@ jobs:
         run: python -m shorts.batch --count "${{ steps.count.outputs.n }}" --workers 2
 
       - name: Upload to YouTube at fixed slots (AUTO_UPLOAD = true, PACING off)
-        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true' && vars.PACING != 'on'
+        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true' && vars.PACING != 'on' && vars.PACING != 'slots'
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '08:30,12:30,15:30,18:30,21:00' }}
+          PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '03:30,07:30,11:30,15:30,19:30,23:30' }}
         run: python -m shorts.upload
 
       - name: Smart pacing (PACING = on) — queue the Shorts, schedule only the long video
-        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true' && vars.PACING == 'on'
+        if: steps.check.outputs.skip != 'true' && vars.AUTO_UPLOAD == 'true' && (vars.PACING == 'on' || vars.PACING == 'slots')
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}

@@ -104,6 +104,15 @@ Every day, download the artifact. In YouTube Studio, click **Create → Upload**
 
 The bot is now hands-free: it renders every morning and each video goes public at its scheduled slot.
 
+## Fixed slots: 6 Shorts a day, every 4 hours (`PACING = slots`)
+
+Repo variable `PACING = slots` (with `AUTO_UPLOAD = true`): the daily batch renders up to 6 Shorts and
+queues them; **Actions → Shorts Pacer** uploads every queued Short and lets YouTube publish it at the
+next free slot: **03:30, 07:30, 11:30, 15:30, 19:30, 23:30 IST** (override with `PUBLISH_SLOTS`).
+No view checks. YouTube publishes at the exact minute, so late GitHub runs don't matter. At most
+`PACE_DRAIN_MAX` = 3 uploads per run (small API bursts). The batch renders fewer Shorts when more than
+12 are already waiting (queue + scheduled), so the buffer stays around 1-2 days.
+
 ## Smart pacing (optional): hold the next Short while one is taking off
 
 Repo variable `PACING = on` (together with `AUTO_UPLOAD = true`) switches Shorts from fixed

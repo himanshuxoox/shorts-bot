@@ -28,6 +28,7 @@ How it works
     python -m shorts.pacer enqueue --date 2026-10-18     # after the daily render
     python -m shorts.pacer need --want 4                 # how many Shorts to render today
     python -m shorts.pacer tick                          # hourly: decide + maybe release
+    python -m shorts.pacer drain                         # PACING = slots: schedule queued Shorts at fixed slots
     python -m shorts.pacer status                        # print queue, live Short, decision
     python -m shorts.pacer simulate                      # test the rules on made-up view curves
 Local testing without GitHub: PACER_STORE=/some/folder uses that folder instead of the release.
@@ -286,13 +287,22 @@ def cmd_enqueue(a):
 
 
 def cmd_need(a):
+    """How many Shorts to render today so that no more than PACE_QUEUE_MAX (12 = 2 days) are waiting.
+    In fixed-slot mode the waiting ones are the queue PLUS the Shorts already scheduled on YouTube."""
     st = store()
     with tempfile.TemporaryDirectory() as tmp:
         try:
             q = len(load_state(st, tmp)["queue"])
         except Exception:
             q = 0
-    print(max(0, min(a.want, int(PARAMS["queue_max"]) - q)))
+    ahead = 0
+    if os.environ.get("PACING") == "slots":
+        from .upload import last_slot, plan_times
+        last = last_slot(os.path.join(ROOT, "out"))
+        if last is not None:
+            slots = plan_times(dt.datetime.now(IST).strftime("%Y-%m-%d"), 40)
+            ahead = sum(1 for t in slots if t <= last)
+    print(max(0, min(a.want, int(PARAMS["queue_max"]) - q - ahead)))
 
 
 def _summary(lines):
@@ -374,14 +384,58 @@ def _release(st, item, yt, tmp):
         return None, None
 
 
-def _record_upload(vid, item, when):
+def _record_upload(vid, item, when, paced=True):
     """state/uploads_out.json so the Channel Watcher knows each video's format."""
     p = os.path.join(ROOT, "state", "uploads_out.json")
     data = json.load(open(p)) if os.path.exists(p) else {}
     data[vid] = dict(format=item.get("format"), title=item["title"], seed=item.get("seed"),
-                     publish_at=when.astimezone(IST).isoformat(), long_form=False, paced=True)
+                     publish_at=when.astimezone(IST).isoformat(), long_form=False, paced=paced)
     with open(p, "w") as f:
         json.dump(data, f, indent=1, ensure_ascii=False)
+
+
+def cmd_drain(a):
+    """PACING = slots: no view checks. Every queued Short is uploaded and SCHEDULED by YouTube at
+    the next free fixed slot (PUBLISH_SLOTS, default every 4 h: 03:30 07:30 11:30 15:30 19:30 23:30
+    IST). At most --max uploads per run (keeps each run small for the API quota); the next run
+    continues. YouTube itself publishes at the exact minute, so late GitHub runs don't matter."""
+    from .upload import plan_times, last_slot, save_last_slot, upload_one
+    out_dir = os.path.join(ROOT, "out")                      # shares state/schedule_out.json with upload.py
+    st = store()
+    st.ensure()
+    yt = None if a.dry_run else yt_client()
+    lines = [f"### Scheduler {now_utc().astimezone(IST):%Y-%m-%d %H:%M IST} (fixed slots)"]
+    with tempfile.TemporaryDirectory() as tmp:
+        state = load_state(st, tmp)
+        queue = sorted(state["queue"], key=lambda q: q["queued"])
+        todo = queue[: a.max]
+        times = plan_times(dt.datetime.now(IST).strftime("%Y-%m-%d"), len(todo), after=last_slot(out_dir))
+        for item, when in zip(todo, times):
+            if a.dry_run:
+                lines.append(f"- would schedule {when.astimezone(IST):%a %d %b %H:%M IST}: {item['title']}")
+                continue
+            path = st.get(item["asset"], tmp)
+            if not path:
+                lines.append(f"- {item['asset']} missing in the queue, skipped")
+                state["queue"] = [q for q in state["queue"] if q["asset"] != item["asset"]]
+                continue
+            body = dict(item, tags=item.get("tags", []), categoryId=item.get("categoryId", "24"))
+            try:
+                vid = upload_one(yt, path, body, when)
+            except Exception as e:
+                lines.append(f"- upload failed ({str(e)[:160]}), will retry next run")
+                break                                       # quota / network: stop, keep the rest queued
+            save_last_slot(out_dir, when)
+            _record_upload(vid, item, when, paced=False)
+            st.delete(item["asset"])
+            state["queue"] = [q for q in state["queue"] if q["asset"] != item["asset"]]
+            lines.append(f"- scheduled {when.astimezone(IST):%a %d %b %H:%M IST}: {item['title']} "
+                         f"-> https://youtube.com/shorts/{vid}")
+        state["live"] = None                                 # no smart pacing in this mode
+        if not a.dry_run:
+            save_state(st, state, tmp)
+    lines.append(f"- still queued: {len(state['queue'])}")
+    _summary(lines)
 
 
 def cmd_status(a):
@@ -436,10 +490,14 @@ def main():
     n.add_argument("--want", type=int, default=4)
     t = sub.add_parser("tick")
     t.add_argument("--dry-run", action="store_true")
+    d = sub.add_parser("drain")
+    d.add_argument("--max", type=int, default=int(os.environ.get("PACE_DRAIN_MAX", "3")))
+    d.add_argument("--dry-run", action="store_true")
     sub.add_parser("status")
     sub.add_parser("simulate")
     a = ap.parse_args()
-    dict(enqueue=cmd_enqueue, need=cmd_need, tick=cmd_tick, status=cmd_status, simulate=cmd_simulate)[a.cmd](a)
+    dict(enqueue=cmd_enqueue, need=cmd_need, tick=cmd_tick, drain=cmd_drain, status=cmd_status,
+         simulate=cmd_simulate)[a.cmd](a)
 
 
 if __name__ == "__main__":
