@@ -243,5 +243,29 @@
   "publish_at": "2026-10-25T06:55:46.312930+05:30",
   "long_form": false,
   "paced": true
+ },
+ "H_wLxDaYUtI": {
+  "format": "lasers",
+  "title": "Can the lasers stop the doubling? 🔴🔵 #shorts",
+  "seed": 1813,
+  "publish_at": "2026-10-25T11:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "ylEbdaM94EE": {
+  "format": "threebody",
+  "title": "The three-body problem in 20 seconds 🌌 #shorts",
+  "seed": 1815,
+  "publish_at": "2026-10-25T15:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "fZ2gGjgzIuE": {
+  "format": "metronomes",
+  "title": "Wait for the metronomes to sync… 🤯 #shorts",
+  "seed": 1816,
+  "publish_at": "2026-10-25T19:30:00+05:30",
+  "long_form": false,
+  "paced": false
  }
 }
