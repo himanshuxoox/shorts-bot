@@ -1,5 +1,5 @@
 {
- "next_seed": 1829,
+ "next_seed": 1830,
  "videos": [
   {
    "date": "2026-10-02",
@@ -798,7 +798,43 @@
    "format": "timestable",
    "seed": 1823,
    "title": "What does \u00d7 2 draw on a circle? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-27",
+   "format": "hammer",
+   "seed": 1829,
+   "title": "This hammer turned 1 ball into 8,149 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-27",
+   "format": "lorenz",
+   "seed": 1829,
+   "title": "The butterfly effect, in 4,000 dots \ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-27",
+   "format": "butterfly",
+   "seed": 1829,
+   "title": "Did you recognize the music? \ud83c\udfb5\ud83e\udd8b #shorts"
+  },
+  {
+   "date": "2026-10-27",
+   "format": "chaosgame",
+   "seed": 1829,
+   "title": "Pure chance draws THIS \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-27",
+   "format": "squeeze",
+   "seed": 1829,
+   "title": "4 bars, 1 ball\u2026 6,343 balls at the end \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-27",
+   "format": "primespiral",
+   "seed": 1829,
+   "title": "Why do prime numbers make rays? \ud83e\udd14 #shorts"
   }
  ],
- "lineup_pos": 14
+ "lineup_pos": 20
 }
