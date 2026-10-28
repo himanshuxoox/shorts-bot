@@ -1,5 +1,5 @@
 {
- "next_seed": 1830,
+ "next_seed": 1833,
  "videos": [
   {
    "date": "2026-10-02",
@@ -834,7 +834,43 @@
    "format": "primespiral",
    "seed": 1829,
    "title": "Why do prime numbers make rays? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-28",
+   "format": "race_crush",
+   "seed": 1832,
+   "title": "Pick a color \u2014 dodge the crusher! \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-28",
+   "format": "focus_stretch",
+   "seed": 1830,
+   "title": "I keep changing the shape\u2026 do they still meet? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-28",
+   "format": "shrink",
+   "seed": 1830,
+   "title": "Guess how many bounces before the wall wins \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-28",
+   "format": "galton",
+   "seed": 1830,
+   "title": "1,500 random balls\u2026 guess the shape \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-28",
+   "format": "hammer",
+   "seed": 1830,
+   "title": "This hammer turned 1 ball into 5,967 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-28",
+   "format": "threebody",
+   "seed": 1830,
+   "title": "The three-body problem in 20 seconds \ud83c\udf0c #shorts"
   }
  ],
- "lineup_pos": 20
+ "lineup_pos": 26
 }
