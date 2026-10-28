@@ -336,6 +336,40 @@
     "lasers": 582,
     "elim": 403
    }
+  },
+  {
+   "date": "2026-10-28",
+   "subs": 367,
+   "views": 527559,
+   "videos": 101,
+   "formats": {
+    "fourier": 59309,
+    "focus": 29431,
+    "focus_stretch": 25391,
+    "focus_3d": 21707,
+    "shrink": 19070,
+    "golden": 18787,
+    "threebody": 10540,
+    "galton": 9872,
+    "metronomes": 5635,
+    "race_crush": 5471,
+    "rosette": 4703,
+    "squeeze": 4403,
+    "butterfly": 3794,
+    "hammer": 3751,
+    "race_shrink": 3366,
+    "paint": 2437,
+    "multiply": 2279,
+    "crush": 1874,
+    "rings": 1769,
+    "race_flood": 1717,
+    "devour": 1298,
+    "escape": 1213,
+    "other": 1190,
+    "evolve": 966,
+    "lasers": 603,
+    "elim": 293
+   }
   }
  ]
 }
