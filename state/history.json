@@ -1,5 +1,5 @@
 {
- "next_seed": 1833,
+ "next_seed": 1835,
  "videos": [
   {
    "date": "2026-10-02",
@@ -870,7 +870,43 @@
    "format": "threebody",
    "seed": 1830,
    "title": "The three-body problem in 20 seconds \ud83c\udf0c #shorts"
+  },
+  {
+   "date": "2026-10-29",
+   "format": "race_shrink",
+   "seed": 1834,
+   "title": "Only 2 shrink pads\u2026 who escapes? \ud83d\ude33 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-29",
+   "format": "focus_3d",
+   "seed": 1833,
+   "title": "Does it work in 3D too? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-29",
+   "format": "paint",
+   "seed": 1833,
+   "title": "Which color takes over the wall? \ud83e\ude77\ud83d\udfe1\ud83d\udfe2\ud83e\ude75 #shorts"
+  },
+  {
+   "date": "2026-10-29",
+   "format": "metronomes",
+   "seed": 1833,
+   "title": "Wait for the metronomes to sync\u2026 \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-29",
+   "format": "squeeze",
+   "seed": 1833,
+   "title": "How many balls before the circle bursts? Guess! \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-29",
+   "format": "fourier",
+   "seed": 1833,
+   "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
   }
  ],
- "lineup_pos": 26
+ "lineup_pos": 2
 }
