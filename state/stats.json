@@ -370,6 +370,43 @@
     "lasers": 603,
     "elim": 293
    }
+  },
+  {
+   "date": "2026-10-29",
+   "subs": 391,
+   "views": 577821,
+   "videos": 107,
+   "formats": {
+    "fourier": 65109,
+    "focus": 29952,
+    "focus_stretch": 26270,
+    "focus_3d": 21818,
+    "shrink": 21577,
+    "golden": 18855,
+    "galton": 10115,
+    "threebody": 7701,
+    "metronomes": 5838,
+    "race_crush": 4885,
+    "rosette": 4713,
+    "squeeze": 4423,
+    "chladni": 4196,
+    "butterfly": 3795,
+    "hammer": 3758,
+    "race_shrink": 3376,
+    "multiply": 2280,
+    "paint": 2258,
+    "crush": 1876,
+    "race_flood": 1726,
+    "grow": 1426,
+    "rings": 1397,
+    "devour": 1300,
+    "escape": 1215,
+    "other": 1191,
+    "evolve": 968,
+    "lasers": 612,
+    "elim": 407,
+    "dpendulum": 275
+   }
   }
  ]
 }
