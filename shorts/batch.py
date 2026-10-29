@@ -28,7 +28,7 @@ import random
 
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
                royale, hammer, squeeze, lasers, race, focus, golden, pendulum, rosette, metadata, trends,
-               manim_fmt)
+               manim_fmt, shrink2, three_d)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,14 +39,16 @@ MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers,
             race_shrink=race.race_shrink, butterfly=butterfly, evolve=evolve, multiply=multiply, shrink=shrink, devour=devour,
             crush=crush, paint=paint, elim=elim, rings=rings, grow=grow, escape=escape,
             focus=focus.focus, focus_stretch=focus.focus_stretch, focus_3d=focus.focus_3d,
-            golden=golden, pendulum=pendulum, rosette=rosette, **manim_fmt.FORMATS)
-# Weighted by the Channel Watcher's median views (Oct 2026): squeeze, shrink, hammer and
-# race_crush lead, so they come back most often. About a third of the slots are the new ManimGL
-# formats (fourier, dpendulum, lorenz, chaosgame, timestable, primespiral, threebody,
-# metronomes, galton, chladni — see mgl/README.md). Change it any time with the repo variable FORMATS.
-DEFAULT_LINEUP = ("squeeze,fourier,race_crush,galton,shrink,metronomes,hammer,threebody,squeeze,chladni,"
-                  "race_crush,dpendulum,shrink,timestable,hammer,lorenz,butterfly,chaosgame,squeeze,primespiral,"
-                  "race_crush,focus_stretch,shrink,galton,hammer,threebody,race_shrink,focus_3d,paint,metronomes")
+            golden=golden, pendulum=pendulum, rosette=rosette, **manim_fmt.FORMATS,
+            shrink_duo=shrink2.shrink_duo, shrink_shape=shrink2.shrink_shape,
+            dish_3d=three_d.dish_3d, sphere_star=three_d.sphere_star, torus_knot=three_d.torus_knot)
+# Weighted by the Channel Watcher's median views (29 Oct 2026): fourier (65k), the focus family
+# (focus 30k, focus_stretch 26k, focus_3d 22k), shrink (21.6k), golden (19k) lead, so they and the new
+# 3D / shrink variants (dish_3d, sphere_star, torus_knot, shrink_duo, shrink_shape) get most slots.
+# dpendulum, elim, lasers, escape, evolve, rings, devour, grow are out. Override with the repo variable FORMATS.
+DEFAULT_LINEUP = ("fourier,shrink,focus_3d,dish_3d,shrink_duo,focus,golden,sphere_star,shrink_shape,galton,"
+                  "focus_stretch,torus_knot,shrink,fourier,threebody,dish_3d,race_crush,focus_3d,shrink_duo,metronomes,"
+                  "sphere_star,squeeze,focus,shrink_shape,torus_knot,hammer,fourier,golden,shrink,chladni")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).

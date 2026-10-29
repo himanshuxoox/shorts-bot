@@ -226,6 +226,31 @@ TITLES = {
         ("pitch", "Watch the sand when the pitch goes up 🤯"),
         ("draw", "Sound can draw with sand ✨"),
     ],
+    "shrink_duo": [
+        ("vs", "{a} vs {b} — every bounce SHRINKS the ball 😳 {e}"),
+        ("pick", "Pick a color! Every bounce shrinks the ball {e}"),
+        ("last", "Which ball lasts longer? 😳 {e}"),
+    ],
+    "shrink_shape": [
+        ("shape", "Every bounce SHRINKS the ball and GROWS the wall 😳"),
+        ("vs", "Ball vs wall — who wins? 😳"),
+        ("music", "Did you recognize the music? 🎵"),
+    ],
+    "dish_3d": [
+        ("same", "Will they all hit the same point? 🤯"),
+        ("dish", "{N} balls vs a satellite dish 😳"),
+        ("3d", "The dish trick in 3D 🤯"),
+    ],
+    "sphere_star": [
+        ("fill", "Will the bounces ever fill the ball? 🤔"),
+        ("golden", "The golden angle inside a sphere 🤯"),
+        ("star", "1 ball draws a star… 120 balls draw THIS 😳"),
+    ],
+    "torus_knot": [
+        ("back", "Will the ball ever come back? 🍩"),
+        ("knot", "A ball on a donut ties a KNOT 🤯"),
+        ("golden", "The golden ratio on a donut never closes 😳"),
+    ],
 }
 
 FIRST_LINE = {
@@ -264,6 +289,11 @@ FIRST_LINE = {
     "metronomes": "24 metronomes on a board that can slide a little. They start completely out of time, and the tiny pushes through the board pull them into perfect sync.",
     "galton": "A Galton board: {N} balls, each bounces left or right at random on every peg. Every single ball is unpredictable — together they always build the bell curve.",
     "chladni": "Chladni patterns: a metal plate vibrates with sound, sand slides away from the moving parts and gathers on the still lines. Higher pitch, more detailed pattern.",
+    "shrink_duo": "{vs} — every bounce shrinks the ball that hit and grows the wall in its colour. Shrink to a dot and you're OUT.",
+    "shrink_shape": "Every bounce makes the ball a little smaller and grows the wall right where it hit — this time inside a shape, in rainbow.",
+    "dish_3d": "A satellite dish is a paraboloid: every ball that comes straight down bounces once and goes through the same point (the focus) at the same moment. 1, 2, 3, 5 … up to {N}.",
+    "sphere_star": "Each ball bounces inside a sphere and turns by the golden angle every bounce. One ball draws a star; many balls draw a ball — with a perfectly hollow core no bounce can ever reach.",
+    "torus_knot": "A ball circles a donut: 2 laps one way for every 3 the other ties a trefoil knot. Then 3:5, 5:8… and with the golden ratio it never comes back — it covers the whole donut.",
 }
 ASK = {
     "escape": "Which one did you pick? Tell me in the comments 👇",
@@ -301,6 +331,11 @@ ASK = {
     "metronomes": "How many seconds did it take? 👇",
     "galton": "Did you guess the shape? 👇",
     "chladni": "Which pattern was the best? 👇",
+    "shrink_duo": "Which color did you pick? 👇",
+    "shrink_shape": "Did you recognize the music? Tell me in the comments 👇",
+    "dish_3d": "Did you think they would ALL meet? 👇",
+    "sphere_star": "Did you expect a hollow ball? 👇",
+    "torus_knot": "Which knot was the coolest? 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -341,6 +376,11 @@ EXTRA_TAGS = {
     "metronomes": ["metronome sync", "synchronization", "physics", "satisfying physics"],
     "galton": ["galton board", "bell curve", "normal distribution", "probability", "ball drop"],
     "chladni": ["chladni patterns", "cymatics", "sand and sound", "physics", "satisfying"],
+    "shrink_duo": ["ball shrinks", "growing wall", "pick a color", "ball battle", "guess the song"],
+    "shrink_shape": ["ball shrinks", "growing wall", "bouncing ball music", "guess the song", "satisfying physics"],
+    "dish_3d": ["satellite dish", "parabola", "focus", "3d simulation", "fibonacci"],
+    "sphere_star": ["golden angle", "golden ratio", "sphere", "3d simulation", "math art"],
+    "torus_knot": ["torus knot", "trefoil knot", "golden ratio", "3d math", "donut"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -378,6 +418,11 @@ HASHTAGS = {
     "metronomes": "#shorts #physics #satisfying #sync #science",
     "galton": "#shorts #maths #probability #galtonboard #satisfying",
     "chladni": "#shorts #physics #cymatics #sound #satisfying",
+    "shrink_duo": "#shorts #satisfying #bouncingball #pickacolor #oddlysatisfying",
+    "shrink_shape": "#shorts #satisfying #bouncingball #simulation #oddlysatisfying",
+    "dish_3d": "#shorts #maths #physics #3d #satisfying",
+    "sphere_star": "#shorts #maths #goldenratio #3d #satisfying",
+    "torus_knot": "#shorts #maths #knots #3d #satisfying",
 }
 
 
