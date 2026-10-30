@@ -1,5 +1,5 @@
 {
- "next_seed": 1835,
+ "next_seed": 1838,
  "videos": [
   {
    "date": "2026-10-02",
@@ -906,7 +906,43 @@
    "format": "fourier",
    "seed": 1833,
    "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-30",
+   "format": "focus_3d",
+   "seed": 1835,
+   "title": "The ellipse trick\u2026 but in 3D \u2728 #shorts"
+  },
+  {
+   "date": "2026-10-30",
+   "format": "dish_3d",
+   "seed": 1835,
+   "title": "The dish trick in 3D \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-10-30",
+   "format": "shrink_duo",
+   "seed": 1837,
+   "title": "Green vs Yellow \u2014 every bounce SHRINKS the ball \ud83d\ude33 \ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-10-30",
+   "format": "focus",
+   "seed": 1835,
+   "title": "The magic point inside every ellipse \u2728 #shorts"
+  },
+  {
+   "date": "2026-10-30",
+   "format": "golden",
+   "seed": 1835,
+   "title": "The golden ratio does THIS to a bouncing ball \u2728 #shorts"
+  },
+  {
+   "date": "2026-10-30",
+   "format": "sphere_star",
+   "seed": 1835,
+   "title": "1 ball draws a star\u2026 120 balls draw THIS \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 2
+ "lineup_pos": 8
 }
