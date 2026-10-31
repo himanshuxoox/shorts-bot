@@ -1,5 +1,5 @@
 {
- "next_seed": 1838,
+ "next_seed": 1840,
  "videos": [
   {
    "date": "2026-10-02",
@@ -942,7 +942,43 @@
    "format": "sphere_star",
    "seed": 1835,
    "title": "1 ball draws a star\u2026 120 balls draw THIS \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-31",
+   "format": "shrink_shape",
+   "seed": 1839,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-10-31",
+   "format": "galton",
+   "seed": 1838,
+   "title": "Where will 1,500 balls land? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-31",
+   "format": "focus_stretch",
+   "seed": 1838,
+   "title": "Will they still meet if I stretch it? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-10-31",
+   "format": "torus_knot",
+   "seed": 1838,
+   "title": "Will the ball ever come back? \ud83c\udf69 #shorts"
+  },
+  {
+   "date": "2026-10-31",
+   "format": "shrink",
+   "seed": 1838,
+   "title": "Every bounce SHRINKS the ball and GROWS the wall \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-10-31",
+   "format": "fourier",
+   "seed": 1838,
+   "title": "Wait for the last circle \u2728 #shorts"
   }
  ],
- "lineup_pos": 8
+ "lineup_pos": 14
 }
