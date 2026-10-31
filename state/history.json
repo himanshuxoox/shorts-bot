@@ -1,5 +1,5 @@
 {
- "next_seed": 1840,
+ "next_seed": 1844,
  "videos": [
   {
    "date": "2026-10-02",
@@ -978,7 +978,43 @@
    "format": "fourier",
    "seed": 1838,
    "title": "Wait for the last circle \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-01",
+   "format": "threebody",
+   "seed": 1840,
+   "title": "3 suns, one gets thrown out. Pick a color! \u2600\ufe0f #shorts"
+  },
+  {
+   "date": "2026-11-01",
+   "format": "dish_3d",
+   "seed": 1840,
+   "title": "Will they all hit the same point? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-01",
+   "format": "race_crush",
+   "seed": 1843,
+   "title": "Crusher vs 4 balls \u2014 who survives? \ud83d\udca5 \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-11-01",
+   "format": "focus_3d",
+   "seed": 1840,
+   "title": "377 balls in 3D \u2014 will they all meet? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-01",
+   "format": "shrink_duo",
+   "seed": 1841,
+   "title": "Pick a color! Every bounce shrinks the ball \ud83d\udfe1\ud83d\udd34 #shorts"
+  },
+  {
+   "date": "2026-11-01",
+   "format": "metronomes",
+   "seed": 1840,
+   "title": "24 metronomes. Nobody touches them \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 14
+ "lineup_pos": 20
 }
