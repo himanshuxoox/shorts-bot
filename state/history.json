@@ -1,5 +1,5 @@
 {
- "next_seed": 1844,
+ "next_seed": 1848,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1014,7 +1014,43 @@
    "format": "metronomes",
    "seed": 1840,
    "title": "24 metronomes. Nobody touches them \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-02",
+   "format": "sphere_star",
+   "seed": 1844,
+   "title": "The golden angle inside a sphere \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-02",
+   "format": "squeeze",
+   "seed": 1844,
+   "title": "4 bars, 1 ball\u2026 7,115 balls at the end \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-02",
+   "format": "focus",
+   "seed": 1844,
+   "title": "Every single ball lands on ONE point \ud83c\udfaf #shorts"
+  },
+  {
+   "date": "2026-11-02",
+   "format": "shrink_shape",
+   "seed": 1844,
+   "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-02",
+   "format": "torus_knot",
+   "seed": 1844,
+   "title": "A ball on a donut ties a KNOT \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-02",
+   "format": "hammer",
+   "seed": 1847,
+   "title": "This hammer turned 1 ball into 5,129 \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 20
+ "lineup_pos": 26
 }
