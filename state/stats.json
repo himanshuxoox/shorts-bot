@@ -573,6 +573,52 @@
     "dpendulum": 334,
     "shrink_shape": 119
    }
+  },
+  {
+   "date": "2026-11-03",
+   "subs": 526,
+   "views": 814737,
+   "videos": 137,
+   "formats": {
+    "fourier": 46390,
+    "focus_stretch": 20364,
+    "shrink": 20070,
+    "shrink_duo": 19054,
+    "golden": 18630,
+    "focus": 17368,
+    "focus_3d": 10998,
+    "shrink_shape": 9837,
+    "timestable": 8144,
+    "primespiral": 5235,
+    "metronomes": 4955,
+    "threebody": 4851,
+    "rosette": 4722,
+    "chladni": 4558,
+    "squeeze": 4534,
+    "race_crush": 4377,
+    "chaosgame": 4328,
+    "butterfly": 3803,
+    "galton": 3517,
+    "dish_3d": 3472,
+    "race_shrink": 3323,
+    "hammer": 2306,
+    "multiply": 2283,
+    "torus_knot": 2079,
+    "lorenz": 1970,
+    "crush": 1880,
+    "paint": 1796,
+    "race_flood": 1729,
+    "grow": 1426,
+    "rings": 1399,
+    "devour": 1301,
+    "escape": 1222,
+    "other": 1192,
+    "sphere_star": 1012,
+    "evolve": 976,
+    "lasers": 627,
+    "elim": 409,
+    "dpendulum": 342
+   }
   }
  ]
 }
