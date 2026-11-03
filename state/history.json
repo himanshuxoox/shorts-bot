@@ -1,5 +1,5 @@
 {
- "next_seed": 1848,
+ "next_seed": 1850,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1050,7 +1050,43 @@
    "format": "hammer",
    "seed": 1847,
    "title": "This hammer turned 1 ball into 5,129 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-03",
+   "format": "fourier",
+   "seed": 1848,
+   "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-03",
+   "format": "golden",
+   "seed": 1848,
+   "title": "Will this pattern ever close? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-03",
+   "format": "shrink",
+   "seed": 1848,
+   "title": "Guess how many bounces before the wall wins \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-03",
+   "format": "chladni",
+   "seed": 1848,
+   "title": "Sand on a metal plate\u2026 now add sound \ud83d\udd0a #shorts"
+  },
+  {
+   "date": "2026-11-03",
+   "format": "fourier",
+   "seed": 1849,
+   "title": "Spinning circles draw THIS\u2026 guess first \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-03",
+   "format": "shrink",
+   "seed": 1849,
+   "title": "Every bounce SHRINKS the ball and GROWS the wall \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 26
+ "lineup_pos": 2
 }
