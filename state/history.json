@@ -1,5 +1,5 @@
 {
- "next_seed": 1850,
+ "next_seed": 1857,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1086,7 +1086,43 @@
    "format": "shrink",
    "seed": 1849,
    "title": "Every bounce SHRINKS the ball and GROWS the wall \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-04",
+   "format": "focus_3d",
+   "seed": 1850,
+   "title": "The ellipse trick\u2026 but in 3D \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-04",
+   "format": "dish_3d",
+   "seed": 1850,
+   "title": "89 balls vs a satellite dish \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-04",
+   "format": "shrink_duo",
+   "seed": 1856,
+   "title": "Which ball lasts longer? \ud83d\ude33 \ud83d\udfe3\ud83d\udfe2 #shorts"
+  },
+  {
+   "date": "2026-11-04",
+   "format": "focus",
+   "seed": 1850,
+   "title": "1, 2, 3, 5, 8\u2026 377 balls. Do they ALL meet? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-04",
+   "format": "golden",
+   "seed": 1850,
+   "title": "Does this pattern EVER repeat? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-04",
+   "format": "sphere_star",
+   "seed": 1850,
+   "title": "1 ball draws a star\u2026 120 balls draw THIS \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 2
+ "lineup_pos": 8
 }
