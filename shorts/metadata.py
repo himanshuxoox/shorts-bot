@@ -207,9 +207,9 @@ TITLES = {
         ("spirals", "Prime numbers draw THIS 😳"),
     ],
     "threebody": [
-        ("pick", "3 suns, one gets thrown out. Pick a color! ☀️"),
-        ("which", "Which sun gets kicked out? 😳"),
-        ("chaos", "The three-body problem in 20 seconds 🌌"),
+        ("pick", "{n} suns. Pick a color! ☀️"),
+        ("which", "Which suns get thrown out? 😳"),
+        ("chaos", "The {n}-body problem in 20 seconds 🌌"),
     ],
     "metronomes": [
         ("touch", "24 metronomes. Nobody touches them 😳"),
@@ -251,6 +251,36 @@ TITLES = {
         ("knot", "A ball on a donut ties a KNOT 🤯"),
         ("golden", "The golden ratio on a donut never closes 😳"),
     ],
+    "nbody": [
+        ("pick", "{n} suns. Pick a color! ☀️"),
+        ("survive", "{n} suns, gravity only — will your color survive? 😳"),
+        ("out", "Thrown out = OUT. Pick a sun! 🌌"),
+    ],
+    "dragonfold": [
+        ("fold", "Fold a strip 10 times… what appears? 🐉"),
+        ("open", "Open every fold to 90°… wait for it 😳"),
+        ("dragon", "1,024 pieces of paper draw THIS 🤯"),
+    ],
+    "fourier3d": [
+        ("top", "Spinning circles in 3D… what's the shape from the TOP? 🤯"),
+        ("knot", "This 3D knot is secretly a picture 😳"),
+        ("circles", "Only circles… but in 3D ✨"),
+    ],
+    "shrinksphere": [
+        ("3d", "Every bounce SHRINKS the ball… in 3D 😳"),
+        ("wall", "Ball vs a growing wall — in 3D 😳"),
+        ("music", "Did you recognize the music? 🎵"),
+    ],
+    "sunflower3d": [
+        ("angle", "Which angle makes a sunflower? 🌻"),
+        ("golden", "137.5° is a magic angle 🤯"),
+        ("turn", "Turn every seed by the same angle… 😳"),
+    ],
+    "hilbert3d": [
+        ("cube", "Can ONE line fill a whole cube? 🤯"),
+        ("corners", "One line, 4,096 corners 😳"),
+        ("split", "Every corner splits into 8… 🧊"),
+    ],
 }
 
 FIRST_LINE = {
@@ -285,7 +315,7 @@ FIRST_LINE = {
     "chaosgame": "The Chaos Game: pick a random corner, jump part of the way there, put a dot, repeat. Every move is random, yet a perfect fractal appears.",
     "timestable": "240 dots on a circle; dot n is joined to dot n × k. × 2 draws a heart (cardioid), × 3 two petals… and some big numbers make shapes you won't expect.",
     "primespiral": "Every whole number n is placed at distance n and angle n (radians). Zoom out: 6 spirals, 44 spirals — keep only the primes and they line up into 280 rays.",
-    "threebody": "Three suns start at rest and pull on each other with Newton's gravity. No formula can predict them (the three-body problem) — one of them always ends up thrown out.",
+    "threebody": "{n} suns start almost at rest and pull on each other with Newton's gravity. Close encounters fling suns out of the cluster — a sun that is thrown out is OUT.",
     "metronomes": "24 metronomes on a board that can slide a little. They start completely out of time, and the tiny pushes through the board pull them into perfect sync.",
     "galton": "A Galton board: {N} balls, each bounces left or right at random on every peg. Every single ball is unpredictable — together they always build the bell curve.",
     "chladni": "Chladni patterns: a metal plate vibrates with sound, sand slides away from the moving parts and gathers on the still lines. Higher pitch, more detailed pattern.",
@@ -294,6 +324,12 @@ FIRST_LINE = {
     "dish_3d": "A satellite dish is a paraboloid: every ball that comes straight down bounces once and goes through the same point (the focus) at the same moment. 1, 2, 3, 5 … up to {N}.",
     "sphere_star": "Each ball bounces inside a sphere and turns by the golden angle every bounce. One ball draws a star; many balls draw a ball — with a perfectly hollow core no bounce can ever reach.",
     "torus_knot": "A ball circles a donut: 2 laps one way for every 3 the other ties a trefoil knot. Then 3:5, 5:8… and with the golden ratio it never comes back — it covers the whole donut.",
+    "nbody": "{n} suns start almost at rest and pull on each other with Newton's gravity. Close encounters fling suns out of the cluster — a sun that is thrown out is OUT.",
+    "dragonfold": "Fold a paper strip in half 10 times, then open every fold to exactly 90°. 1,024 pieces of paper draw the famous dragon curve.",
+    "fourier3d": "100+ spinning circles, each turning at a whole-number speed, draw a 3D knot. Look at it from the top and a picture appears (a Fourier series).",
+    "shrinksphere": "Every bounce makes the ball smaller and pushes the wall inward right where it hit — this time inside a sphere.",
+    "sunflower3d": "Put every seed one angle further round and a little further out. 90° makes 4 lines, 137° makes spirals with gaps — the golden angle 137.5° packs them perfectly, like a real sunflower.",
+    "hilbert3d": "The 3D Hilbert curve: 8 corners, then every corner splits into its own little curve — 64, 512, 4,096. Always ONE line that never crosses itself and fills the whole cube.",
 }
 ASK = {
     "escape": "Which one did you pick? Tell me in the comments 👇",
@@ -336,6 +372,12 @@ ASK = {
     "dish_3d": "Did you think they would ALL meet? 👇",
     "sphere_star": "Did you expect a hollow ball? 👇",
     "torus_knot": "Which knot was the coolest? 👇",
+    "nbody": "Which color did you pick — did it survive? 👇",
+    "dragonfold": "Did you guess a dragon? 👇",
+    "fourier3d": "What did you think it was before the top view? 👇",
+    "shrinksphere": "Did you recognize the music? Tell me in the comments 👇",
+    "sunflower3d": "Did you know sunflowers do this? 👇",
+    "hilbert3d": "Did you think one line could do it? 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -381,6 +423,12 @@ EXTRA_TAGS = {
     "dish_3d": ["satellite dish", "parabola", "focus", "3d simulation", "fibonacci"],
     "sphere_star": ["golden angle", "golden ratio", "sphere", "3d simulation", "math art"],
     "torus_knot": ["torus knot", "trefoil knot", "golden ratio", "3d math", "donut"],
+    "nbody": ["n body problem", "three body problem", "gravity simulation", "pick a color", "space"],
+    "dragonfold": ["dragon curve", "paper folding", "fractal", "math animation", "satisfying"],
+    "fourier3d": ["fourier series", "epicycles", "3d math", "math animation", "drawing with circles"],
+    "shrinksphere": ["ball shrinks", "growing wall", "3d simulation", "bouncing ball music", "guess the song"],
+    "sunflower3d": ["golden angle", "golden ratio", "sunflower", "phyllotaxis", "math in nature"],
+    "hilbert3d": ["hilbert curve", "space filling curve", "fractal", "3d math", "math animation"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -423,6 +471,12 @@ HASHTAGS = {
     "dish_3d": "#shorts #maths #physics #3d #satisfying",
     "sphere_star": "#shorts #maths #goldenratio #3d #satisfying",
     "torus_knot": "#shorts #maths #knots #3d #satisfying",
+    "nbody": "#shorts #physics #space #gravity #pickacolor",
+    "dragonfold": "#shorts #maths #fractal #paperfolding #satisfying",
+    "fourier3d": "#shorts #maths #fourier #3d #satisfying",
+    "shrinksphere": "#shorts #satisfying #bouncingball #3d #oddlysatisfying",
+    "sunflower3d": "#shorts #maths #goldenratio #nature #satisfying",
+    "hilbert3d": "#shorts #maths #fractal #3d #satisfying",
 }
 
 

@@ -6,6 +6,7 @@ note of a famous **public-domain** tune ("Did you recognize the music?").
 
 | Format | What happens | Hook |
 |---|---|---|
+| `dragonfold` `fourier3d` `shrinksphere` `sunflower3d` `hilbert3d` `nbody` | 3D ManimGL Shorts (Nov 2026): paper folds into a dragon, Fourier circles drawing a 3D knot that is a picture from the top, shrink inside a sphere, golden-angle sunflower that becomes a pine cone, one line filling a cube, 6/8/9-suns gravity game | Fold a strip 10 times… / What's the shape from the TOP? / …in 3D / Which angle makes a sunflower? / Can ONE line fill a cube? / Pick a color! |
 | `fourier` `dpendulum` `lorenz` `chaosgame` `timestable` `primespiral` `threebody` `metronomes` `galton` `chladni` | 10 math / physics Shorts drawn with **ManimGL** (3Blue1Brown's manim) — see [mgl/README.md](mgl/README.md) | Fourier circles, chaos pendulums, Lorenz butterfly, chaos-game fractals, × k circle, prime spirals, three suns, metronome sync, Galton board, Chladni sand |
 | `focus` | Balls fly out of one focus of an ellipse; after one bounce ALL of them pass through the other focus at the same moment. 1, 2, 3, 5, 8 … 377 balls | Will they all hit the same point? |
 | `focus_stretch` | Same trick, but the shape is stretched / squashed (even a circle) every time they meet | Will they still meet if I stretch it? |
@@ -108,7 +109,7 @@ The bot is now hands-free: it renders every morning and each video goes public a
 
 Repo variable `PACING = slots` (with `AUTO_UPLOAD = true`): the daily batch renders up to 6 Shorts and
 queues them; **Actions → Shorts Pacer** uploads every queued Short and lets YouTube publish it at the
-next free slot: **03:30, 07:30, 11:30, 15:30, 19:30, 23:30 IST** (override with `PUBLISH_SLOTS`).
+next free slot: **03:30, 07:30, 15:30, 17:30, 19:30, 21:30 IST** (override with `PUBLISH_SLOTS`).
 No view checks. YouTube publishes at the exact minute, so late GitHub runs don't matter. At most
 `PACE_DRAIN_MAX` = 3 uploads per run (small API bursts). The batch renders fewer Shorts when more than
 12 are already waiting (queue + scheduled), so the buffer stays around 1-2 days.

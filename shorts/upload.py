@@ -16,10 +16,11 @@ from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IST = ZoneInfo("Asia/Kolkata")
-# publish slots (IST): 6 Shorts a day, every 4 hours. Chosen from the Channel Watcher's slot table
-# (15:30 has the best median of the slots with several videos; 04:08 had a 21k hit; 08:30, 17:30
-# and 21:00 were the weakest). Override with env / repo variable PUBLISH_SLOTS.
-SLOTS = [s.strip() for s in (os.environ.get("PUBLISH_SLOTS") or "03:30,07:30,11:30,15:30,19:30,23:30").split(",")]
+# publish slots (IST): 6 Shorts a day. From the Channel Watcher (5 Nov 2026): 19:30 had the best
+# median of the current slots (5.3k), then 07:30, 03:30, 15:30; 11:30 and 23:30 were the weakest, and
+# YouTube Studio shows the audience is most active 18:00-24:00 IST. So the two weak slots moved into the
+# evening: 17:30 and 21:30. Override with env / repo variable PUBLISH_SLOTS.
+SLOTS = [s.strip() for s in (os.environ.get("PUBLISH_SLOTS") or "03:30,07:30,15:30,17:30,19:30,21:30").split(",")]
 
 
 def _sched_path(out_dir):

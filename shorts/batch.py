@@ -42,13 +42,16 @@ MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers,
             golden=golden, pendulum=pendulum, rosette=rosette, **manim_fmt.FORMATS,
             shrink_duo=shrink2.shrink_duo, shrink_shape=shrink2.shrink_shape,
             dish_3d=three_d.dish_3d, sphere_star=three_d.sphere_star, torus_knot=three_d.torus_knot)
-# Weighted by the Channel Watcher's median views (29 Oct 2026): fourier (65k), the focus family
-# (focus 30k, focus_stretch 26k, focus_3d 22k), shrink (21.6k), golden (19k) lead, so they and the new
-# 3D / shrink variants (dish_3d, sphere_star, torus_knot, shrink_duo, shrink_shape) get most slots.
-# dpendulum, elim, lasers, escape, evolve, rings, devour, grow are out. Override with the repo variable FORMATS.
-DEFAULT_LINEUP = ("fourier,shrink,focus_3d,dish_3d,shrink_duo,focus,golden,sphere_star,shrink_shape,galton,"
-                  "focus_stretch,torus_knot,shrink,fourier,threebody,dish_3d,race_crush,focus_3d,shrink_duo,metronomes,"
-                  "sphere_star,squeeze,focus,shrink_shape,torus_knot,hammer,fourier,golden,shrink,chladni")
+# Weighted by the Channel Watcher's median views (5 Nov 2026): fourier (24k), focus_stretch (21k),
+# shrink (20k), golden (19k), shrink_duo (11k) lead. New 3D ManimGL formats (dragonfold, fourier3d,
+# shrinksphere, sunflower3d, hilbert3d) and the fixed N-body game (nbody) get 2 slots each to be tested.
+# Out (low medians): dish_3d, sphere_star, torus_knot, lorenz, hammer, galton, race_crush, butterfly,
+# rosette, chladni, focus_3d, shrink_shape. 30 slots = 5 days at 6 a day. Override with the repo variable FORMATS.
+DEFAULT_LINEUP = ("fourier,shrink,dragonfold,focus_stretch,nbody,golden,"
+                  "shrink_duo,fourier3d,timestable,shrink,hilbert3d,focus,"
+                  "fourier,shrinksphere,sunflower3d,golden,metronomes,shrink,"
+                  "dragonfold,focus_stretch,shrink_duo,nbody,primespiral,fourier3d,"
+                  "shrinksphere,chaosgame,hilbert3d,squeeze,fourier,sunflower3d")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).
