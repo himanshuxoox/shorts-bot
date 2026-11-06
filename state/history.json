@@ -1,5 +1,5 @@
 {
- "next_seed": 1860,
+ "next_seed": 1863,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1158,7 +1158,43 @@
    "format": "fourier",
    "seed": 1857,
    "title": "Wait for the last circle \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-06",
+   "format": "threebody",
+   "seed": 1860,
+   "title": "The three-body problem in 20 seconds \ud83c\udf0c #shorts"
+  },
+  {
+   "date": "2026-11-06",
+   "format": "dish_3d",
+   "seed": 1860,
+   "title": "The dish trick in 3D \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-06",
+   "format": "race_crush",
+   "seed": 1862,
+   "title": "Pick a color \u2014 dodge the crusher! \ud83d\udd34\ud83d\udd35\ud83d\udfe2\ud83d\udfe1 #shorts"
+  },
+  {
+   "date": "2026-11-06",
+   "format": "focus_3d",
+   "seed": 1860,
+   "title": "Does it work in 3D too? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-06",
+   "format": "shrink_duo",
+   "seed": 1862,
+   "title": "Green vs Red \u2014 every bounce SHRINKS the ball \ud83d\ude33 \ud83d\udfe2\ud83d\udd34 #shorts"
+  },
+  {
+   "date": "2026-11-06",
+   "format": "metronomes",
+   "seed": 1860,
+   "title": "From chaos to perfect sync, by themselves \u23f1\ufe0f #shorts"
   }
  ],
- "lineup_pos": 14
+ "lineup_pos": 20
 }
