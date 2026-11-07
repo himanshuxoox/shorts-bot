@@ -915,5 +915,29 @@
   "publish_at": "2026-11-08T07:30:00+05:30",
   "long_form": false,
   "paced": false
+ },
+ "n8ggkpsPXXs": {
+  "format": "fourier3d",
+  "title": "Only circles… but in 3D ✨ #shorts",
+  "seed": 1863,
+  "publish_at": "2026-11-08T11:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "aKV11eDnWq0": {
+  "format": "shrinksphere",
+  "title": "Every bounce SHRINKS the ball… in 3D 😳 #shorts",
+  "seed": 1863,
+  "publish_at": "2026-11-08T15:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "49kairE2gCE": {
+  "format": "chaosgame",
+  "title": "Random dots… wait for it 😳 #shorts",
+  "seed": 1863,
+  "publish_at": "2026-11-08T19:30:00+05:30",
+  "long_form": false,
+  "paced": false
  }
 }
