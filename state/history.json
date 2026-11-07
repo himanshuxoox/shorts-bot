@@ -1,5 +1,5 @@
 {
- "next_seed": 1863,
+ "next_seed": 1877,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1194,7 +1194,43 @@
    "format": "metronomes",
    "seed": 1860,
    "title": "From chaos to perfect sync, by themselves \u23f1\ufe0f #shorts"
+  },
+  {
+   "date": "2026-11-07",
+   "format": "shrink_duo",
+   "seed": 1876,
+   "title": "Pick a color! Every bounce shrinks the ball \ud83d\udd34\ud83d\udd35 #shorts"
+  },
+  {
+   "date": "2026-11-07",
+   "format": "nbody",
+   "seed": 1863,
+   "title": "Thrown out = OUT. Pick a sun! \ud83c\udf0c #shorts"
+  },
+  {
+   "date": "2026-11-07",
+   "format": "primespiral",
+   "seed": 1863,
+   "title": "Prime numbers draw THIS \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-07",
+   "format": "fourier3d",
+   "seed": 1863,
+   "title": "Only circles\u2026 but in 3D \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-07",
+   "format": "shrinksphere",
+   "seed": 1863,
+   "title": "Every bounce SHRINKS the ball\u2026 in 3D \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-07",
+   "format": "chaosgame",
+   "seed": 1863,
+   "title": "Random dots\u2026 wait for it \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 20
+ "lineup_pos": 26
 }
