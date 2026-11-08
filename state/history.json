@@ -1,5 +1,5 @@
 {
- "next_seed": 1877,
+ "next_seed": 1879,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1230,7 +1230,43 @@
    "format": "chaosgame",
    "seed": 1863,
    "title": "Random dots\u2026 wait for it \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-08",
+   "format": "hilbert3d",
+   "seed": 1877,
+   "title": "Can ONE line fill a whole cube? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-08",
+   "format": "squeeze",
+   "seed": 1877,
+   "title": "How many balls before the circle bursts? Guess! \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-08",
+   "format": "fourier",
+   "seed": 1877,
+   "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-08",
+   "format": "sunflower3d",
+   "seed": 1877,
+   "title": "Which angle makes a sunflower? \ud83c\udf3b #shorts"
+  },
+  {
+   "date": "2026-11-08",
+   "format": "fourier",
+   "seed": 1878,
+   "title": "Spinning circles draw THIS\u2026 guess first \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-08",
+   "format": "shrink",
+   "seed": 1877,
+   "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 26
+ "lineup_pos": 2
 }
