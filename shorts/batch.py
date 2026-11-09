@@ -28,7 +28,8 @@ import random
 
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
                royale, hammer, squeeze, lasers, race, focus, golden, pendulum, rosette, metadata, trends,
-               manim_fmt, shrink2, three_d)
+               manim_fmt, shrink2, three_d, compilation, sides, arms, spiral, predator, breakout, quadsplit,
+               redring, sortwheel)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,21 +42,26 @@ MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers,
             focus=focus.focus, focus_stretch=focus.focus_stretch, focus_3d=focus.focus_3d,
             golden=golden, pendulum=pendulum, rosette=rosette, **manim_fmt.FORMATS,
             shrink_duo=shrink2.shrink_duo, shrink_shape=shrink2.shrink_shape,
-            dish_3d=three_d.dish_3d, sphere_star=three_d.sphere_star, torus_knot=three_d.torus_knot)
+            compilation=compilation, dish_3d=three_d.dish_3d, sphere_star=three_d.sphere_star, torus_knot=three_d.torus_knot,
+            sides=sides, arms=arms, spiral=spiral, predator=predator, breakout=breakout, quadsplit=quadsplit,
+            redring=redring, sortwheel=sortwheel)
 # Weighted by the Channel Watcher's median views (5 Nov 2026): fourier (24k), focus_stretch (21k),
-# shrink (20k), golden (19k), shrink_duo (11k) lead. New 3D ManimGL formats (dragonfold, fourier3d,
-# shrinksphere, sunflower3d, hilbert3d) and the fixed N-body game (nbody) get 2 slots each to be tested.
+# shrink (20k), golden (19k), shrink_duo (11k) lead. The 3D ManimGL formats and the N-body game keep 2 slots.
+# 9 Nov: 8 new compilation-style formats get 1 test slot each (sides, spiral, predator, breakout, redring,
+# quadsplit, arms, sortwheel) — about 1-2 a day; chaosgame and squeeze made room.
 # Out (low medians): dish_3d, sphere_star, torus_knot, lorenz, hammer, galton, race_crush, butterfly,
-# rosette, chladni, focus_3d, shrink_shape. 30 slots = 5 days at 6 a day. Override with the repo variable FORMATS.
-DEFAULT_LINEUP = ("fourier,shrink,dragonfold,focus_stretch,nbody,golden,"
-                  "shrink_duo,fourier3d,timestable,shrink,hilbert3d,focus,"
-                  "fourier,shrinksphere,sunflower3d,golden,metronomes,shrink,"
-                  "dragonfold,focus_stretch,shrink_duo,nbody,primespiral,fourier3d,"
-                  "shrinksphere,chaosgame,hilbert3d,squeeze,fourier,sunflower3d")
+# rosette, chladni, focus_3d, shrink_shape. 36 slots = 6 days at 6 a day. Override with the repo variable FORMATS.
+DEFAULT_LINEUP = ("fourier,shrink,dragonfold,focus_stretch,nbody,sides,"
+                  "golden,shrink_duo,fourier3d,spiral,shrink,hilbert3d,"
+                  "focus,fourier,predator,shrinksphere,sunflower3d,golden,"
+                  "breakout,metronomes,shrink,dragonfold,focus_stretch,shrink_duo,"
+                  "nbody,redring,primespiral,fourier3d,shrinksphere,quadsplit,"
+                  "timestable,hilbert3d,fourier,arms,sunflower3d,sortwheel")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).
-# Default: none (Shorts only). EXTRA_FORMATS=royale adds one 2-3 min Battle Royale per day.
+# Default: none (Shorts only). EXTRA_FORMATS=compilation adds one ~8 min landscape compilation of 16
+# random simulations (shorts/compilation.py); EXTRA_FORMATS=royale the old 2-3 min Battle Royale.
 EXTRA = [f.strip() for f in os.environ.get("EXTRA_FORMATS", "none").split(",")
          if f.strip() and f.strip() != "none"]
 LABEL_FORMATS = {"paint": 4, "elim": 4}          # formats that can show trend words as names
@@ -171,7 +177,15 @@ def main():
 
     st = load_state()
     pos = st.get("lineup_pos", 0)
-    fmts = [LINEUP[(pos + i) % len(LINEUP)] for i in range(a.count)] + EXTRA
+    extra = list(EXTRA)
+    if "compilation" in extra:
+        # weekly long-video day: render one compilation a day only while fewer than LONG_PER_WEEK wait
+        from .upload import LONG_DAY, WEEKDAYS, LONG_PER_WEEK, long_waiting
+        waiting = long_waiting(a.out)
+        if LONG_DAY in WEEKDAYS and waiting >= LONG_PER_WEEK:
+            extra.remove("compilation")
+            print(f"long video: {waiting} already scheduled for {LONG_DAY.title()}, none rendered today")
+    fmts = [LINEUP[(pos + i) % len(LINEUP)] for i in range(a.count)] + extra
     if not fmts:
         print("nothing to render (count 0 and no extra formats)")
         return

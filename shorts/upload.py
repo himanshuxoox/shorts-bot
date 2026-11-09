@@ -21,6 +21,16 @@ IST = ZoneInfo("Asia/Kolkata")
 # YouTube Studio shows the audience is most active 18:00-24:00 IST. So the two weak slots moved into the
 # evening: 17:30 and 21:30. Override with env / repo variable PUBLISH_SLOTS.
 SLOTS = [s.strip() for s in (os.environ.get("PUBLISH_SLOTS") or "03:30,07:30,15:30,17:30,19:30,21:30").split(",")]
+# LONG-VIDEO DAY: one day a week has NO Shorts, only long videos (the compilation), 4 of them 6 h apart.
+# The other 6 days are Shorts only. The long videos are rendered one a day earlier in the week and
+# scheduled ahead (batch.py renders one only while fewer than LONG_PER_WEEK are waiting).
+# LONG_DAY = none -> old behaviour: one long video every day at LONG_SLOTS (21:00).
+# Long videos keep their own "last used" time (last_long), so they never move the Shorts' slots.
+WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+LONG_DAY = (os.environ.get("LONG_DAY") or "sun").strip().lower()[:3]
+LONG_DAY_SLOTS = [s.strip() for s in (os.environ.get("LONG_DAY_SLOTS") or "03:00,09:00,15:00,21:00").split(",")]
+LONG_PER_WEEK = len(LONG_DAY_SLOTS)
+LONG_SLOTS = [s.strip() for s in (os.environ.get("LONG_SLOTS") or "21:00").split(",")]
 
 
 def _sched_path(out_dir):
@@ -41,9 +51,34 @@ def save_last_slot(out_dir, when):
         json.dump({"last_publish_at": when.isoformat()}, f, indent=1)
 
 
-def plan_times(date_str, n, after=None):
+def last_long(out_dir):
+    """publish time of the newest long video, from state/uploads_<out>.json (committed by every run)."""
+    p = os.path.join(ROOT, "state", f"uploads_{os.path.basename(os.path.normpath(out_dir))}.json")
+    try:
+        data = json.load(open(p))
+        times = [dt.datetime.fromisoformat(v["publish_at"]) for v in data.values()
+                 if v.get("long_form") and v.get("publish_at")]
+        return max(times) if times else None
+    except Exception:
+        return None
+
+
+def is_long_day(d):
+    return LONG_DAY in WEEKDAYS and d.weekday() == WEEKDAYS.index(LONG_DAY)
+
+
+def _day_slots(d, kind, slots):
+    if kind == "long":
+        if LONG_DAY in WEEKDAYS:
+            return LONG_DAY_SLOTS if is_long_day(d) else []
+        return slots or LONG_SLOTS
+    return [] if is_long_day(d) else (slots or SLOTS)       # no Shorts on the long-video day
+
+
+def plan_times(date_str, n, after=None, slots=None, kind="short"):
     """Return n aware datetimes: the next free slots (today's remaining ones, then tomorrow's),
-    always later than `after` (the last slot an earlier run already used)."""
+    always later than `after` (the last slot an earlier run already used).
+    kind="short" skips the long-video day; kind="long" uses only the long-video day's slots."""
     try:
         day = dt.date.fromisoformat(date_str)
     except ValueError:  # e.g. a "test" folder -> schedule from today
@@ -54,13 +89,25 @@ def plan_times(date_str, n, after=None):
         day = max(day, now.date())
     out, d = [], day
     while len(out) < n:
-        for s in SLOTS:
+        for s in _day_slots(d, kind, slots):
             hh, mm = map(int, s.split(":"))
             t = dt.datetime(d.year, d.month, d.day, hh, mm, tzinfo=IST)
             if t > now and len(out) < n:
                 out.append(t)
         d += dt.timedelta(days=1)
     return out
+
+
+def long_waiting(out_dir):
+    """how many long videos are uploaded and scheduled but not public yet"""
+    p = os.path.join(ROOT, "state", f"uploads_{os.path.basename(os.path.normpath(out_dir))}.json")
+    try:
+        now = dt.datetime.now(IST)
+        return sum(1 for v in json.load(open(p)).values()
+                   if v.get("long_form") and v.get("publish_at")
+                   and dt.datetime.fromisoformat(v["publish_at"]) > now)
+    except Exception:
+        return 0
 
 
 def record_upload(out_dir, vid, item, when):
@@ -142,10 +189,18 @@ def main():
     if not todo:
         print("nothing to upload")
         return
-    times = plan_times(a.date, len(todo), after=last_slot(a.out))
+    shorts = [v for v in todo if not v.get("long_form")]
+    longs = [v for v in todo if v.get("long_form")]
+    # --long-only: the workflow sets PUBLISH_SLOTS to LONG_SLOTS (default 21:00) — only used when LONG_DAY=none
+    long_slots = SLOTS if a.long_only else LONG_SLOTS
+    times = dict(zip(map(id, shorts), plan_times(a.date, len(shorts), after=last_slot(a.out))))
+    times.update(zip(map(id, longs), plan_times(a.date, len(longs), after=last_long(a.out), slots=long_slots,
+                                                kind="long")))
+    todo = sorted(todo, key=lambda v: times[id(v)])
 
     yt = None if a.dry_run else youtube_client()
-    for item, when in zip(todo, times):
+    for item in todo:
+        when = times[id(item)]
         path = os.path.join(day_dir, item["file"])
         print(f"{when:%Y-%m-%d %H:%M IST}  {item['file']}  |  {item['title']}")
         if a.dry_run:
@@ -158,7 +213,8 @@ def main():
             continue
         item["youtube_id"] = vid
         item["publish_at"] = when.isoformat()
-        save_last_slot(a.out, when)
+        if not item.get("long_form"):                # the long video keeps its own slot (last_long)
+            save_last_slot(a.out, when)
         record_upload(a.out, vid, item, when)
         print(f"   -> https://youtube.com/{'watch?v=' if item.get('long_form') else 'shorts/'}{vid}")
 

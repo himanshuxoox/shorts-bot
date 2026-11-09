@@ -281,6 +281,46 @@ TITLES = {
         ("corners", "One line, 4,096 corners 😳"),
         ("split", "Every corner splits into 8… 🧊"),
     ],
+    "sides": [
+        ("circle", "Every bounce adds a SIDE… when is it a circle? 😳"),
+        ("triangle", "Can a triangle become a CIRCLE? 🤯"),
+        ("music", "Every bounce adds a side 🎵 Did you recognize the music?"),
+    ],
+    "arms": [
+        ("arms", "Every bounce adds an ARM 😳 {N} arms later…"),
+        ("ring", "Wait for the ring… 🤯"),
+        ("name", "Can you even say the name of this shape? 😳"),
+    ],
+    "spiral": [
+        ("faster", "It gets FASTER until it hits the center 😳"),
+        ("speed", "Every bounce makes it faster… how fast at the end? 🤯"),
+        ("music", "Faster and faster 🎵 Did you recognize the music?"),
+    ],
+    "predator": [
+        ("prey", "Every prey they catch BECOMES a predator 😳"),
+        ("one", "1 predator vs {n} prey 🤯"),
+        ("time", "How long until ALL {n} are caught? ⏱️"),
+    ],
+    "breakout": [
+        ("faster", "Every brick makes the ball FASTER 😳"),
+        ("all", "Can it break ALL the bricks? 🧱"),
+        ("music", "Brick breaker 🎵 Did you recognize the music?"),
+    ],
+    "quadsplit": [
+        ("split", "Every full box SPLITS into 4 😳"),
+        ("small", "How SMALL can the boxes get? 🤯"),
+        ("one", "One box → {N} boxes 😳"),
+    ],
+    "redring": [
+        ("red", "Hit red = +3 balls 😳 until the whole ring is RED"),
+        ("balls", "How many balls to turn the ring RED? 🔴"),
+        ("spawn", "Every red bounce spawns 3 balls 🤯"),
+    ],
+    "sortwheel": [
+        ("gradient", "Sorting algorithm… wait for the perfect gradient 🌈"),
+        ("sound", "This is what sorting SOUNDS like 🔊"),
+        ("algo", "Can a sorting algorithm fix the rainbow? 🌈"),
+    ],
 }
 
 FIRST_LINE = {
@@ -330,6 +370,14 @@ FIRST_LINE = {
     "shrinksphere": "Every bounce makes the ball smaller and pushes the wall inward right where it hit — this time inside a sphere.",
     "sunflower3d": "Put every seed one angle further round and a little further out. 90° makes 4 lines, 137° makes spirals with gaps — the golden angle 137.5° packs them perfectly, like a real sunflower.",
     "hilbert3d": "The 3D Hilbert curve: 8 corners, then every corner splits into its own little curve — 64, 512, 4,096. Always ONE line that never crosses itself and fills the whole cube.",
+    "sides": "A ball bounces inside a triangle and every bounce adds one more side — square, pentagon, hexagon … 48 sides, and it's a circle.",
+    "arms": "Every bounce adds one more swinging arm to the cage and makes the ball a bit faster. Square, pentagon … over a hundred arms, and it becomes a glowing ring.",
+    "spiral": "A ball zig-zags down a spiked spiral groove. Every wall hit makes it 1% faster — slow at the start, a blur at the center.",
+    "predator": "{n} prey run from one predator. Every prey it catches becomes a predator too, so the hunters double and double until nobody is left.",
+    "breakout": "No paddle — just a ball in a box of bricks. Every brick it breaks makes it a little faster, until it's a blur hunting the last ones.",
+    "quadsplit": "One ball, one box. Every bounce fills the box a bit; when it's full it splits into 4 boxes, each with its own ball. 1, 4, 16 … {N}.",
+    "redring": "Hit a blue segment and it turns red. Hit a red one and you get 3 new balls. It snowballs until the whole ring is red.",
+    "sortwheel": "A color wheel cut into slices and shuffled, then a real sorting algorithm swaps it back one pair at a time. Every swap plays the color's note.",
 }
 ASK = {
     "escape": "Which one did you pick? Tell me in the comments 👇",
@@ -378,6 +426,14 @@ ASK = {
     "shrinksphere": "Did you recognize the music? Tell me in the comments 👇",
     "sunflower3d": "Did you know sunflowers do this? 👇",
     "hilbert3d": "Did you think one line could do it? 👇",
+    "sides": "At how many sides did it look like a circle to you? 👇",
+    "arms": "At how many arms did it turn into a ring for you? 👇",
+    "spiral": "Guess the speed at the center before it ends 👇",
+    "predator": "Guess the time before it ends 👇",
+    "breakout": "Which brick do you think goes last? 👇",
+    "quadsplit": "Did you guess the final number of boxes? 👇",
+    "redring": "Guess the final ball count 👇",
+    "sortwheel": "Which sorting algorithm should I do next? 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -429,6 +485,14 @@ EXTRA_TAGS = {
     "shrinksphere": ["ball shrinks", "growing wall", "3d simulation", "bouncing ball music", "guess the song"],
     "sunflower3d": ["golden angle", "golden ratio", "sunflower", "phyllotaxis", "math in nature"],
     "hilbert3d": ["hilbert curve", "space filling curve", "fractal", "3d math", "math animation"],
+    "sides": ["polygon", "every bounce adds a side", "triangle to circle", "geometry", "guess the song"],
+    "arms": ["polygon", "polygon names", "every bounce", "satisfying geometry", "guess the song"],
+    "spiral": ["spiral", "gets faster", "speed", "satisfying spiral", "guess the song"],
+    "predator": ["predator prey", "simulation", "swarm", "infection simulation", "emergent behavior"],
+    "breakout": ["brick breaker", "breakout", "bricks", "speeds up", "guess the song"],
+    "quadsplit": ["quadtree", "fractal", "splits into 4", "satisfying boxes", "guess the song"],
+    "redring": ["ball multiplies", "red ring", "spawn balls", "ball explosion", "satisfying"],
+    "sortwheel": ["sorting algorithm", "sound of sorting", "color wheel", "rainbow", "algorithm visualization"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -477,12 +541,48 @@ HASHTAGS = {
     "shrinksphere": "#shorts #satisfying #bouncingball #3d #oddlysatisfying",
     "sunflower3d": "#shorts #maths #goldenratio #nature #satisfying",
     "hilbert3d": "#shorts #maths #fractal #3d #satisfying",
+    "sides": "#shorts #satisfying #geometry #bouncingball #oddlysatisfying",
+    "arms": "#shorts #satisfying #geometry #polygon #oddlysatisfying",
+    "spiral": "#shorts #satisfying #spiral #bouncingball #oddlysatisfying",
+    "predator": "#shorts #simulation #predator #swarm #satisfying",
+    "breakout": "#shorts #satisfying #brickbreaker #bouncingball #oddlysatisfying",
+    "quadsplit": "#shorts #satisfying #fractal #bouncingball #oddlysatisfying",
+    "redring": "#shorts #satisfying #bouncingball #simulation #oddlysatisfying",
+    "sortwheel": "#shorts #sortingalgorithm #satisfying #rainbow #coding",
 }
+
+
+def build_compilation(facts: dict, seed: int) -> dict:
+    """long landscape compilation: numbered chapters in the description, no #shorts in the title"""
+    from .compilation import TITLES as CT
+    rng = random.Random(seed * 53 + 11)
+    n = facts.get("n_balls", 14)
+    ch = facts.get("chapters", [])
+    mins = max(1, round((ch[-1][0] + 30) / 60)) if ch else 8
+    title = rng.choice(CT).format(n=n, m=mins)[:100]
+    lines = [f"{n} of the most satisfying physics and math simulations from {CHANNEL_NAME}, back to back.",
+             "Which one was your favourite? Tell me the number in the comments 👇", "", "⏱️ Chapters"]
+    for t, name in ch:
+        s = int(round(t))
+        lines.append(f"{s // 60}:{s % 60:02d} {name}")
+    lines += ["", "New simulations every day — subscribe so you don't miss them!", "",
+              "🎵 Music & sound effects: original or public-domain melodies, synthesized in code.",
+              "Every simulation is 100% computer-generated with code. No real footage.", "",
+              "#satisfying #simulation #physics #maths #oddlysatisfying"]
+    tags = ["satisfying simulations", "satisfying video", "physics simulation", "math animation",
+            "oddly satisfying", "relaxing video", "compilation", "satisfying compilation", "bouncing ball",
+            "simulation compilation"]
+    return dict(title=title, title_style="compilation", description="\n".join(lines), tags=tags, categoryId="24")
+
+
+CHANNEL_NAME = "Orbit Escape"
 
 
 def build(facts: dict, seed: int) -> dict:
     rng = random.Random(seed * 31 + 7)
     tpl_name = facts.get("template", "escape")
+    if tpl_name == "compilation":
+        return build_compilation(facts, seed)
     cols = facts.get("colors") or []
     e = "".join(EMOJI[c] for c in cols)
     labels = facts.get("labels") or []

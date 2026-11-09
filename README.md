@@ -6,6 +6,7 @@ note of a famous **public-domain** tune ("Did you recognize the music?").
 
 | Format | What happens | Hook |
 |---|---|---|
+| `sides` `arms` `spiral` `predator` `breakout` `quadsplit` `redring` `sortwheel` | Compilation-style Shorts (Nov 2026, original versions of the formats in popular satisfying compilations): every bounce adds a side / a swinging arm, a ball speeding down a spiked spiral, prey that turn into predators, brick breaker that speeds up, boxes that split into 4, red ring that spawns +3 balls, a sorting algorithm fixing a shuffled color wheel | Can the triangle become a CIRCLE? / Every prey they catch BECOMES a predator / Sorting algorithm: wait for the perfect gradient |
 | `dragonfold` `fourier3d` `shrinksphere` `sunflower3d` `hilbert3d` `nbody` | 3D ManimGL Shorts (Nov 2026): paper folds into a dragon, Fourier circles drawing a 3D knot that is a picture from the top, shrink inside a sphere, golden-angle sunflower that becomes a pine cone, one line filling a cube, 6/8/9-suns gravity game | Fold a strip 10 times… / What's the shape from the TOP? / …in 3D / Which angle makes a sunflower? / Can ONE line fill a cube? / Pick a color! |
 | `fourier` `dpendulum` `lorenz` `chaosgame` `timestable` `primespiral` `threebody` `metronomes` `galton` `chladni` | 10 math / physics Shorts drawn with **ManimGL** (3Blue1Brown's manim) — see [mgl/README.md](mgl/README.md) | Fourier circles, chaos pendulums, Lorenz butterfly, chaos-game fractals, × k circle, prime spirals, three suns, metronome sync, Galton board, Chladni sand |
 | `focus` | Balls fly out of one focus of an ellipse; after one bounce ALL of them pass through the other focus at the same moment. 1, 2, 3, 5, 8 … 377 balls | Will they all hit the same point? |
@@ -113,6 +114,15 @@ next free slot: **03:30, 07:30, 15:30, 17:30, 19:30, 21:30 IST** (override with 
 No view checks. YouTube publishes at the exact minute, so late GitHub runs don't matter. At most
 `PACE_DRAIN_MAX` = 3 uploads per run (small API bursts). The batch renders fewer Shorts when more than
 12 are already waiting (queue + scheduled), so the buffer stays around 1-2 days.
+
+### Long-video day: Sunday = 4 long videos, no Shorts
+
+With `EXTRA_FORMATS = compilation`, one day a week is the **long-video day**: no Shorts at all, and 4
+long compilations (~8 min, 16 random simulations each) are published **6 h apart: 03:00, 09:00, 15:00,
+21:00 IST**. The other 6 days are Shorts only. The batch renders one compilation a day (a 2-hour render
+of 4 would not fit one Actions run) until 4 are uploaded and scheduled, then pauses until Sunday has used
+them. Change the day / times in `shorts/upload.py` (`LONG_DAY`, `LONG_DAY_SLOTS`); `LONG_DAY = none`
+goes back to one long video every day at 21:00.
 
 ## Smart pacing (optional): hold the next Short while one is taking off
 
