@@ -1,5 +1,5 @@
 {
- "next_seed": 1879,
+ "next_seed": 1883,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1266,7 +1266,43 @@
    "format": "shrink",
    "seed": 1877,
    "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-09",
+   "format": "dragonfold",
+   "seed": 1879,
+   "title": "1,024 pieces of paper draw THIS \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-09",
+   "format": "focus_stretch",
+   "seed": 1879,
+   "title": "Stretch it, squash it \u2014 they STILL meet \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-09",
+   "format": "nbody",
+   "seed": 1879,
+   "title": "6 suns, gravity only \u2014 will your color survive? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-09",
+   "format": "golden",
+   "seed": 1879,
+   "title": "The golden ratio does THIS to a bouncing ball \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-09",
+   "format": "shrink_duo",
+   "seed": 1882,
+   "title": "Pick a color! Every bounce shrinks the ball \ud83d\udfe1\ud83d\udd35 #shorts"
+  },
+  {
+   "date": "2026-11-09",
+   "format": "fourier3d",
+   "seed": 1879,
+   "title": "This 3D knot is secretly a picture \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 2
+ "lineup_pos": 8
 }
