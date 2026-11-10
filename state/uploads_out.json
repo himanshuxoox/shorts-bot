@@ -1035,5 +1035,12 @@
   "publish_at": "2026-11-10T19:30:00+05:30",
   "long_form": false,
   "paced": false
+ },
+ "bkq5FLP-4sQ": {
+  "format": "compilation",
+  "title": "16 Most Satisfying Simulations — 7 Minutes of Pure Satisfaction",
+  "seed": 1883,
+  "publish_at": "2026-11-15T03:00:00+05:30",
+  "long_form": true
  }
 }

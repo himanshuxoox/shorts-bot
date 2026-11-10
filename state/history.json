@@ -1,5 +1,5 @@
 {
- "next_seed": 1883,
+ "next_seed": 1885,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1302,7 +1302,37 @@
    "format": "fourier3d",
    "seed": 1879,
    "title": "This 3D knot is secretly a picture \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-10",
+   "format": "fourier3d",
+   "seed": 1883,
+   "title": "Spinning circles in 3D\u2026 what's the shape from the TOP? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-10",
+   "format": "spiral",
+   "seed": 1884,
+   "title": "Faster and faster \ud83c\udfb5 Did you recognize the music? #shorts"
+  },
+  {
+   "date": "2026-11-10",
+   "format": "shrink",
+   "seed": 1883,
+   "title": "Every bounce SHRINKS the ball and GROWS the wall \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-10",
+   "format": "hilbert3d",
+   "seed": 1883,
+   "title": "Every corner splits into 8\u2026 \ud83e\uddca #shorts"
+  },
+  {
+   "date": "2026-11-10",
+   "format": "compilation",
+   "seed": 1883,
+   "title": "16 Most Satisfying Simulations \u2014 7 Minutes of Pure Satisfaction"
   }
  ],
- "lineup_pos": 8
+ "lineup_pos": 12
 }
