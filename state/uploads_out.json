@@ -1042,5 +1042,29 @@
   "seed": 1883,
   "publish_at": "2026-11-15T03:00:00+05:30",
   "long_form": true
+ },
+ "QCqCNoFpofM": {
+  "format": "fourier3d",
+  "title": "Spinning circles in 3D… what's the shape from the TOP? 🤯 #shorts",
+  "seed": 1883,
+  "publish_at": "2026-11-10T23:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "YMoaPzPnvLo": {
+  "format": "spiral",
+  "title": "Faster and faster 🎵 Did you recognize the music? #shorts",
+  "seed": 1884,
+  "publish_at": "2026-11-11T03:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "poaKjfNK6XA": {
+  "format": "shrink",
+  "title": "Every bounce SHRINKS the ball and GROWS the wall 😳 #shorts",
+  "seed": 1883,
+  "publish_at": "2026-11-11T07:30:00+05:30",
+  "long_form": false,
+  "paced": false
  }
 }
