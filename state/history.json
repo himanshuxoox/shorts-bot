@@ -1,5 +1,5 @@
 {
- "next_seed": 1885,
+ "next_seed": 1886,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1332,7 +1332,49 @@
    "format": "compilation",
    "seed": 1883,
    "title": "16 Most Satisfying Simulations \u2014 7 Minutes of Pure Satisfaction"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "focus",
+   "seed": 1885,
+   "title": "Will they all hit the same point? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "fourier",
+   "seed": 1885,
+   "title": "Wait for the last circle \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "predator",
+   "seed": 1885,
+   "title": "Every prey they catch BECOMES a predator \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "shrinksphere",
+   "seed": 1885,
+   "title": "Ball vs a growing wall \u2014 in 3D \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "sunflower3d",
+   "seed": 1885,
+   "title": "137.5\u00b0 is a magic angle \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "golden",
+   "seed": 1885,
+   "title": "Will this pattern ever close? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-11",
+   "format": "compilation",
+   "seed": 1885,
+   "title": "16 Oddly Satisfying Simulations \u2014 Watch Till the End"
   }
  ],
- "lineup_pos": 12
+ "lineup_pos": 18
 }
