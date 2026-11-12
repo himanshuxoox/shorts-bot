@@ -1,5 +1,5 @@
 {
- "next_seed": 1886,
+ "next_seed": 1892,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1374,7 +1374,49 @@
    "format": "compilation",
    "seed": 1885,
    "title": "16 Oddly Satisfying Simulations \u2014 Watch Till the End"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "breakout",
+   "seed": 1887,
+   "title": "Every brick makes the ball FASTER \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "metronomes",
+   "seed": 1886,
+   "title": "24 metronomes. Nobody touches them \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "shrink",
+   "seed": 1886,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "dragonfold",
+   "seed": 1886,
+   "title": "Fold a strip 10 times\u2026 what appears? \ud83d\udc09 #shorts"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "focus_stretch",
+   "seed": 1886,
+   "title": "Will they still meet if I stretch it? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "shrink_duo",
+   "seed": 1891,
+   "title": "Pick a color! Every bounce shrinks the ball \ud83d\udfe3\ud83d\udfe2 #shorts"
+  },
+  {
+   "date": "2026-11-12",
+   "format": "compilation",
+   "seed": 1886,
+   "title": "16 Satisfying Physics & Math Simulations to Relax \ud83c\udf19"
   }
  ],
- "lineup_pos": 18
+ "lineup_pos": 24
 }

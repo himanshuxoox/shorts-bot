@@ -1129,5 +1129,12 @@
   "publish_at": "2026-11-12T11:30:00+05:30",
   "long_form": false,
   "paced": false
+ },
+ "bDw6qFRDagQ": {
+  "format": "compilation",
+  "title": "16 Satisfying Physics & Math Simulations to Relax 🌙",
+  "seed": 1886,
+  "publish_at": "2026-11-15T15:00:00+05:30",
+  "long_form": true
  }
 }
