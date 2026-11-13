@@ -1215,5 +1215,29 @@
   "publish_at": "2026-11-13T23:30:00+05:30",
   "long_form": false,
   "paced": false
+ },
+ "Qr_R5rxQalM": {
+  "format": "fourier3d",
+  "title": "Only circles… but in 3D ✨ #shorts",
+  "seed": 1892,
+  "publish_at": "2026-11-14T03:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "EY4oKNUUJio": {
+  "format": "shrinksphere",
+  "title": "Every bounce SHRINKS the ball… in 3D 😳 #shorts",
+  "seed": 1892,
+  "publish_at": "2026-11-14T07:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "wPd9LZUACd8": {
+  "format": "quadsplit",
+  "title": "Every full box SPLITS into 4 😳 #shorts",
+  "seed": 1892,
+  "publish_at": "2026-11-14T11:30:00+05:30",
+  "long_form": false,
+  "paced": false
  }
 }
