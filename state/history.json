@@ -1,5 +1,5 @@
 {
- "next_seed": 1892,
+ "next_seed": 1897,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1416,7 +1416,49 @@
    "format": "compilation",
    "seed": 1886,
    "title": "16 Satisfying Physics & Math Simulations to Relax \ud83c\udf19"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "nbody",
+   "seed": 1892,
+   "title": "9 suns. Pick a color! \u2600\ufe0f #shorts"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "redring",
+   "seed": 1896,
+   "title": "Hit red = +3 balls \ud83d\ude33 until the whole ring is RED #shorts"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "primespiral",
+   "seed": 1892,
+   "title": "Every number n at angle n\u2026 then only primes \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "fourier3d",
+   "seed": 1892,
+   "title": "Only circles\u2026 but in 3D \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "shrinksphere",
+   "seed": 1892,
+   "title": "Every bounce SHRINKS the ball\u2026 in 3D \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "quadsplit",
+   "seed": 1892,
+   "title": "Every full box SPLITS into 4 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-13",
+   "format": "compilation",
+   "seed": 1892,
+   "title": "16 Simulations You Can't Stop Watching \ud83e\udd2f"
   }
  ],
- "lineup_pos": 24
+ "lineup_pos": 30
 }
