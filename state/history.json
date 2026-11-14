@@ -1,5 +1,5 @@
 {
- "next_seed": 1897,
+ "next_seed": 1898,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1458,7 +1458,43 @@
    "format": "compilation",
    "seed": 1892,
    "title": "16 Simulations You Can't Stop Watching \ud83e\udd2f"
+  },
+  {
+   "date": "2026-11-14",
+   "format": "timestable",
+   "seed": 1897,
+   "title": "Guess how many petals \u00d7 10 makes \ud83c\udf38 #shorts"
+  },
+  {
+   "date": "2026-11-14",
+   "format": "hilbert3d",
+   "seed": 1897,
+   "title": "One line, 4,096 corners \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-14",
+   "format": "fourier",
+   "seed": 1897,
+   "title": "Spinning circles draw THIS\u2026 guess first \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-14",
+   "format": "arms",
+   "seed": 1897,
+   "title": "Wait for the ring\u2026 \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-14",
+   "format": "sunflower3d",
+   "seed": 1897,
+   "title": "Turn every seed by the same angle\u2026 \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-14",
+   "format": "sortwheel",
+   "seed": 1897,
+   "title": "This is what sorting SOUNDS like \ud83d\udd0a #shorts"
   }
  ],
- "lineup_pos": 30
+ "lineup_pos": 0
 }
