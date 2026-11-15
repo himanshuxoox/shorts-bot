@@ -1,5 +1,5 @@
 {
- "next_seed": 1898,
+ "next_seed": 1899,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1494,7 +1494,49 @@
    "format": "sortwheel",
    "seed": 1897,
    "title": "This is what sorting SOUNDS like \ud83d\udd0a #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "fourier",
+   "seed": 1898,
+   "title": "Wait for the last circle \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "shrink",
+   "seed": 1898,
+   "title": "Every bounce SHRINKS the ball and GROWS the wall \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "dragonfold",
+   "seed": 1898,
+   "title": "1,024 pieces of paper draw THIS \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "focus_stretch",
+   "seed": 1898,
+   "title": "Stretch it, squash it \u2014 they STILL meet \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "nbody",
+   "seed": 1898,
+   "title": "Thrown out = OUT. Pick a sun! \ud83c\udf0c #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "sides",
+   "seed": 1898,
+   "title": "Every bounce adds a side \ud83c\udfb5 Did you recognize the music? #shorts"
+  },
+  {
+   "date": "2026-11-15",
+   "format": "compilation",
+   "seed": 1898,
+   "title": "16 Most Satisfying Simulations \u2014 7 Minutes of Pure Satisfaction"
   }
  ],
- "lineup_pos": 0
+ "lineup_pos": 6
 }
