@@ -36,6 +36,9 @@ class Config:
     hi: tuple
     melody_name: str
     melody: list
+    speed: float = SPEED            # bumblebee.py: a faster ball = the tune at double speed
+    title: tuple = None             # two caption lines [(text, rgb), ...]; None = the shrink caption
+    tag: str = "shrink"
 
 
 def make_config(seed):
@@ -59,7 +62,7 @@ def simulate(cfg, record=False):
     rng = random.Random(cfg.seed)
     a = rng.uniform(0, 2 * math.pi)
     x, y, r = CX + rng.uniform(-30, 30), CY + rng.uniform(-30, 30), cfg.r0
-    vx, vy = SPEED * math.cos(a), SPEED * math.sin(a)
+    vx, vy = cfg.speed * math.cos(a), cfg.speed * math.sin(a)
     depth = np.zeros(K)
     grown = np.full(K, -9.0)          # last time each bin grew (for the bright highlight)
     bins = np.arange(K) * 2 * math.pi / K
@@ -95,7 +98,7 @@ def simulate(cfg, record=False):
                         vx += -ny * kick
                         vy += nx * kick
                         sp = math.hypot(vx, vy)
-                        vx, vy = vx / sp * SPEED, vy / sp * SPEED
+                        vx, vy = vx / sp * cfg.speed, vy / sp * cfg.speed
                         # the wall grows where it was hit, the ball shrinks
                         dth = (bins - th + math.pi) % (2 * math.pi) - math.pi
                         bump = cfg.amp * np.exp(-(dth / cfg.width) ** 2)
@@ -133,8 +136,8 @@ def is_good(res):
 def draw(ctx, fr, cfg):
     t = fr["t"]
     fx.black(ctx)
-    fx.rich_title(ctx, [[("Every bounce ", fx.WHITE), ("SHRINKS", fx.CYAN), (" the ball", fx.WHITE)],
-                        [("and ", fx.WHITE), ("GROWS", fx.GOLD), (" the wall", fx.WHITE)]])
+    fx.rich_title(ctx, cfg.title or [[("Every bounce ", fx.WHITE), ("SHRINKS", fx.CYAN), (" the ball", fx.WHITE)],
+                                     [("and ", fx.WHITE), ("GROWS", fx.GOLD), (" the wall", fx.WHITE)]])
     depth, grown = fr["depth"], fr["grown"]
     ctx.set_line_cap(cairo.LINE_CAP_BUTT)
     ctx.set_line_width(2.6)
@@ -180,5 +183,5 @@ def audio_events(res, cfg):
 
 
 def metadata_facts(res, cfg):
-    return dict(template="shrink", bounces=res["bounces"], colors=[], t_end=round(res["t_end"], 2),
+    return dict(template=cfg.tag, bounces=res["bounces"], colors=[], t_end=round(res["t_end"], 2),
                 melody=cfg.melody_name)

@@ -96,4 +96,9 @@ FORMATS = {
     "metronomes": _MglFormat("metronomes", "metronomes.py", "Metronomes"),
     "galton": _MglFormat("galton", "galton.py", "Galton"),
     "chladni": _MglFormat("chladni", "chladni.py", "Chladni"),
+    # 16 Nov 2026 (YouTube Studio ideas): famous paintings drawn by 1,500 circles, the figure-8
+    # three-body orbit broken by a 4th sun, 1,200 stars around two merging black holes
+    "fourierart": _MglFormat("fourierart", "fourier_art.py", "FourierArt"),
+    "figure8": _MglFormat("figure8", "figure8.py", "Figure8"),
+    "blackholes": _MglFormat("blackholes", "blackholes.py", "BlackHoles"),
 }

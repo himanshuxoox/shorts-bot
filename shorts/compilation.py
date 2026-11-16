@@ -70,6 +70,11 @@ CAPTIONS = {
     "quadsplit": "Every box it fills SPLITS into 4. How SMALL can they get?",
     "redring": "Every RED bounce spawns 3 until the whole ring is RED",
     "sortwheel": "Sorting algorithm: wait for the perfect GRADIENT",
+    "fourierart": "Only CIRCLES. Guess the PAINTING",
+    "mirror": "Sunlight + a MIRROR. Which one lights the MATCH?",
+    "bumblebee": "Every bounce plays BUMBLEBEE at 2x SPEED",
+    "figure8": "3 suns in a PERFECT 8. Then a 4th arrives",
+    "blackholes": "1,200 stars vs 2 BLACK HOLES",
 }
 # which formats can appear, with weights (the channel's best formats come up more often)
 POOL = {"fourier": 3, "shrink": 3, "focus_stretch": 3, "golden": 3, "shrink_duo": 2, "fourier3d": 2,
@@ -79,7 +84,8 @@ POOL = {"fourier": 3, "shrink": 3, "focus_stretch": 3, "golden": 3, "shrink_duo"
         "pendulum": 1, "hammer": 1, "multiply": 1, "evolve": 1, "lorenz": 1,
         # the reference-style formats (9 Nov) come up often in the long video
         "sides": 2, "arms": 2, "spiral": 2, "predator": 2, "breakout": 2, "quadsplit": 2, "redring": 2,
-        "sortwheel": 2}
+        "sortwheel": 2,
+        "fourierart": 3, "mirror": 2, "bumblebee": 2, "figure8": 2, "blackholes": 2}
 TITLES = [
     "{n} Most Satisfying Simulations — {m} Minutes of Pure Satisfaction",
     "{n} Satisfying Physics & Math Simulations to Relax 🌙",

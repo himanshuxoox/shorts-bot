@@ -321,6 +321,31 @@ TITLES = {
         ("sound", "This is what sorting SOUNDS like 🔊"),
         ("algo", "Can a sorting algorithm fix the rainbow? 🌈"),
     ],
+    "fourierart": [
+        ("guess", "Only circles… guess the painting 🎨"),
+        ("famous", "1,500 spinning circles paint a FAMOUS painting 🤯"),
+        ("circles", "Can circles paint a masterpiece? 🎨 Guess it first"),
+    ],
+    "mirror": [
+        ("match", "Can a mirror light a match? 🔥 Watch the 3rd one"),
+        ("sun", "Sunlight + the right mirror = FIRE 🔥"),
+        ("three", "3 mirrors. Only ONE lights the match 🔥"),
+    ],
+    "bumblebee": [
+        ("2x", "Every bounce plays Flight of the Bumblebee… at 2x speed 🐝"),
+        ("keep", "The ball is 2x faster… can you keep up with the song? 🐝"),
+        ("music", "Did you recognize the music? 🐝 (2x speed)"),
+    ],
+    "figure8": [
+        ("perfect", "3 suns in a perfect figure 8… then a 4th arrives 😳"),
+        ("pick", "Pick a color! Who gets thrown out of the figure 8? 🌌"),
+        ("break", "The perfect orbit… and what breaks it 🌌"),
+    ],
+    "blackholes": [
+        ("survive", "1,200 stars vs 2 black holes. How many survive? 🕳️"),
+        ("merge", "Two black holes merge… watch the stars 🌌"),
+        ("chirp", "You can HEAR the black holes speed up 🔊🕳️"),
+    ],
 }
 
 FIRST_LINE = {
@@ -378,6 +403,11 @@ FIRST_LINE = {
     "quadsplit": "One ball, one box. Every bounce fills the box a bit; when it's full it splits into 4 boxes, each with its own ball. 1, 4, 16 … {N}.",
     "redring": "Hit a blue segment and it turns red. Hit a red one and you get 3 new balls. It snowballs until the whole ring is red.",
     "sortwheel": "A color wheel cut into slices and shuffled, then a real sorting algorithm swaps it back one pair at a time. Every swap plays the color's note.",
+    "fourierart": "A chain of spinning circles, each turning at a whole-number speed, redraws a famous painting as one continuous line — 20 circles make a blob, 150 a scribble, 1,500 the masterpiece (Mona Lisa, The Starry Night or The Scream; all public domain).",
+    "mirror": "Sunlight falls on a mirror with a match at its focus. A flat mirror sends it all back, a round mirror ALMOST works, and a parabola sends every ray through one point.",
+    "bumblebee": "Every bounce shrinks the ball and grows the wall, and every bounce plays the next note of Flight of the Bumblebee (Rimsky-Korsakov, 1900) — with the ball at double speed.",
+    "figure8": "The figure-eight orbit: three equal suns chase each other along one figure-8 path forever. Then a 4th sun flies in, and the dance turns into chaos.",
+    "blackholes": "A disk of 1,200 stars circles two black holes. The pair spirals inward faster and faster (you can hear the chirp), swallowing and flinging stars, until they merge.",
 }
 ASK = {
     "escape": "Which one did you pick? Tell me in the comments 👇",
@@ -434,6 +464,11 @@ ASK = {
     "quadsplit": "Did you guess the final number of boxes? 👇",
     "redring": "Guess the final ball count 👇",
     "sortwheel": "Which sorting algorithm should I do next? 👇",
+    "fourierart": "At how many circles did you recognize it? 👇 Which painting next?",
+    "mirror": "Did you know why the round mirror fails? 👇",
+    "bumblebee": "Which song should go 2x next? 👇",
+    "figure8": "Which color did you pick? 👇",
+    "blackholes": "Guess how many stars survived before the end 👇",
 }
 
 TAGS = ["shorts", "satisfying", "simulation", "physics simulation", "oddly satisfying",
@@ -493,6 +528,11 @@ EXTRA_TAGS = {
     "quadsplit": ["quadtree", "fractal", "splits into 4", "satisfying boxes", "guess the song"],
     "redring": ["ball multiplies", "red ring", "spawn balls", "ball explosion", "satisfying"],
     "sortwheel": ["sorting algorithm", "sound of sorting", "color wheel", "rainbow", "algorithm visualization"],
+    "fourierart": ["fourier series", "epicycles", "mona lisa", "starry night", "the scream", "drawing with circles"],
+    "mirror": ["parabolic mirror", "focus", "sunlight", "light a match", "optics"],
+    "bumblebee": ["flight of the bumblebee", "2x speed", "ball shrinks", "guess the song", "bouncing ball"],
+    "figure8": ["three body problem", "figure eight orbit", "gravity", "pick a color", "space simulation"],
+    "blackholes": ["black hole merger", "gravitational waves", "black holes", "space simulation", "3d"],
 }
 HASHTAGS = {
     "escape": "#shorts #satisfying #simulation #ballrace #oddlysatisfying",
@@ -549,6 +589,11 @@ HASHTAGS = {
     "quadsplit": "#shorts #satisfying #fractal #bouncingball #oddlysatisfying",
     "redring": "#shorts #satisfying #bouncingball #simulation #oddlysatisfying",
     "sortwheel": "#shorts #sortingalgorithm #satisfying #rainbow #coding",
+    "fourierart": "#shorts #maths #fourier #art #satisfying",
+    "mirror": "#shorts #physics #optics #satisfying #science",
+    "bumblebee": "#shorts #satisfying #bouncingball #flightofthebumblebee #guessthesong",
+    "figure8": "#shorts #space #threebodyproblem #gravity #pickacolor",
+    "blackholes": "#shorts #space #blackhole #3d #satisfying",
 }
 
 

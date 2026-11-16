@@ -29,7 +29,7 @@ import random
 from . import (escape, rings, grow, paint, elim, butterfly, evolve, multiply, shrink, devour, crush,
                royale, hammer, squeeze, lasers, race, focus, golden, pendulum, rosette, metadata, trends,
                manim_fmt, shrink2, three_d, compilation, sides, arms, spiral, predator, breakout, quadsplit,
-               redring, sortwheel)
+               redring, sortwheel, mirror, bumblebee)
 from .common import FPS, build_audio, render_frames, save_thumbnail
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -44,19 +44,21 @@ MODS = dict(royale=royale, hammer=hammer, squeeze=squeeze, lasers=lasers,
             shrink_duo=shrink2.shrink_duo, shrink_shape=shrink2.shrink_shape,
             compilation=compilation, dish_3d=three_d.dish_3d, sphere_star=three_d.sphere_star, torus_knot=three_d.torus_knot,
             sides=sides, arms=arms, spiral=spiral, predator=predator, breakout=breakout, quadsplit=quadsplit,
-            redring=redring, sortwheel=sortwheel)
-# Weighted by the Channel Watcher's median views (5 Nov 2026): fourier (24k), focus_stretch (21k),
-# shrink (20k), golden (19k), shrink_duo (11k) lead. The 3D ManimGL formats and the N-body game keep 2 slots.
-# 9 Nov: 8 new compilation-style formats get 1 test slot each (sides, spiral, predator, breakout, redring,
-# quadsplit, arms, sortwheel) — about 1-2 a day; chaosgame and squeeze made room.
-# Out (low medians): dish_3d, sphere_star, torus_knot, lorenz, hammer, galton, race_crush, butterfly,
-# rosette, chladni, focus_3d, shrink_shape. 36 slots = 6 days at 6 a day. Override with the repo variable FORMATS.
-DEFAULT_LINEUP = ("fourier,shrink,dragonfold,focus_stretch,nbody,sides,"
-                  "golden,shrink_duo,fourier3d,spiral,shrink,hilbert3d,"
-                  "focus,fourier,predator,shrinksphere,sunflower3d,golden,"
-                  "breakout,metronomes,shrink,dragonfold,focus_stretch,shrink_duo,"
-                  "nbody,redring,primespiral,fourier3d,shrinksphere,quadsplit,"
-                  "timestable,hilbert3d,fourier,arms,sunflower3d,sortwheel")
+            redring=redring, sortwheel=sortwheel, mirror=mirror, bumblebee=bumblebee)
+# Weighted by the Channel Watcher's median views (16 Nov 2026, 1M channel views): focus_stretch (13k),
+# shrink (8.7k), fourier (6.2k), timestable (5.0k), rosette (4.7k), shrink_shape (4.5k), shrink_duo (4.3k)
+# lead, so they get the most slots. New (16 Nov, YouTube Studio ideas): fourierart (famous paintings
+# drawn by circles — fourier is a top format) 3 slots; mirror (parabolic mirror lights a match — the
+# focus family), bumblebee (shrink + Flight of the Bumblebee at 2x), figure8, blackholes 2 slots each.
+# Out of the Shorts lineup (low medians, still in the long compilation): predator, spiral, redring,
+# quadsplit, breakout, nbody, fourier3d, sunflower3d, primespiral, golden, focus, galton, lorenz, …
+# 36 slots = 6 days at 6 a day (Sunday is the long-video day). Override with the repo variable FORMATS.
+DEFAULT_LINEUP = ("fourier,shrink,mirror,focus_stretch,blackholes,timestable,"
+                  "fourierart,shrink_duo,focus_stretch,bumblebee,figure8,rosette,"
+                  "shrink,fourier,metronomes,focus_stretch,hilbert3d,arms,"
+                  "fourierart,mirror,shrink,chaosgame,shrink_shape,blackholes,"
+                  "focus_stretch,bumblebee,fourier,dragonfold,squeeze,figure8,"
+                  "fourierart,shrink,timestable,shrinksphere,shrink_duo,sortwheel")
 LOOP_S = 0.4                 # cross-fade back to frame 0 so replays loop seamlessly
 LINEUP = [f.strip() for f in (os.environ.get("FORMATS") or DEFAULT_LINEUP).split(",") if f.strip()]
 # formats added to EVERY day's batch on top of --count (not part of the rotation).

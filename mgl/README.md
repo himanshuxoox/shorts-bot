@@ -18,6 +18,9 @@ then adds the sound (`shorts/mgl_audio.py`) and plugs it into the normal batch, 
 | `shrinksphere` | `shrink_sphere.py` ShrinkSphere | Every bounce shrinks the ball and grows the wall — inside a sphere |
 | `sunflower3d` | `sunflower_3d.py` Sunflower3D | Which angle makes a sunflower? 90° → 137° → 137.5°, then a 3D pine cone |
 | `hilbert3d` | `hilbert_3d.py` Hilbert3D | Can ONE line fill a whole cube? 8 → 64 → 512 → 4,096 corners |
+| `fourierart` | `fourier_art.py` FourierArt | Only circles… guess the painting: 20 → 150 → 1,500 circles draw the Mona Lisa / The Starry Night / The Scream (public domain), then the real painting fades in under the line. Traced once into one line: `mgl/data/<key>.npy` |
+| `figure8` | `figure8.py` Figure8 | 3 suns in the perfect figure-8 orbit (Chenciner–Montgomery), then a 4th sun arrives — pick a color, who is thrown out? |
+| `blackholes` | `blackholes.py` BlackHoles | 1,200 stars vs 2 merging black holes: the pair spirals in (you hear the chirp), stars are swallowed or flung out, then the merger flash |
 | `metronomes` | `metronomes.py` Metronomes | 24 metronomes, nobody touches them → perfect sync |
 | `galton` | `galton.py` Galton | Where will 1,500 balls land? → bell curve |
 | `chladni` | `chladni.py` Chladni | Sand on a metal plate, now add sound → patterns |
