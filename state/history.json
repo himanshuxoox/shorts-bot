@@ -1,5 +1,5 @@
 {
- "next_seed": 1902,
+ "next_seed": 1903,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1572,7 +1572,49 @@
    "format": "compilation",
    "seed": 1899,
    "title": "16 Oddly Satisfying Simulations \u2014 Watch Till the End"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "rosette",
+   "seed": 1902,
+   "title": "Why doesn't this orbit close? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "shrink",
+   "seed": 1902,
+   "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "fourier",
+   "seed": 1902,
+   "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "metronomes",
+   "seed": 1902,
+   "title": "24 metronomes. Nobody touches them \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "focus_stretch",
+   "seed": 1902,
+   "title": "Will they still meet if I stretch it? \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "hilbert3d",
+   "seed": 1902,
+   "title": "Can ONE line fill a whole cube? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-17",
+   "format": "compilation",
+   "seed": 1902,
+   "title": "16 Satisfying Physics & Math Simulations to Relax \ud83c\udf19"
   }
  ],
- "lineup_pos": 11
+ "lineup_pos": 17
 }
