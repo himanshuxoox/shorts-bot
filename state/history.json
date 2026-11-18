@@ -1,5 +1,5 @@
 {
- "next_seed": 1903,
+ "next_seed": 1905,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1614,7 +1614,49 @@
    "format": "compilation",
    "seed": 1902,
    "title": "16 Satisfying Physics & Math Simulations to Relax \ud83c\udf19"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "arms",
+   "seed": 1904,
+   "title": "Can you even say the name of this shape? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "fourierart",
+   "seed": 1903,
+   "title": "Only circles\u2026 guess the painting \ud83c\udfa8 #shorts"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "mirror",
+   "seed": 1904,
+   "title": "3 mirrors. Only ONE lights the match \ud83d\udd25 #shorts"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "shrink",
+   "seed": 1903,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "chaosgame",
+   "seed": 1903,
+   "title": "Pick a random corner. Jump. Repeat. \ud83c\udfb2 #shorts"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "shrink_shape",
+   "seed": 1903,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-11-18",
+   "format": "compilation",
+   "seed": 1903,
+   "title": "16 Simulations You Can't Stop Watching \ud83e\udd2f"
   }
  ],
- "lineup_pos": 17
+ "lineup_pos": 23
 }
