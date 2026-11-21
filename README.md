@@ -125,6 +125,28 @@ of 4 would not fit one Actions run) until 4 are uploaded and scheduled, then pau
 them. Change the day / times in `shorts/upload.py` (`LONG_DAY`, `LONG_DAY_SLOTS`); `LONG_DAY = none`
 goes back to one long video every day at 21:00.
 
+## 3D long videos (Blender): `b3d/`
+
+Real 3D physics, rendered with Blender (Cycles) like the big "satisfying 3DCG" channels: ONE setup,
+ONE number changes (1 kg → 50 kg → 1,000 kg), each variant with its number big on screen, the sound
+made from the collisions (ASMR clacks and thuds), chapters in the description, a thumbnail with the
+variants side by side. Two long videos are defined in `b3d/catalog.py`:
+
+| video | ideas (3 variants each) |
+|---|---|
+| `heavy` | wrecking ball 1/50/1,000 kg · jelly on 1/9/100 spikes · same crash on Moon/Earth/Jupiter · 120 balls down stairs, bounciness 0/50/95% · plank bridge strength 500/50/5 · tower on a turntable 10/60/200 RPM · 3D plinko 10/100/500 balls · wind 20/80/300 km/h |
+| `count` | same ball vs 10/100/1,000 blocks · ball pit splash 1/100/10,000 kg · funnel 100/1,000/3,000 balls · zero gravity pull 1x/10x/100x · blast power 1/10/100 · seesaw vs 10/100/1,000 balls · silk/cotton/denim on a statue · ice/wood/rubber slope |
+
+Rendering is heavy (~4,500 frames per video), so it runs in the **"3D Long Videos (Blender)"**
+workflow: every variant renders on its own free runner (48 in parallel batches of 20, about an hour
+in total), then one job builds the videos and schedules them on the long-video day (Sunday slots,
+shared with the compilations). Start it from the Actions tab (Run workflow) or by changing and
+pushing `b3d/render_request.txt`. The finished videos are also kept as a downloadable artifact.
+
+Try one variant locally (Python 3.13): `pip install -r requirements-3d.txt`, then
+`python b3d/render.py wrecking 2 /tmp/w2 --res 640 --spp 4 --only 1,40,90` (quick look) and
+`python -m b3d.assemble encode /tmp/w2 parts/wrecking_2.mp4`.
+
 ## Smart pacing (optional): hold the next Short while one is taking off
 
 Repo variable `PACING = on` (together with `AUTO_UPLOAD = true`) switches Shorts from fixed

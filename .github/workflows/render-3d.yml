@@ -1,0 +1,118 @@
+name: 3D Long Videos (Blender)
+
+# Renders the 3D long videos (b3d/): every variant of every idea renders on its own runner in
+# parallel (Blender Cycles on CPU, free for public repos), then one job puts each long video
+# together (labels, physics sound, chapters, thumbnail) and schedules it on the long-video day.
+#
+# Start it: Actions -> "3D Long Videos (Blender)" -> Run workflow, or push a change to
+# b3d/render_request.txt (its words say which videos: heavy, count).
+
+on:
+  workflow_dispatch:
+    inputs:
+      videos:
+        description: "Which long videos (heavy, count, or both)"
+        default: "heavy count"
+      upload:
+        description: "Upload to YouTube when done (true/false)"
+        default: "true"
+  push:
+    paths:
+      - "b3d/render_request.txt"
+
+permissions:
+  contents: write
+
+concurrency: render-3d
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+      videos: ${{ steps.m.outputs.videos }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: m
+        run: |
+          V="${{ github.event.inputs.videos }}"
+          if [ -z "$V" ]; then V=$(cat b3d/render_request.txt | grep -v '^#' | tr '\n' ' '); fi
+          echo "videos=$V" >> "$GITHUB_OUTPUT"
+          echo "matrix=$(python3 -m b3d.catalog $V)" >> "$GITHUB_OUTPUT"
+          echo "Rendering: $V"
+
+  render:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: System packages
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0
+      - name: Blender (bpy)
+        run: pip install -r requirements-3d.txt
+      - name: Render ${{ matrix.idea }} ${{ matrix.v }}
+        run: |
+          python b3d/render.py ${{ matrix.idea }} ${{ matrix.v }} fr --res 1280 --spp 8
+          mkdir -p parts
+          python -m b3d.assemble encode fr parts/${{ matrix.idea }}_${{ matrix.v }}.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: part-${{ matrix.idea }}-${{ matrix.v }}
+          path: parts/
+          retention-days: 3
+
+  assemble:
+    needs: [plan, render]
+    if: always() && needs.render.result != 'cancelled'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Packages
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+          pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: parts
+          merge-multiple: true
+      - name: Put the long videos together
+        id: build
+        run: |
+          DAY=$(TZ=Asia/Kolkata date +%F)
+          echo "day=$DAY" >> "$GITHUB_OUTPUT"
+          for v in ${{ needs.plan.outputs.videos }}; do
+            python -m b3d.assemble video $v parts --date "$DAY"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: long-3d-${{ github.run_number }}
+          path: out/
+          retention-days: 7
+      - name: Upload to YouTube (scheduled on the long-video day)
+        if: vars.AUTO_UPLOAD == 'true' && github.event.inputs.upload != 'false'
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python -m shorts.upload --date "${{ steps.build.outputs.day }}" --long-only
+      - name: Save upload log
+        if: success()
+        run: |
+          git config user.name  "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add state/uploads_out.json 2>/dev/null || true
+          git commit -m "3D long videos $(date -u +%F)" || echo "nothing to commit"
+          git pull --rebase && git push

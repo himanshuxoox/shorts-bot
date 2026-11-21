@@ -1,0 +1,3 @@
+# Which 3D long videos to render (b3d/catalog.py VIDEOS). Changing this file and pushing starts
+# the "3D Long Videos (Blender)" workflow.
+heavy count
