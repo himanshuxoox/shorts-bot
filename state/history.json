@@ -1,5 +1,5 @@
 {
- "next_seed": 1908,
+ "next_seed": 1909,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1728,7 +1728,43 @@
    "format": "shrink_duo",
    "seed": 1907,
    "title": "Pick a color! Every bounce shrinks the ball \ud83d\udfe3\ud83d\udd34 #shorts"
+  },
+  {
+   "date": "2026-11-21",
+   "format": "sortwheel",
+   "seed": 1908,
+   "title": "Sorting algorithm\u2026 wait for the perfect gradient \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-11-21",
+   "format": "fourier",
+   "seed": 1908,
+   "title": "Wait for the last circle \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-21",
+   "format": "shrink",
+   "seed": 1908,
+   "title": "Ball vs wall \u2014 who wins? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-21",
+   "format": "mirror",
+   "seed": 1908,
+   "title": "Can a mirror light a match? \ud83d\udd25 Watch the 3rd one #shorts"
+  },
+  {
+   "date": "2026-11-21",
+   "format": "focus_stretch",
+   "seed": 1908,
+   "title": "Stretch it, squash it \u2014 they STILL meet \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-21",
+   "format": "blackholes",
+   "seed": 1908,
+   "title": "1,200 stars vs 2 black holes. How many survive? \ud83d\udd73\ufe0f #shorts"
   }
  ],
- "lineup_pos": 35
+ "lineup_pos": 5
 }
