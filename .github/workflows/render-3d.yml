@@ -16,12 +16,16 @@ on:
       upload:
         description: "Upload to YouTube when done (true/false)"
         default: "true"
+      from_run:
+        description: "Reuse the renders of an earlier run (its run id from the URL, .../actions/runs/<id>); empty = render again"
+        default: ""
   push:
     paths:
       - "b3d/render_request.txt"
 
 permissions:
   contents: write
+  actions: read
 
 concurrency: render-3d
 
@@ -43,6 +47,7 @@ jobs:
 
   render:
     needs: plan
+    if: github.event.inputs.from_run == ''
     runs-on: ubuntu-24.04
     timeout-minutes: 240
     strategy:
@@ -82,12 +87,23 @@ jobs:
       - name: Packages
         run: |
           sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
-          pip install -r requirements.txt
-      - uses: actions/download-artifact@v4
+          pip install numpy Pillow google-api-python-client google-auth
+      - name: Get the renders of this run
+        if: github.event.inputs.from_run == ''
+        uses: actions/download-artifact@v4
         with:
           pattern: part-*
           path: parts
           merge-multiple: true
+      - name: Get the renders of an earlier run
+        if: github.event.inputs.from_run != ''
+        uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: parts
+          merge-multiple: true
+          run-id: ${{ github.event.inputs.from_run }}
+          github-token: ${{ github.token }}
       - name: Put the long videos together
         id: build
         run: |
