@@ -1674,5 +1674,19 @@
   "publish_at": "2026-11-24T19:30:00+05:30",
   "long_form": false,
   "paced": false
+ },
+ "cyJN2CQWmio": {
+  "format": "3d_heavy",
+  "title": "1 kg vs 1,000 kg 😳 Satisfying 3D Physics Simulations",
+  "seed": 326,
+  "publish_at": "2026-11-29T09:00:00+05:30",
+  "long_form": true
+ },
+ "j8SmStbZlA4": {
+  "format": "3d_count",
+  "title": "10 vs 1,000 🤯 Satisfying 3D Physics Simulations",
+  "seed": 326,
+  "publish_at": "2026-11-29T15:00:00+05:30",
+  "long_form": true
  }
 }
