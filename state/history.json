@@ -1,5 +1,5 @@
 {
- "next_seed": 1917,
+ "next_seed": 1918,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1794,7 +1794,19 @@
    "format": "compilation",
    "seed": 1909,
    "title": "16 Most Satisfying Simulations \u2014 7 Minutes of Pure Satisfaction"
+  },
+  {
+   "date": "2026-11-23",
+   "format": "bumblebee",
+   "seed": 1917,
+   "title": "Did you recognize the music? \ud83d\udc1d (2x speed) #shorts"
+  },
+  {
+   "date": "2026-11-23",
+   "format": "compilation",
+   "seed": 1917,
+   "title": "16 Satisfying Physics & Math Simulations to Relax \ud83c\udf19"
   }
  ],
- "lineup_pos": 9
+ "lineup_pos": 10
 }
