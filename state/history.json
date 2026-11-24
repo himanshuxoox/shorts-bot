@@ -1,5 +1,5 @@
 {
- "next_seed": 1918,
+ "next_seed": 1919,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1806,7 +1806,43 @@
    "format": "compilation",
    "seed": 1917,
    "title": "16 Satisfying Physics & Math Simulations to Relax \ud83c\udf19"
+  },
+  {
+   "date": "2026-11-24",
+   "format": "figure8",
+   "seed": 1918,
+   "title": "The perfect orbit\u2026 and what breaks it \ud83c\udf0c #shorts"
+  },
+  {
+   "date": "2026-11-24",
+   "format": "rosette",
+   "seed": 1918,
+   "title": "What is a rosette orbit? \ud83c\udf38 #shorts"
+  },
+  {
+   "date": "2026-11-24",
+   "format": "shrink",
+   "seed": 1918,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-11-24",
+   "format": "fourier",
+   "seed": 1918,
+   "title": "Only circles. What will they draw? \ud83e\udd2f #shorts"
+  },
+  {
+   "date": "2026-11-24",
+   "format": "metronomes",
+   "seed": 1918,
+   "title": "24 metronomes. Nobody touches them \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-24",
+   "format": "focus_stretch",
+   "seed": 1918,
+   "title": "I keep changing the shape\u2026 do they still meet? \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 10
+ "lineup_pos": 16
 }
