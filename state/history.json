@@ -1,5 +1,5 @@
 {
- "next_seed": 1919,
+ "next_seed": 1921,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1842,7 +1842,43 @@
    "format": "focus_stretch",
    "seed": 1918,
    "title": "I keep changing the shape\u2026 do they still meet? \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-25",
+   "format": "hilbert3d",
+   "seed": 1919,
+   "title": "Every corner splits into 8\u2026 \ud83e\uddca #shorts"
+  },
+  {
+   "date": "2026-11-25",
+   "format": "arms",
+   "seed": 1920,
+   "title": "Every bounce adds an ARM \ud83d\ude33 100 arms later\u2026 #shorts"
+  },
+  {
+   "date": "2026-11-25",
+   "format": "fourierart",
+   "seed": 1919,
+   "title": "Only circles\u2026 guess the painting \ud83c\udfa8 #shorts"
+  },
+  {
+   "date": "2026-11-25",
+   "format": "mirror",
+   "seed": 1920,
+   "title": "Sunlight + the right mirror = FIRE \ud83d\udd25 #shorts"
+  },
+  {
+   "date": "2026-11-25",
+   "format": "shrink",
+   "seed": 1919,
+   "title": "Guess how many bounces before the wall wins \ud83e\udd14 #shorts"
+  },
+  {
+   "date": "2026-11-25",
+   "format": "chaosgame",
+   "seed": 1919,
+   "title": "Random dots\u2026 wait for it \ud83d\ude33 #shorts"
   }
  ],
- "lineup_pos": 16
+ "lineup_pos": 22
 }
