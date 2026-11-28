@@ -1,5 +1,5 @@
 {
- "next_seed": 1923,
+ "next_seed": 1930,
  "videos": [
   {
    "date": "2026-10-02",
@@ -1950,7 +1950,43 @@
    "format": "shrinksphere",
    "seed": 1922,
    "title": "Every bounce SHRINKS the ball\u2026 in 3D \ud83d\ude33 #shorts"
+  },
+  {
+   "date": "2026-11-28",
+   "format": "shrink_duo",
+   "seed": 1929,
+   "title": "Red vs Purple \u2014 every bounce SHRINKS the ball \ud83d\ude33 \ud83d\udd34\ud83d\udfe3 #shorts"
+  },
+  {
+   "date": "2026-11-28",
+   "format": "sortwheel",
+   "seed": 1923,
+   "title": "Sorting algorithm\u2026 wait for the perfect gradient \ud83c\udf08 #shorts"
+  },
+  {
+   "date": "2026-11-28",
+   "format": "fourier",
+   "seed": 1923,
+   "title": "Wait for the last circle \u2728 #shorts"
+  },
+  {
+   "date": "2026-11-28",
+   "format": "shrink",
+   "seed": 1923,
+   "title": "Did you recognize the music? \ud83c\udfb5 #shorts"
+  },
+  {
+   "date": "2026-11-28",
+   "format": "mirror",
+   "seed": 1923,
+   "title": "Can a mirror light a match? \ud83d\udd25 Watch the 3rd one #shorts"
+  },
+  {
+   "date": "2026-11-28",
+   "format": "focus_stretch",
+   "seed": 1923,
+   "title": "Will they still meet if I stretch it? \ud83e\udd14 #shorts"
   }
  ],
- "lineup_pos": 34
+ "lineup_pos": 4
 }
