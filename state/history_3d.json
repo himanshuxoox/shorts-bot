@@ -1,0 +1,161 @@
+{
+ "next_id": 1002,
+ "shorts": [
+  {
+   "id": 1000,
+   "date": "2026-11-28",
+   "recipe": {
+    "action": "drop",
+    "variable": "height",
+    "structure": "cube",
+    "palette": "mint",
+    "hitter": "steel",
+    "backdrop": "coral",
+    "id": 1000,
+    "values": [
+     1,
+     5,
+     25
+    ],
+    "labels": [
+     "1 m",
+     "5 m",
+     "25 m"
+    ],
+    "yaw": 0.7,
+    "elev": 22.3,
+    "hook": "From how high does it SMASH the CUBE?",
+    "k": 0.4545
+   },
+   "tests": [
+    [
+     1.0,
+     [
+      0.0,
+      0.021,
+      0.035
+     ],
+     "high too weak"
+    ],
+    [
+     0.455,
+     [
+      0.0,
+      0.215,
+      0.42
+     ],
+     "ok"
+    ]
+   ]
+  },
+  {
+   "id": 1001,
+   "date": "2026-11-28",
+   "recipe": {
+    "action": "wrecking",
+    "variable": "size",
+    "structure": "pyramid",
+    "palette": "mono",
+    "hitter": "steel",
+    "backdrop": "sage",
+    "id": 1001,
+    "values": [
+     0.2,
+     0.45,
+     0.85
+    ],
+    "labels": [
+     "Small ball",
+     "Medium ball",
+     "HUGE ball"
+    ],
+    "yaw": 10.3,
+    "elev": 24.7,
+    "hook": "Which ball breaks the PYRAMID?",
+    "k": 4.84
+   },
+   "tests": [
+    [
+     1.0,
+     [
+      0.264,
+      0.393,
+      0.7
+     ],
+     "low too strong"
+    ],
+    [
+     2.2,
+     [
+      0.207,
+      0.393,
+      0.7
+     ],
+     "low too strong"
+    ],
+    [
+     4.84,
+     [
+      0.036,
+      0.393,
+      0.707
+     ],
+     "ok"
+    ]
+   ]
+  }
+ ],
+ "rejected": [
+  {
+   "sig": "wrecking|size|columns|rainbow|steel",
+   "date": "2026-11-28",
+   "tests": [
+    [
+     1.0,
+     [
+      0.186,
+      0.256,
+      0.628
+     ],
+     "low too strong"
+    ],
+    [
+     2.2,
+     [
+      0.233,
+      0.256,
+      0.698
+     ],
+     "low too strong"
+    ],
+    [
+     4.84,
+     [
+      0.233,
+      0.256,
+      0.628
+     ],
+     "low too strong"
+    ],
+    [
+     10.648,
+     [
+      0.233,
+      0.256,
+      0.628
+     ],
+     "low too strong"
+    ],
+    [
+     23.426,
+     [
+      0.256,
+      0.233,
+      0.651
+     ],
+     "low too strong"
+    ]
+   ]
+  }
+ ]
+}
