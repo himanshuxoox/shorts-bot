@@ -67,7 +67,8 @@ def _load(path, default):
 
 
 def _save(path, data):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.dirname(path):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         json.dump(data, f, indent=1, ensure_ascii=False)
 
@@ -304,10 +305,19 @@ def plan(count, out, log=print, offline=False, max_tests=8):
     for c in cands:
         c["score"] = score(c, R, recent, rng)
     cands.sort(key=lambda c: -c["score"])
+    def idea(c):
+        return f"{c['action']}|{c['variable']}|{c['structure']}"
+
+    failed = {}
+    for rj in hist.get("rejected", []):
+        k_ = "|".join(rj["sig"].split("|")[:3])
+        failed[k_] = failed.get(k_, 0) + 1
     picked, tested = [], 0
     for c in cands:
         if len(picked) >= count or tested >= max_tests:
             break
+        if failed.get(idea(c), 0) >= 2:
+            continue                                         # this physics idea never tells a story
         if any((p["action"], p["structure"]) == (c["action"], c["structure"]) or p["action"] == c["action"]
                for p in picked):
             continue                                         # variety inside one day
@@ -327,6 +337,7 @@ def plan(count, out, log=print, offline=False, max_tests=8):
             hist.setdefault("rejected", []).append(dict(sig=signature(r), date=today.date().isoformat(), tests=seen))
             hist["rejected"] = hist["rejected"][-300:]
             used.add(signature(r))
+            failed[idea(r)] = 2                              # don't retry it with other colours today
     _save(HIST, hist)
     data = dict(date=today.date().isoformat(), recipes=picked,
                 research=dict(trends=list(R.get("trend_weights", {}).items())[:10],
