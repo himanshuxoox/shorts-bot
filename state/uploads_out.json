@@ -1951,5 +1951,21 @@
   "publish_at": "2026-12-01T03:30:00+05:30",
   "long_form": false,
   "paced": false
+ },
+ "5MFY32k5kMQ": {
+  "format": "s3d_drop",
+  "title": "From how high does it SMASH the CUBE? 1 m vs 5 m vs 25 m 😳 #shorts",
+  "seed": 1000,
+  "publish_at": "2026-12-01T07:30:00+05:30",
+  "long_form": false,
+  "paced": false
+ },
+ "mPyETuvUano": {
+  "format": "s3d_wrecking",
+  "title": "Which ball breaks the PYRAMID? Small ball vs Medium ball vs HUGE ball 😳 #shorts",
+  "seed": 1001,
+  "publish_at": "2026-12-01T15:30:00+05:30",
+  "long_form": false,
+  "paced": false
  }
 }
