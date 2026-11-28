@@ -19,6 +19,11 @@ BACKDROPS = {                                    # (backdrop colour, light warmt
     "mint": (0.42, 0.72, 0.62),
     "sand": (0.82, 0.66, 0.46),
     "night": (0.10, 0.11, 0.14),
+    "peach": (0.90, 0.58, 0.42),
+    "sky": (0.42, 0.62, 0.85),
+    "sage": (0.55, 0.66, 0.50),
+    "lilac": (0.72, 0.58, 0.85),
+    "coral": (0.88, 0.45, 0.42),
 }
 
 
@@ -449,3 +454,58 @@ def mesh_object(name, verts, faces, mat=None, smooth=True):
     ob = bpy.data.objects.new(name, me)
     bpy.context.scene.collection.objects.link(ob)
     return _finish(ob, mat, None, smooth)
+
+
+def camera_fit(points, yaw_deg=-25.0, elev_deg=18.0, lens=35, box=(0.06, 0.94, 0.10, 0.74), dof=None):
+    """camera that sees all `points` inside `box` (x0, x1, y0, y1 of the frame, 0..1 from bottom-left),
+    looking from angle yaw (around the vertical, 0 = from the front / -y) and elevation. The top of a
+    vertical Short is left free for the caption. Returns the camera."""
+    from bpy_extras.object_utils import world_to_camera_view
+    sc = bpy.context.scene
+    pts = [Vector(p) for p in points]
+    lo = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
+    hi = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
+    c = (lo + hi) / 2
+    yaw, el = math.radians(yaw_deg), math.radians(elev_deg)
+    d = Vector((math.sin(yaw) * math.cos(el), -math.cos(yaw) * math.cos(el), math.sin(el)))
+    cam = camera(tuple(c + d * 10), tuple(c), lens=lens)
+    bpy.context.view_layer.update()
+
+    def fits(dist, shift):
+        cam.location = c + d * dist + Vector((0, 0, shift))
+        look_at(cam, c + Vector((0, 0, shift)))
+        bpy.context.view_layer.update()
+        for p in pts:
+            q = world_to_camera_view(sc, cam, p)
+            if q.z <= 0 or not (box[0] <= q.x <= box[1] and box[2] <= q.y <= box[3]):
+                return False, q
+        return True, None
+
+    # move the aim up/down so the points sit in the middle of the box, then find the closest distance
+    shift = 0.0
+    lo_d, hi_d = 1.0, 200.0
+    for _ in range(3):
+        a, b = lo_d, hi_d
+        for _ in range(28):
+            m = (a + b) / 2
+            ok, _q = fits(m, shift)
+            a, b = (a, m) if ok else (m, b)
+        fits(b, shift)
+        ys = [world_to_camera_view(sc, cam, p).y for p in pts]
+        mid = (min(ys) + max(ys)) / 2
+        want = (box[2] + box[3]) / 2
+        # one unit of frame height at this distance, roughly
+        span = 2 * b * math.tan(cam.data.angle / 2)
+        shift -= (want - mid) * span * 0.9
+        lo_d, hi_d = 1.0, 200.0
+    a, b = lo_d, hi_d
+    for _ in range(28):
+        m = (a + b) / 2
+        ok, _q = fits(m, shift)
+        a, b = (a, m) if ok else (m, b)
+    fits(b * 1.03, shift)
+    if dof:
+        cam.data.dof.use_dof = True
+        cam.data.dof.focus_distance = (cam.location - c).length
+        cam.data.dof.aperture_fstop = dof
+    return cam

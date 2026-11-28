@@ -1,0 +1,154 @@
+name: 3D Shorts (agent + Blender)
+
+# Every day the agent (b3d/agent.py) researches what works (our own 3D Shorts' views, the Channel
+# Watcher's medians, the most-viewed 3D simulation Shorts of the last 2 weeks on YouTube), invents
+# NEW 3D Shorts that were never posted before, tests their physics until the 3 variants tell a story,
+# then every variant renders on its own free runner (Blender Cycles) and the finished Shorts join the
+# same queue / slots as the other Shorts (the daily batch then renders that many fewer 2D Shorts).
+#
+# How many a day: repo variable SHORTS_3D (default 2). Run it by hand: Actions -> Run workflow.
+
+on:
+  schedule:
+    - cron: "35 14 * * *"     # 20:05 IST: after the YouTube quota reset (13:30 IST), before the night batch
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "How many 3D Shorts"
+        default: "2"
+
+permissions:
+  contents: write
+
+concurrency: shorts-3d
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      matrix: ${{ steps.agent.outputs.matrix }}
+      n: ${{ steps.agent.outputs.n }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: System packages
+        run: sudo apt-get update -q && sudo apt-get install -y -q libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0
+      - name: Python packages
+        run: pip install -r requirements-3d.txt google-api-python-client google-auth
+      - name: Agent - research, invent, test
+        id: agent
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: |
+          python b3d/agent.py plan --count "${{ github.event.inputs.count || vars.SHORTS_3D || '2' }}" --out plan.json
+          echo "matrix=$(python b3d/agent.py matrix plan.json)" >> "$GITHUB_OUTPUT"
+          echo "n=$(python -c "import json; print(len(json.load(open('plan.json'))['recipes']))")" >> "$GITHUB_OUTPUT"
+          mkdir -p planout && cp plan.json state/history_3d.json state/research_3d.json planout/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plan3d
+          path: planout/
+          retention-days: 3
+
+  render:
+    needs: plan
+    if: needs.plan.outputs.n != '0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: plan3d
+          path: planout
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: System packages
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0
+      - name: Blender (bpy)
+        run: pip install -r requirements-3d.txt
+      - name: Render Short ${{ matrix.id }} variant ${{ matrix.v }}
+        run: |
+          python b3d/render.py recipe:planout/plan.json:${{ matrix.id }} ${{ matrix.v }} fr --vertical --res 720 --spp 8
+          mkdir -p parts
+          python -m b3d.assemble encode fr parts/${{ matrix.id }}_${{ matrix.v }}.mp4 --vertical
+      - uses: actions/upload-artifact@v4
+        with:
+          name: part3d-${{ matrix.id }}-${{ matrix.v }}
+          path: parts/
+          retention-days: 3
+
+  publish:
+    needs: [plan, render]
+    if: always() && needs.plan.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    concurrency:
+      group: shorts-pacer            # the queue is shared with the pacer: never edit it at the same time
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: plan3d
+          path: planout
+      - uses: actions/download-artifact@v4
+        if: needs.plan.outputs.n != '0'
+        with:
+          pattern: part3d-*
+          path: parts
+          merge-multiple: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Packages
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+          pip install numpy Pillow google-api-python-client google-auth
+      - name: Put the Shorts together
+        id: build
+        run: |
+          cp planout/history_3d.json planout/research_3d.json state/
+          DAY=$(TZ=Asia/Kolkata date +%F)
+          echo "day=$DAY" >> "$GITHUB_OUTPUT"
+          if [ "${{ needs.plan.outputs.n }}" != "0" ]; then
+            python -m b3d.short3d build planout/plan.json parts --date "$DAY"
+          fi
+      - name: Queue them with the other Shorts
+        if: needs.plan.outputs.n != '0' && vars.AUTO_UPLOAD == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          PUBLISH_SLOTS: ${{ vars.PUBLISH_SLOTS || '03:30,07:30,15:30,17:30,19:30,21:30' }}
+        run: |
+          DAY="${{ steps.build.outputs.day }}"
+          if [ "${{ vars.PACING }}" = "on" ] || [ "${{ vars.PACING }}" = "slots" ]; then
+            python -m shorts.pacer enqueue --date "$DAY"
+          else
+            python -m shorts.upload --date "$DAY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: needs.plan.outputs.n != '0'
+        with:
+          name: shorts-3d-${{ github.run_number }}
+          path: out/
+          retention-days: 7
+      - name: Save what the agent learned and made
+        run: |
+          git config user.name  "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add state/history_3d.json state/research_3d.json state/uploads_out.json state/schedule_out.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "3D Shorts agent $(date -u +%F)"
+          git pull --rebase && git push

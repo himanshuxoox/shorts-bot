@@ -147,6 +147,29 @@ Try one variant locally (Python 3.13): `pip install -r requirements-3d.txt`, the
 `python b3d/render.py wrecking 2 /tmp/w2 --res 640 --spp 4 --only 1,40,90` (quick look) and
 `python -m b3d.assemble encode /tmp/w2 parts/wrecking_2.mp4`.
 
+## 3D Shorts made by an agent: `b3d/agent.py`
+
+Every day the **"3D Shorts (agent + Blender)"** workflow makes NEW 3D Shorts (repo variable
+`SHORTS_3D`, default 2) that were never posted before:
+
+1. **Research** — views of every 3D Short we posted (YouTube API, 1 quota unit), the Channel Watcher's
+   medians (`s3d_<action>` formats), and the most-viewed 3D simulation Shorts of the last 2 weeks on
+   YouTube (1 search a day = 100 units, 3 on Sunday when no Shorts upload), turned into keyword weights.
+   Popular words we can't build yet (dominoes, hydraulic press, jelly…) are listed in the run summary.
+2. **Invent** — combines a structure (wall, pyramid, round tower, 512-cube block, 5 towers) with an
+   action (wrecking ball, drop, blast, wind, turntable, earthquake), the ONE thing that changes
+   (1/50/1,000 kg · 1/5/25 m · Moon/Earth/Jupiter · power · km/h · RPM · magnitude · ball size),
+   colours, ball material, backdrop and camera angle (`b3d/recipes.py`). No recipe is ever repeated
+   (`state/history_3d.json`) and the same idea doesn't come back within 14 days.
+3. **Score** — our own results per feature (features we never tried get a bonus, so it keeps
+   exploring), trends, novelty.
+4. **Test** — simulates all 3 variants (no rendering) and tunes the recipe until the story works:
+   the small one does almost nothing, the middle one some damage, the big one wrecks it. Boring or
+   chaotic recipes are thrown away. Everything it tried is in the run summary.
+
+Then every variant renders on its own runner (vertical, Cycles), the Short is put together (hook
+question, big number per variant, physics sound) and joins the normal Shorts queue and slots.
+
 ## Smart pacing (optional): hold the next Short while one is taking off
 
 Repo variable `PACING = on` (together with `AUTO_UPLOAD = true`) switches Shorts from fixed

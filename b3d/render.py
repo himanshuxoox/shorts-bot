@@ -2,6 +2,7 @@
 Render one variant of one 3D idea to PNG frames + an impacts.json for the sound.
 
     python b3d/render.py <idea> <variant> <out_dir> [--res 1280] [--spp 12] [--only 1,60,120] [--every 1]
+    python b3d/render.py recipe:<plan.json>:<id> <variant> <out_dir> --vertical   # a 3D Short (b3d/agent.py)
 
 Needs the `bpy` package (requirements-3d.txt). Physics is stepped frame by frame in order, so a
 variant always renders the same way. --only renders just those frames (quick look); the physics
@@ -17,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import bpy  # noqa: E402
 
-from b3d import ideas, kit  # noqa: E402
+from b3d import ideas, kit, recipes  # noqa: E402
 
 
 def main():
@@ -30,12 +31,19 @@ def main():
     ap.add_argument("--only", default="")
     ap.add_argument("--every", type=int, default=1)
     ap.add_argument("--fps", type=int, default=30)
+    ap.add_argument("--vertical", action="store_true", help="9:16 (Shorts); --res is then the width")
     a = ap.parse_args()
-    idea = ideas.IDEAS[a.idea]
     os.makedirs(a.out, exist_ok=True)
-    sc = kit.reset(fps=a.fps, res=(a.res, a.res * 9 // 16), spp=a.spp)
+    res = (a.res, a.res * 16 // 9) if a.vertical else (a.res, a.res * 9 // 16)
+    sc = kit.reset(fps=a.fps, res=res, spp=a.spp)
     t0 = time.time()
-    scene = idea["build"](a.variant)
+    if a.idea.startswith("recipe:"):
+        _, path, rid = a.idea.split(":")
+        with open(path) as fh:
+            rec = next(r for r in json.load(fh)["recipes"] if str(r["id"]) == rid)
+        scene = recipes.build(rec, a.variant)
+    else:
+        scene = ideas.IDEAS[a.idea]["build"](a.variant)
     n = scene["frames"]
     hook = scene.get("hook")
     pre = scene.get("pre")              # pre(f): move animated (kinematic) objects for frame f

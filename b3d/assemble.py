@@ -43,10 +43,11 @@ def _dur(path):
 
 
 # ---------------------------------------------------------------- encode (render job)
-def encode(frames_dir, out):
-    """PNG frames (any size) -> 1920x1080 30 fps silent mp4, high quality (it is re-encoded once more)"""
+def encode(frames_dir, out, vertical=False):
+    """PNG frames (any size) -> 1920x1080 (or 1080x1920) 30 fps silent mp4, high quality (re-encoded once more)"""
+    w, h = (H, W) if vertical else (W, H)
     _run(["ffmpeg", "-v", "error", "-y", "-framerate", str(FPS), "-i", os.path.join(frames_dir, "f%04d.png"),
-          "-vf", f"scale={W}:{H}:flags=lanczos", "-c:v", "libx264", "-preset", "medium", "-crf", "14",
+          "-vf", f"scale={w}:{h}:flags=lanczos", "-c:v", "libx264", "-preset", "medium", "-crf", "14",
           "-pix_fmt", "yuv420p", out])
     imp = os.path.join(frames_dir, "impacts.json")
     if os.path.exists(imp):
@@ -201,6 +202,7 @@ def main():
     e = sub.add_parser("encode")
     e.add_argument("frames")
     e.add_argument("out")
+    e.add_argument("--vertical", action="store_true")
     v = sub.add_parser("video")
     v.add_argument("name", choices=list(VIDEOS))
     v.add_argument("parts")
@@ -210,7 +212,7 @@ def main():
     v.add_argument("--only", default="", help="comma list of ideas (preview)")
     a = ap.parse_args()
     if a.cmd == "encode":
-        encode(a.frames, a.out)
+        encode(a.frames, a.out, a.vertical)
         return
     day = os.path.join(a.out, a.date)
     base, dur, chapters = build_video(a.name, a.parts, day, a.seed, [x for x in a.only.split(",") if x])
